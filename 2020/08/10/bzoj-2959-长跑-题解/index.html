@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description　　某校开展了同学们喜闻乐见的阳光长跑活动。为了能“为祖国健康工作五十年”，同学们纷纷离开寝室，离开教室，离开实验室，到操场参加3000米长跑运动。一时间操场上熙熙攘攘，摩肩接踵，盛况空前。　　为了让同学们更好地监督自己，学校推行了刷卡机制。　　学校中有n个地点，用1到n的整数表示，每个地点设有若干个刷卡机。　　有以下三类事件：　　1、修建了一条连接A地点和B地点的跑道。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bzoj 2959 长跑 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description　　某校开展了同学们喜闻乐见的阳光长跑活动。为了能“为祖国健康工作五十年”，同学们纷纷离开寝室，离开教室，离开实验室，到操场参加3000米长跑运动。一时间操场上熙熙攘攘，摩肩接踵，盛况空前。　　为了让同学们更好地监督自己，学校推行了刷卡机制。　　学校中有n个地点，用1到n的整数表示，每个地点设有若干个刷卡机。　　有以下三类事件：　　1、修建了一条连接A地点和B地点的跑道。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-10T13:41:12.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.357Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="LCT">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>bzoj 2959 长跑 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/08/13/bzoj-3091-luogu-p4842-%E5%9F%8E%E5%B8%82%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&text=bzoj 2959 长跑 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&is_video=false&description=bzoj 2959 长跑 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=bzoj 2959 长跑 题解&body=Check out this article: http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&name=bzoj 2959 长跑 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&t=bzoj 2959 长跑 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        bzoj 2959 长跑 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-10T13:41:12.000Z" itemprop="datePublished">2020-08-10</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.357Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/LCT/" rel="tag">LCT</a>, <a class="tag-link-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>　　某校开展了同学们喜闻乐见的阳光长跑活动。为了能“为祖国健康工作五十年”，同学们纷纷离开寝室，离开教室，离开实验室，到操场参加3000米长跑运动。一时间操场上熙熙攘攘，摩肩接踵，盛况空前。<br>　　为了让同学们更好地监督自己，学校推行了刷卡机制。<br>　　学校中有n个地点，用1到n的整数表示，每个地点设有若干个刷卡机。<br>　　有以下三类事件：<br>　　1、修建了一条连接A地点和B地点的跑道。<br>　　2、A点的刷卡机台数变为了B。<br>　　3、进行了一次长跑。问一个同学从A出发，最后到达B最多可以刷卡多少次。具体的要求如下：<br>　　当同学到达一个地点时，他可以在这里的每一台刷卡机上都刷卡。但每台刷卡机只能刷卡一次，即使多次到达同一地点也不能多次刷卡。<br>　　为了安全起见，每条跑道都需要设定一个方向，这条跑道只能按照这个方向单向通行。最多的刷卡次数即为在任意设定跑道方向，按照任意路径从A地点到B地点能刷卡的最多次数。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>开2个并查集，一个保存的是原树之间的关系用来判断连通性，一个保存的是强联通分量的代表节点。</p>
+<p>每连一条边u-v，就用第一个并查集判断一下u,v是否连通。如果没有，就直接连接，否则意味着图中出现了一个环。我们把这个环上的所有节点（也就是原来u-v的路径上的所有点）的点权移到一个代表节点上，然后丢掉其他所有点，还要把所有点的第二个并查集的父亲赋值为代表节点，因为它们属于的强联同分量改变了。</p>
+<p>对于舍弃掉的点，只要保证不会在各种操作的时候跳到即可。具体实现时，只要把所有的fa改为getfa(fa)即可，就会跳到代表节点上。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n,m,op,x,y,a[150010];</span><br><span class="line">namespace IO&#123;</span><br><span class="line">inline int read()&#123;int res=0,f=1;char ch=getchar();while(!isdigit(ch)) f=ch==&#x27;-&#x27;?-1:f,ch=getchar();while(isdigit(ch)) res=(res&lt;&lt;3)+(res&lt;&lt;1)+(ch&amp;15),ch=getchar();return res*f;&#125;</span><br><span class="line">inline void write(int x)&#123;if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;if(x&lt;10) putchar(x+&#x27;0&#x27;);else write(x/10),putchar(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace UFS&#123;</span><br><span class="line">int fa[150010][2];</span><br><span class="line">inline int getfa(int x,int y)&#123;return fa[x][y]==x?x:fa[x][y]=getfa(fa[x][y],y);&#125;</span><br><span class="line">inline void merge(int x,int y,int z)&#123;if(x=getfa(x,z),y=getfa(y,z),x!=y) fa[x][z]=y;&#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace LCT&#123;</span><br><span class="line">struct node&#123;int s,v,ch[2],fa,tag;&#125;tr[150010];</span><br><span class="line">int stk[150010],top;</span><br><span class="line">inline bool isroot(int x)&#123;return tr[UFS::getfa(tr[x].fa,1)].ch[0]!=x&amp;&amp;tr[UFS::getfa(tr[x].fa,1)].ch[1]!=x;&#125;</span><br><span class="line">inline void pushup(int x)&#123;tr[x].s=tr[x].v+tr[tr[x].ch[0]].s+tr[tr[x].ch[1]].s;&#125;</span><br><span class="line">inline void flip(int x)&#123;swap(tr[x].ch[0],tr[x].ch[1]);tr[x].tag^=1;&#125;</span><br><span class="line">inline void pushdown(int x)&#123;</span><br><span class="line">if(!tr[x].tag) return ;</span><br><span class="line">if(tr[x].ch[0]) flip(tr[x].ch[0]);</span><br><span class="line">if(tr[x].ch[1]) flip(tr[x].ch[1]);</span><br><span class="line">tr[x].tag=0;</span><br><span class="line">&#125;</span><br><span class="line">inline void rotate(int x)&#123;</span><br><span class="line">int y=UFS::getfa(tr[x].fa,1),z=UFS::getfa(tr[y].fa,1),k=tr[y].ch[1]==x,v=tr[x].ch[!k];</span><br><span class="line">if(!isroot(y)) tr[z].ch[tr[z].ch[1]==y]=x;</span><br><span class="line">tr[x].ch[!k]=y,tr[y].ch[k]=v;</span><br><span class="line">if(v) tr[v].fa=y;</span><br><span class="line">tr[y].fa=x,tr[x].fa=z;</span><br><span class="line">pushup(y),pushup(x);</span><br><span class="line">&#125;</span><br><span class="line">inline void splay(int x)&#123;</span><br><span class="line">int y=x,z;top=0;stk[++top]=y;</span><br><span class="line">while(!isroot(y)) stk[++top]=y=tr[y].fa;</span><br><span class="line">while(top) pushdown(stk[top--]);</span><br><span class="line">while(!isroot(x))&#123;</span><br><span class="line">y=UFS::getfa(tr[x].fa,1),z=UFS::getfa(tr[y].fa,1);</span><br><span class="line">if(!isroot(y)) rotate((tr[y].ch[0]==x)^(tr[z].ch[0]==y)?x:y);</span><br><span class="line">rotate(x);</span><br><span class="line">&#125;</span><br><span class="line">pushup(x);</span><br><span class="line">&#125;</span><br><span class="line">inline void access(int x)&#123;for(int y=0;x;x=UFS::getfa(tr[y=x].fa,1)) splay(x),tr[x].ch[1]=y,pushup(x);&#125;</span><br><span class="line">inline void makeroot(int x)&#123;access(x),splay(x),flip(x);&#125;</span><br><span class="line">inline int findroot(int x)&#123;access(x),splay(x);while(tr[x].ch[0]) pushdown(x),x=tr[x].ch[0];return x;&#125;</span><br><span class="line">inline void split(int x,int y)&#123;makeroot(x),access(y),splay(y);&#125;</span><br><span class="line">inline void link(int x,int y)&#123;makeroot(x);tr[x].fa=y;&#125;</span><br><span class="line">inline void cut(int x,int y)&#123;split(x,y);if(findroot(y)==x&amp;&amp;tr[x].fa==y&amp;&amp;!tr[x].ch[1]) tr[x].fa=tr[y].ch[0]=0,pushup(y);&#125;</span><br><span class="line">inline void reset(int x)&#123;tr[x].fa=tr[x].ch[0]=tr[x].ch[1]=0,pushup(x);&#125;</span><br><span class="line">inline void change(int x,int y)&#123;int t=UFS::getfa(x,1);splay(t),tr[t].v-=a[x],a[x]=y,tr[t].v+=a[x],pushup(x);&#125;</span><br><span class="line">&#125;</span><br><span class="line">inline int dfs(int f,int x)&#123;</span><br><span class="line">if(!x) return 0;</span><br><span class="line">UFS::fa[x][1]=f;</span><br><span class="line">return dfs(f,LCT::tr[x].ch[0])+dfs(f,LCT::tr[x].ch[1])+LCT::tr[x].v;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">n=IO::read(),m=IO::read();</span><br><span class="line">for(int i=1;i&lt;=n;i++) UFS::fa[i][0]=UFS::fa[i][1]=i,LCT::tr[i].s=LCT::tr[i].v=a[i]=IO::read();</span><br><span class="line">for(int i=1;i&lt;=m;i++)&#123;</span><br><span class="line">op=IO::read(),x=IO::read(),y=IO::read();</span><br><span class="line">if(op==1)&#123;</span><br><span class="line">if(x=UFS::getfa(x,1),y=UFS::getfa(y,1),x==y) continue ;</span><br><span class="line">if(UFS::getfa(x,0)!=UFS::getfa(y,0)) LCT::link(x,y),UFS::merge(x,y,0);</span><br><span class="line">else LCT::split(x,y),LCT::tr[x].v=dfs(x,y),LCT::reset(x);</span><br><span class="line">&#125;else if(op==2) LCT::change(x,y);</span><br><span class="line">else if(op==3)&#123;</span><br><span class="line">if(UFS::getfa(x,0)!=UFS::getfa(y,0))&#123;puts(&quot;-1&quot;);continue ;&#125;</span><br><span class="line">x=UFS::getfa(x,1),y=UFS::getfa(y,1),LCT::split(x,y),IO::write(LCT::tr[y].s),putchar(&#x27;\n&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&text=bzoj 2959 长跑 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&is_video=false&description=bzoj 2959 长跑 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=bzoj 2959 长跑 题解&body=Check out this article: http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&title=bzoj 2959 长跑 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&name=bzoj 2959 长跑 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/&t=bzoj 2959 长跑 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

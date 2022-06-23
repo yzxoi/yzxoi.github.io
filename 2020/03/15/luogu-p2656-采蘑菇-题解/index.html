@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Describe 题目链接  在一个 $N$ 个点， $M$ 条边的有向图中，每条路可以走无数次，边权为 $w_i$ ，边的恢复系数为 $p_i$ 第二次走时，边权变为 $w_i \times {p_i} $ ，第三次走时，边权变为 $w_i \times {p_i} ^ 2$…第 $k$ 次走时，边权变为 $w_i \times {p_i}^{k-1}$（全部向下取整，直到 $0$ 为止） 问，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luogu P2656 采蘑菇 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Describe 题目链接  在一个 $N$ 个点， $M$ 条边的有向图中，每条路可以走无数次，边权为 $w_i$ ，边的恢复系数为 $p_i$ 第二次走时，边权变为 $w_i \times {p_i} $ ，第三次走时，边权变为 $w_i \times {p_i} ^ 2$…第 $k$ 次走时，边权变为 $w_i \times {p_i}^{k-1}$（全部向下取整，直到 $0$ 为止） 问，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-15T06:47:25.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.280Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="dfs">
+<meta property="article:tag" content="Kosaraju">
+<meta property="article:tag" content="缩点">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Luogu P2656 采蘑菇 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&text=Luogu P2656 采蘑菇 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2656 采蘑菇 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2656 采蘑菇 题解&body=Check out this article: http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&name=Luogu P2656 采蘑菇 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&t=Luogu P2656 采蘑菇 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E7%8E%AF-amp-%E7%BC%A9%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">找环&amp;缩点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%9B%BE"><span class="toc-number">2.3.</span> <span class="toc-text">构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-number">2.4.</span> <span class="toc-text">遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Luogu P2656 采蘑菇 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-15T06:47:25.000Z" itemprop="datePublished">2020-03-15</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.280Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Kosaraju/" rel="tag">Kosaraju</a>, <a class="tag-link-link" href="/tags/dfs/" rel="tag">dfs</a>, <a class="tag-link-link" href="/tags/%E7%BC%A9%E7%82%B9/" rel="tag">缩点</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2656">题目链接</a></p>
+</blockquote>
+<p>在一个 $N$ 个点， $M$ 条边的有向图中，每条路可以走无数次，边权为 $w_i$ ，边的恢复系数为 $p_i$ 第二次走时，边权变为 $w_i \times {p_i} $ ，第三次走时，边权变为 $w_i \times {p_i} ^ 2$…第 $k$ 次走时，边权变为 $w_i \times {p_i}^{k-1}$（全部向下取整，直到 $0$ 为止） 问，从 $S$ 出发，最大的路径经过的边权和为多少？(可以重复走) 对于所有数据，$N \leq 80,000 , M \leq 200,000 , 0.1\leq p_i \leq 0.8\text{且仅有一位小数},1\leq S \leq N$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>显然，只要我们找到一个环，那么我们就可以不停地走这个环，直到环内所有的边权为$0$，所以，只要找环，缩点再遍历一次就好了。</p>
+<h3 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h3><p>预处理出每条边的无限次走后的边权。</p>
+<h3 id="找环-amp-缩点"><a href="#找环-amp-缩点" class="headerlink" title="找环&amp;缩点"></a>找环&amp;缩点</h3><p>看了下$Luogu$题解区内的都是$Tarjan$找环、缩点，那么对于我这种不会$Tarjan$的怎么办呢？当然是用$kosaraju$啦~ 什么是$kosaraju$？可以参考我的<a target="_blank" rel="noopener" href="https://yzxoi.xyz/archives/62">这篇</a>博客(此文写的时间久远，写的不好勿喷)。</p>
+<h3 id="构图"><a href="#构图" class="headerlink" title="构图"></a>构图</h3><p>找环&amp;缩点后肯定是要重新构造一个有向无环图啦~ 那么怎么构图呢？ 直接暴力枚举每条边如果不是在同一个强连通分量，那么很遗憾这条边不能重复走很多次，那么就两个强连通分量间连接一条$w_i$的边即可。如果在同一个强连通分量，那么把所有在这个强连通分量中的所有边的无限次走后的边权的和存成点权。</p>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>最后从$S$出发跑个$dfs$就好了。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define LD double</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;</span><br><span class="line">    int res=0,f=1;char ch=getchar();</span><br><span class="line">    while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;</span><br><span class="line">    while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();</span><br><span class="line">    return res*f;</span><br><span class="line">&#125;</span><br><span class="line">struct edge&#123;int u,v,w;&#125;e[200010];</span><br><span class="line">int n,m,fir[80010],nxt[200010],son[200010],w[200010],tot,sum[200010],val[200010],S,dis[80010],vis[80010],d[80010],t;</span><br><span class="line">vector&lt;int&gt; G[80010],P[80010];</span><br><span class="line">inline void add(int x,int y,int z)&#123;++tot;nxt[tot]=fir[x];fir[x]=tot;son[tot]=y;w[tot]=z;&#125;</span><br><span class="line">inline void dfs1(int x)&#123;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    for(auto i:G[x])//C++11简易写法</span><br><span class="line">        if(!vis[i]) dfs1(i);</span><br><span class="line">    d[++t]=x;</span><br><span class="line">&#125;</span><br><span class="line">inline void dfs2(int x)&#123;</span><br><span class="line">    vis[x]=t;</span><br><span class="line">    for(auto i:P[x])</span><br><span class="line">        if(!vis[i]) dfs2(i);</span><br><span class="line">&#125;</span><br><span class="line">inline void kosaraju()&#123;//缩点</span><br><span class="line">    memset(vis,0,sizeof(vis));t=0;</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        if(!vis[i]) dfs1(i);</span><br><span class="line">    memset(vis,0,sizeof(vis));t=0;</span><br><span class="line">    for(int i=n;i&gt;=1;i--)</span><br><span class="line">        if(!vis[d[i]]) ++t,dfs2(d[i]);</span><br><span class="line">&#125;</span><br><span class="line">inline void dfs(int x)&#123;</span><br><span class="line">    if(dis[x]) return ;</span><br><span class="line">    dis[x]=val[x];//别忘记加上点权</span><br><span class="line">    int Max=0;</span><br><span class="line">    for(int to,i=fir[x];i;i=nxt[i])&#123;</span><br><span class="line">        to=son[i];</span><br><span class="line">        dfs(to);</span><br><span class="line">        Max=max(Max,dis[to]+w[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    dis[x]+=Max;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    n=read();m=read();</span><br><span class="line">    for(int x,y,w,i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        x=read();y=read();w=read();</span><br><span class="line">        e[i]=(edge)&#123;x,y,w&#125;;</span><br><span class="line">        G[x].push_back(y);</span><br><span class="line">        P[y].push_back(x);//缩点需要建反边</span><br><span class="line">        LD s;scanf(&quot;%lf&quot;,&amp;s);</span><br><span class="line">        while(w)&#123;//预处理出无限次走的边权</span><br><span class="line">            sum[i]+=w;</span><br><span class="line">            w=(LD)w*s;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    kosaraju();</span><br><span class="line">    for(int i=1;i&lt;=m;i++)</span><br><span class="line">        if(vis[e[i].u]!=vis[e[i].v]) add(vis[e[i].u],vis[e[i].v],e[i].w);//不在同一个强连通分量，构图</span><br><span class="line">        else val[vis[e[i].u]]+=sum[i];//在同一个强连通分量，累计点权</span><br><span class="line">    S=read();</span><br><span class="line">    dfs(vis[S]);//最后跑一次dfs求最大值</span><br><span class="line">    printf(&quot;%d\n&quot;,dis[vis[S]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E7%8E%AF-amp-%E7%BC%A9%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">找环&amp;缩点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%9B%BE"><span class="toc-number">2.3.</span> <span class="toc-text">构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-number">2.4.</span> <span class="toc-text">遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&text=Luogu P2656 采蘑菇 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2656 采蘑菇 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2656 采蘑菇 题解&body=Check out this article: http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2656 采蘑菇 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&name=Luogu P2656 采蘑菇 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/&t=Luogu P2656 采蘑菇 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

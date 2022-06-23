@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前言Link Cut Tree 可真是好用呢~ 刚入门的各位不需要担心，LCT其实十分简单。 陈指导写的LCT也不过10几行，我这个菜鸡打的模板也只有50+行。 所以LCT码量很小 好了，步入正题。 正文简介A link&#x2F;cut tree is a data structure for representing a forest, a set of rooted trees, and o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Link Cut Tree">
+<meta property="og:url" content="http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="前言Link Cut Tree 可真是好用呢~ 刚入门的各位不需要担心，LCT其实十分简单。 陈指导写的LCT也不过10几行，我这个菜鸡打的模板也只有50+行。 所以LCT码量很小 好了，步入正题。 正文简介A link&#x2F;cut tree is a data structure for representing a forest, a set of rooted trees, and o">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727111049.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727111325.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727113158.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727113310.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727123411.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727123611.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727132522.png">
+<meta property="article:published_time" content="2020-07-27T06:13:22.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.355Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727111049.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>浅谈Link Cut Tree</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/08/10/bzoj-2959-%E9%95%BF%E8%B7%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/07/18/luogu-p2617-dynamic-rankings-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&text=浅谈Link Cut Tree"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&is_video=false&description=浅谈Link Cut Tree"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅谈Link Cut Tree&body=Check out this article: http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&name=浅谈Link Cut Tree&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&t=浅谈Link Cut Tree"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-number">2.2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">2.3.</span> <span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#access-x"><span class="toc-number">2.3.3.</span> <span class="toc-text">access(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findroot-x"><span class="toc-number">2.3.4.</span> <span class="toc-text">findroot(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#makeroot-x"><span class="toc-number">2.3.5.</span> <span class="toc-text">makeroot(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#split-x-y"><span class="toc-number">2.3.6.</span> <span class="toc-text">split(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#link-x-y"><span class="toc-number">2.3.7.</span> <span class="toc-text">link(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cut-x-y"><span class="toc-number">2.3.8.</span> <span class="toc-text">cut(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rotate%E6%94%B9%E5%8A%A8"><span class="toc-number">2.3.9.</span> <span class="toc-text">Rotate改动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Splay%E6%94%B9%E5%8A%A8"><span class="toc-number">2.3.10.</span> <span class="toc-text">Splay改动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E9%A2%98"><span class="toc-number">2.4.</span> <span class="toc-text">模板题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text">写在最后</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        浅谈Link Cut Tree
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-27T06:13:22.000Z" itemprop="datePublished">2020-07-27</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.355Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">学习笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Link Cut Tree 可真是好用呢~</p>
+<p>刚入门的各位不需要担心，LCT其实十分简单。</p>
+<p>陈指导写的LCT也不过10几行，我这个菜鸡打的模板也只有50+行。</p>
+<p>所以LCT码量很小</p>
+<p>好了，步入正题。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>A <strong>link&#x2F;cut tree</strong> is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Data_structure">data structure</a> for representing a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Forest_(graph_theory)">forest</a>, a set of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Rooted_tree">rooted trees</a>, and offers the following operations:</p>
+<ul>
+<li>Add a tree consisting of a single node to the forest.</li>
+<li>Given a node in one of the trees, disconnect it (and its subtree) from the tree of which it is part.</li>
+<li>Attach a node to another node as its child.</li>
+<li>Given a node, find the root of the tree to which it belongs. By doing this operation on two distinct nodes, one can check whether they belong to the same tree.</li>
+</ul>
+<p>The represented forest may consist of very deep trees, so if we represent the forest as a plain collection of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Parent_pointer_tree">parent pointer trees</a>, it might take us a long time to find the root of a given node. However, if we represent each tree in the forest as a link&#x2F;cut tree, we can find which tree an element belongs to in <em>O</em>(log(<em>n</em>)) amortized time. Moreover, we can quickly adjust the collection of link&#x2F;cut trees to changes in the represented forest. In particular, we can adjust it to merge (link) and split (cut) in <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Big_O_notation">O</a>(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logarithm">log</a>(n)) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Amortized_analysis">amortized</a> time.</p>
+<p>Link&#x2F;cut trees divide each tree in the represented forest into vertex-disjoint paths, where each path is represented by an auxiliary data structure (often <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Splay_trees">splay trees</a>, though the original paper predates splay trees and thus uses biased binary search trees). The nodes in the auxiliary data structure are ordered by their depth in the corresponding represented tree. In one variation, <em>Naive Partitioning</em>, the paths are determined by the most recently accessed paths and nodes, similar to <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Tango_Trees">Tango Trees</a>. In <em>Partitioning by Size</em> paths are determined by the heaviest child (child with the most children) of the given node. This gives a more complicated structure, but reduces the cost of the operations from amortized O(log n) to worst case O(log n). It has uses in solving a variety of network flow problems and to jive data sets.</p>
+<p>In the original publication, <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Daniel_Sleator">Sleator</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Robert_Tarjan">Tarjan</a> referred to link&#x2F;cut trees as “dynamic trees”, or “dynamic dyno trees”.</p>
+<p>——Wikepedia</p>
+<p>当然你看不懂也没关系</p>
+<p>简单的来说<strong>动态树(Link Cut Tree)<strong>是一个可以维护</strong>动态森林</strong>的<strong>树形结构</strong>，它有类似于树链剖分(重链剖分)、长链剖分的轻、重链的<strong>虚、实边</strong>，但不同的是，<strong>动态树的虚、实边是可以变换的</strong>(虚边变实边，实边变虚边)，并且用<strong>Splay</strong>来维护每一条<strong>实路径</strong>。</p>
+<p>Link Cut Tree的基本操作复杂度<strong>均摊$O({\log}N)$<strong>，但</strong>常数较</strong>大，一般效率会<strong>低于树链剖分</strong>，但是却能解决许多树链剖分解决不了的问题。</p>
+<p>所以，如果你还不会<strong>Splay</strong>，请左转这篇<a href="https://yzxoi.top/archives/1057">Blog</a>。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><p>Link Cut Tree有许多性质，差不多就这些了：</p>
+<ul>
+<li>每一个Splay维护的是一条从上到下按在原树中<strong>深度严格递增</strong>的路径，且<strong>中序遍历Splay</strong>得到的每个点的<strong>深度序列严格递增</strong>。(就是<strong>链</strong>)</li>
+<li>每个节点<strong>包含且仅包含</strong>于一个Splay中，每一个父亲的向儿子的连边中<strong>有且只有一条</strong>边是<strong>实边</strong></li>
+<li><strong>所有的实边包含在Splay中</strong>，而<strong>虚边</strong>总是<strong>指向另一个Splay中的某个节点</strong>(指向该Splay中<strong>中序遍历最靠前的点</strong>在<strong>原树中的父亲</strong>)</li>
+<li><strong>所有的</strong>实边的父亲和儿子都要标记，虚边只要儿子记父亲(<strong>实边认父又认子，虚边认父不认子</strong>)</li>
+</ul>
+<p>听不懂？没关系，看图就会了。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727111049.png"></p>
+<p>红色圆圈代表一个Splay</p>
+<p>一开始，所有的边都是虚边，每个点都是一个Splay。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727111325.png"></p>
+<p>绿色代表实边，其相连的代表一个Splay</p>
+<p>后来，我们选了一些边为实边。这样也是符合的。</p>
+<p>相信你看了图以后就知道LCT大概长什么样了。</p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>文字、代码中将要用到的变量名&amp;定义。</p>
+<p>变量名</p>
+<p>定义</p>
+<p>fa[x]</p>
+<p>节点x的父亲(father)</p>
+<p>v[x]</p>
+<p>节点x的权值(value)</p>
+<p>s[x]</p>
+<p>节点x及其子树的权值和(sum)</p>
+<p>tag[x]</p>
+<p>节点x的翻转情况</p>
+<p>ch[x][0&#x2F;1]</p>
+<p>节点x的左&#x2F;右儿子(children)</p>
+<h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>这里先给出将要介绍的基本操作的用途，看不懂没关系，接下来会图解+代码说明。</p>
+<p>操作名称</p>
+<p>用途</p>
+<p>access(x)</p>
+<p>将x到根节点的路径全部变成实边，并把其他子节点的边改为虚边</p>
+<p>findroot(x)</p>
+<p>找出x在原树中的根节点</p>
+<p>makeroot(x)</p>
+<p>把x变成原树的根节点</p>
+<p>split(x,y)</p>
+<p>把x和y弄到同一个Splay中</p>
+<p>link(x,y)</p>
+<p>将x和y所在原树连接起来</p>
+<p>cut(x,y)</p>
+<p>将x和y所在原树断开</p>
+<h4 id="access-x"><a href="#access-x" class="headerlink" title="access(x)"></a>access(x)</h4><p>这是Link Cut Tree中<strong>最基础、最重要</strong>的操作。</p>
+<p>就是将<strong>x到原树根节点之间的链</strong>丢到<strong>一个Splay</strong>中。</p>
+<p>听不懂？没关系，来图解。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727113158.png"></p>
+<p>比如还是这棵树，我们要执行access(9)。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727113310.png"></p>
+<p>显然，它会变成这样。</p>
+<p>1-2-5-9变成实边</p>
+<p><strong>路径上所有点的其他儿子连的边变成虚边</strong></p>
+<p><strong>整理一下</strong>：</p>
+<ol>
+<li>转到根</li>
+<li>换儿子</li>
+<li>更新信息</li>
+<li>当前操作点切换为轻边所指的父亲，转1。</li>
+</ol>
+<p><strong>详细图解一下</strong>：</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727123411.png"></p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727123611.png"></p>
+<p>而下一次操作需要Splay(2)，此时树的形态会发生巨大转变。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20200727132522.png"></p>
+<p>然后我们就完成了</p>
+<p>那么为什么是<strong>右儿子</strong>而不是<strong>左儿子</strong>呢？</p>
+<p>因为<strong>fa[x]的深度小于x</strong>，而在<strong>Splay里fa[x]是x的父亲</strong>，所以<strong>x在Splay里是fa[x]的右儿子</strong>。</p>
+<p>上代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">inline void access(int x)&#123;</span><br><span class="line">for(int y=0;x;x=tr[y=x].fa)&#123;//当前操作点转到轻边所指的父亲 </span><br><span class="line">splay(x),//转到根 </span><br><span class="line">tr[x].ch[1]=y,//换儿子 </span><br><span class="line">pushup(x);//更新信息 </span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="findroot-x"><a href="#findroot-x" class="headerlink" title="findroot(x)"></a>findroot(x)</h4><p>因为<strong>根节点的深度是最小的</strong>，所以我们可以从x向上找，使用<strong>access</strong>将<strong>x和x的根节点弄到同一个Splay中</strong>。</p>
+<p>因为在执行<strong>access操作后</strong>，这棵<strong>Splay里的节点权值最大的就是x</strong>。</p>
+<p>由于二叉搜索树(Binary Search Tree)的性质：x的左子树&lt;x&lt;x的右子树</p>
+<p>所以我们可以把<strong>x转成根节点</strong>，那么<strong>最左边</strong>的那个节点便是这棵树的<strong>根节点</strong>了。</p>
+<p><strong>代码实现</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">inline int findroot(int x)&#123;</span><br><span class="line">access(x);//Access将x和根节点弄到同一个Splay中</span><br><span class="line">splay(x);//把x转到Splay的根节点 </span><br><span class="line">while(tr[x].ch[0])&#123;</span><br><span class="line">pushdown(x),//更新节点信息(可能有翻转标记，之后会提到) </span><br><span class="line">x=tr[x].ch[0];//不断找左儿子 </span><br><span class="line">&#125;</span><br><span class="line">return x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="makeroot-x"><a href="#makeroot-x" class="headerlink" title="makeroot(x)"></a>makeroot(x)</h4><p>将x到根节点的路径上的点<strong>全部翻</strong>转(即x变成了根节点)</p>
+<p>我们可以先<strong>access(x)<strong>，把</strong>x到根节点打通成一条链</strong>。</p>
+<p>我们发现x一定是在它所在的辅助树的中序遍历的最后一个的(因为它是这条链上<strong>最深的点</strong>)。</p>
+<p>我们把<strong>x点Splay到Splay的根</strong>，那么<strong>x显然是没有右子树的</strong>。</p>
+<p>我们要实现把x移到原树的根，也就是把x到根这条链的深度<strong>全部翻转一遍</strong>。</p>
+<p>在<strong>Splay上体现就是把整棵树反转一次</strong>。</p>
+<p>我们可以写个<strong>翻转标记</strong>来减小复杂度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">inline void flip(int x)&#123;//翻转操作 </span><br><span class="line">swap(tr[x].ch[0],tr[x].ch[1]);//交换 </span><br><span class="line">tr[x].tag^=1;//标记 </span><br><span class="line">&#125;</span><br><span class="line">inline void makeroot(int x)&#123;</span><br><span class="line">access(x);//把x到根节点打通 </span><br><span class="line">splay(x);//把x变成根 </span><br><span class="line">flip(x);//翻转 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="split-x-y"><a href="#split-x-y" class="headerlink" title="split(x,y)"></a>split(x,y)</h4><p>把x和y放在<strong>同一个Splay</strong>中，并<strong>以y为根</strong></p>
+<p>首先我们并不能保证x和y<strong>一定在同一条链</strong>里，所以我们要先把<strong>x变成原树的根节点</strong>，然后<strong>access(y)<strong>，这样就会</strong>把x到y之间所有节点弄到同一个Splay里</strong>了。</p>
+<p>最后**Splay(y)**，以y为根。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">inline void split(int x,int y)&#123;</span><br><span class="line">makeroot(x);//把x变成原树的根节点 </span><br><span class="line">access(y);//把x到y之间所有节点弄到同一个Splay里 </span><br><span class="line">splay(y);//以y为根 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="link-x-y"><a href="#link-x-y" class="headerlink" title="link(x,y)"></a>link(x,y)</h4><p>把x和y的原树连接起来</p>
+<p>首先把<strong>x换成原树的根</strong>，然后再判断<strong>y的根是否是</strong>x。因为x和y连接起来一定是x和y在不同树中，所以<strong>若y的根是x则不需要连接</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline void link(int x,int y)&#123;</span><br><span class="line">makeroot(x);//把x换成原树的根 </span><br><span class="line">if(findroot(y)!=x) tr[x].fa=y;//判断y的根是否是x，连虚边 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="cut-x-y"><a href="#cut-x-y" class="headerlink" title="cut(x,y)"></a>cut(x,y)</h4><p>把x和y的原树断开</p>
+<p>首先我们先把x,y之间的那条边用<strong>split(x,y)<strong>拎出来，因为</strong>x,y是相邻</strong>的，所以<strong>y的左儿子一定是x</strong>，将它们的父子关系消灭掉即可。</p>
+<p>消灭时一定满足以下条件：</p>
+<ol>
+<li>x和y在<strong>同一个原树</strong>里</li>
+<li>split后<strong>x是y的左儿子</strong></li>
+<li>x没有右儿子(保证了中序遍历中y紧跟在x的后面，即<strong>深度相邻</strong>)(x的权值(深度)只比y小1，而x又正好是直接连着y的，所以我们无法再找到 <strong>&gt;x 而又 &lt;y</strong> 的整数了)</li>
+</ol>
+<p>但是，很遗憾，因为我们要使用findroot(y)，所以中途会splay(x)。</p>
+<p>所以<strong>其他条件全部反过来</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline void cut(int x,int y)&#123;</span><br><span class="line">split(x,y);</span><br><span class="line">if(findroot(y)==x&amp;&amp;tr[x].fa==y&amp;&amp;!tr[x].ch[1]) tr[x].fa=tr[y].ch[0]=0,pushup(y);//findroot中有Splay，cut中x和y的父子关系会发生改变 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Rotate改动"><a href="#Rotate改动" class="headerlink" title="Rotate改动"></a>Rotate改动</h4><p>需要特判一下连虚边的情况</p>
+<p>如果<strong>z(x的爷爷)不存在</strong>，则<strong>只需要连虚边</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">inline void rotate(int x)&#123;</span><br><span class="line">int y=tr[x].fa,z=tr[y].fa,k=tr[y].ch[1]==x,v=tr[x].ch[!k];</span><br><span class="line">if(!isroot(y)) tr[z].ch[tr[z].ch[1]==y]=x;//特判虚边</span><br><span class="line">tr[x].ch[!k]=y,tr[y].ch[k]=v;//普通Rotate</span><br><span class="line">if(v) tr[v].fa=y;</span><br><span class="line">tr[y].fa=x;tr[x].fa=z;</span><br><span class="line">pushup(y);pushup(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Splay改动"><a href="#Splay改动" class="headerlink" title="Splay改动"></a>Splay改动</h4><p>要注意下Splay只能到<strong>Splay的根节点</strong>，所以需要<strong>先记录下这条链的所有节点</strong>，用栈即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">inline void splay(int x)&#123;</span><br><span class="line">int y=x,z;top=0;stk[++top]=y;</span><br><span class="line">while(!isroot(y)) stk[++top]=y=tr[y].fa;//开个栈记录下</span><br><span class="line">while(top) pushdown(stk[top--]);//下传</span><br><span class="line">while(!isroot(x))&#123;//普通Splay</span><br><span class="line">y=tr[x].fa;z=tr[y].fa;</span><br><span class="line">if(!isroot(y)) rotate((tr[y].ch[0]==x)^(tr[z].ch[0]==y)?x:y);</span><br><span class="line">rotate(x);</span><br><span class="line">&#125;</span><br><span class="line">pushup(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模板题"><a href="#模板题" class="headerlink" title="模板题"></a>模板题</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3690">题目链接：P3690 【模板】Link Cut Tree （动态树）</a></p>
+</blockquote>
+<p>模板题不需要讲了吧，直接上代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;int res=0,f=1;char ch=getchar();while(!isdigit(ch)) f=ch==&#x27;-&#x27;?-1:f,ch=getchar();while(isdigit(ch)) res=(res&lt;&lt;3)+(res&lt;&lt;1)+(ch&amp;15),ch=getchar();return res*f;&#125;</span><br><span class="line">inline void write(int x)&#123;if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;if(x&lt;10) putchar(x+&#x27;0&#x27;);else write(x/10),putchar(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">struct node&#123;int fa,v,s,ch[2],tag;&#125;tr[100010];</span><br><span class="line">int stk[100010],top;</span><br><span class="line">inline bool isroot(int x)&#123;return tr[tr[x].fa].ch[0]!=x&amp;&amp;tr[tr[x].fa].ch[1]!=x;&#125;</span><br><span class="line">inline void pushup(int x)&#123;tr[x].s=tr[tr[x].ch[0]].s^tr[tr[x].ch[1]].s^tr[x].v;&#125;</span><br><span class="line">inline void flip(int x)&#123;swap(tr[x].ch[0],tr[x].ch[1]);tr[x].tag^=1;&#125;</span><br><span class="line">inline void pushdown(int x)&#123;</span><br><span class="line">if(!tr[x].tag) return ;</span><br><span class="line">if(tr[x].ch[0]) flip(tr[x].ch[0]);</span><br><span class="line">if(tr[x].ch[1]) flip(tr[x].ch[1]);</span><br><span class="line">tr[x].tag=0;</span><br><span class="line">&#125;</span><br><span class="line">inline void rotate(int x)&#123;</span><br><span class="line">int y=tr[x].fa,z=tr[y].fa,k=tr[y].ch[1]==x,v=tr[x].ch[!k];</span><br><span class="line">if(!isroot(y)) tr[z].ch[tr[z].ch[1]==y]=x;</span><br><span class="line">tr[x].ch[!k]=y,tr[y].ch[k]=v;</span><br><span class="line">if(v) tr[v].fa=y;</span><br><span class="line">tr[y].fa=x;tr[x].fa=z;</span><br><span class="line">pushup(y);pushup(x);</span><br><span class="line">&#125;</span><br><span class="line">inline void splay(int x)&#123;</span><br><span class="line">int y=x,z;top=0;stk[++top]=y;</span><br><span class="line">while(!isroot(y)) stk[++top]=y=tr[y].fa;</span><br><span class="line">while(top) pushdown(stk[top--]);</span><br><span class="line">while(!isroot(x))&#123;</span><br><span class="line">y=tr[x].fa;z=tr[y].fa;</span><br><span class="line">if(!isroot(y)) rotate((tr[y].ch[0]==x)^(tr[z].ch[0]==y)?x:y);</span><br><span class="line">rotate(x);</span><br><span class="line">&#125;</span><br><span class="line">pushup(x);</span><br><span class="line">&#125;</span><br><span class="line">inline void access(int x)&#123;for(int y=0;x;x=tr[y=x].fa) splay(x),tr[x].ch[1]=y,pushup(x);&#125;</span><br><span class="line">inline void makeroot(int x)&#123;access(x);splay(x);flip(x);&#125;</span><br><span class="line">inline int findroot(int x)&#123;access(x);splay(x);while(tr[x].ch[0]) pushdown(x),x=tr[x].ch[0];return x;&#125;</span><br><span class="line">inline void split(int x,int y)&#123;makeroot(x);access(y);splay(y);&#125;</span><br><span class="line">inline void link(int x,int y)&#123;makeroot(x);if(findroot(y)!=x) tr[x].fa=y;&#125;</span><br><span class="line">inline void cut(int x,int y)&#123;split(x,y);if(findroot(y)==x&amp;&amp;tr[x].fa==y&amp;&amp;!tr[x].ch[1]) tr[x].fa=tr[y].ch[0]=0,pushup(y);&#125;</span><br><span class="line">int n,m,x,y,op;</span><br><span class="line">int main()&#123;</span><br><span class="line">n=read(),m=read();</span><br><span class="line">for(int i=1;i&lt;=n;i++) tr[i].v=read();</span><br><span class="line">for(int i=1;i&lt;=m;i++)&#123;</span><br><span class="line">op=read(),x=read(),y=read();</span><br><span class="line">if(op==0) split(x,y),write(tr[y].s),putchar(&#x27;\n&#x27;);</span><br><span class="line">else if(op==1) link(x,y);</span><br><span class="line">else if(op==2) cut(x,y);</span><br><span class="line">else splay(x),tr[x].v=y;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>大家可以再找一点例题，这里放个<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/list?tag=229&page=1">链接</a>。</p>
+<p>终于写完了，完结撒花*★,°*:.☆(￣▽￣)&#x2F;$:*.°★* 。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-number">2.</span> <span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%B4%A8"><span class="toc-number">2.2.</span> <span class="toc-text">性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">2.3.</span> <span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.3.2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#access-x"><span class="toc-number">2.3.3.</span> <span class="toc-text">access(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findroot-x"><span class="toc-number">2.3.4.</span> <span class="toc-text">findroot(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#makeroot-x"><span class="toc-number">2.3.5.</span> <span class="toc-text">makeroot(x)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#split-x-y"><span class="toc-number">2.3.6.</span> <span class="toc-text">split(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#link-x-y"><span class="toc-number">2.3.7.</span> <span class="toc-text">link(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cut-x-y"><span class="toc-number">2.3.8.</span> <span class="toc-text">cut(x,y)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rotate%E6%94%B9%E5%8A%A8"><span class="toc-number">2.3.9.</span> <span class="toc-text">Rotate改动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Splay%E6%94%B9%E5%8A%A8"><span class="toc-number">2.3.10.</span> <span class="toc-text">Splay改动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E9%A2%98"><span class="toc-number">2.4.</span> <span class="toc-text">模板题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text">写在最后</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&text=浅谈Link Cut Tree"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&is_video=false&description=浅谈Link Cut Tree"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅谈Link Cut Tree&body=Check out this article: http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&title=浅谈Link Cut Tree"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&name=浅谈Link Cut Tree&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/07/27/%E6%B5%85%E8%B0%88link-cut-tree/&t=浅谈Link Cut Tree"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

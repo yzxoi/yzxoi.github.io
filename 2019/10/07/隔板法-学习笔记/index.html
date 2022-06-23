@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前言$2019.10.19$就$CSP$第一轮了（好慌 隔板法定义在组合数学中，隔板法（又叫插板法）是排列组合的推广，主要用于解决不相邻组合与追加排列的问题。 隔板法就是在$n$个元素间插入$(b-1)$个板，即把$n$个元素分成$b$组的方法。——百度百科 普通隔板法经典问题：求$x+y+z&#x3D;10$的正整数解的个数。这个问题与此问题相同：如图，有$10$个小球，现要插入$2$块板，问总">
+<meta property="og:type" content="article">
+<meta property="og:title" content="隔板法 学习笔记">
+<meta property="og:url" content="http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="前言$2019.10.19$就$CSP$第一轮了（好慌 隔板法定义在组合数学中，隔板法（又叫插板法）是排列组合的推广，主要用于解决不相邻组合与追加排列的问题。 隔板法就是在$n$个元素间插入$(b-1)$个板，即把$n$个元素分成$b$组的方法。——百度百科 普通隔板法经典问题：求$x+y+z&#x3D;10$的正整数解的个数。这个问题与此问题相同：如图，有$10$个小球，现要插入$2$块板，问总">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/06/uceGB8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uInhz6.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIuVS0.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIQAfA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIlp3n.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIlJ4H.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uI1rsx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uI3AfJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uI3o9J.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIJe6s.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIYQKA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIYIVx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIYvqI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/09/uIabTI.png">
+<meta property="article:published_time" content="2019-10-07T08:21:21.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.227Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="初赛">
+<meta property="article:tag" content="隔板法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/06/uceGB8.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>隔板法 学习笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2019/10/21/luogu-p3535-poi2012tou-tour-de-byteotia-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2019/10/07/exgcd%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=隔板法 学习笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=隔板法 学习笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=隔板法 学习笔记&body=Check out this article: http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=隔板法 学习笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=隔板法 学习笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">隔板法定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E9%9A%94%E6%9D%BF%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">普通隔板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98%EF%BC%9A%E6%B1%82-x-y-z-x3D-10-%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82"><span class="toc-number">3.1.</span> <span class="toc-text">经典问题：求$x+y+z&#x3D;10$的正整数解的个数。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%85%83%E7%B4%A0%E9%9A%94%E6%9D%BF%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">添元素隔板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-1-%EF%BC%9A%E6%B1%82-x-y-z-x3D-10-%E7%9A%84%E9%9D%9E%E8%B4%9F%E6%95%B4%E6%95%B0%E8%A7%A3%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82"><span class="toc-number">4.1.</span> <span class="toc-text">例$1$：求$x+y+z&#x3D;10$的非负整数解的个数。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2-%EF%BC%9A%E6%9C%89%E4%B8%80%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%EF%BC%8C%E4%BB%8E%E7%AC%AC%E4%B8%89%E4%BD%8D%E5%BC%80%E5%A7%8B%E6%AF%8F%E4%B8%80%E4%BD%8D%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%97%E9%83%BD%E6%98%AF%E5%89%8D%E4%B8%A4%E4%BD%8D%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C%EF%BC%8C%E7%9B%B4%E8%87%B3%E4%B8%8D%E8%83%BD%E5%86%99%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E8%BF%99%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E3%80%82"><span class="toc-number">4.2.</span> <span class="toc-text">例$2$：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E6%9D%BF%E6%8F%92%E6%9D%BF%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">添板插板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89%E4%B8%80%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%EF%BC%8C%E4%BB%8E%E7%AC%AC%E4%B8%89%E4%BD%8D%E5%BC%80%E5%A7%8B%E6%AF%8F%E4%B8%80%E4%BD%8D%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%97%E9%83%BD%E6%98%AF%E5%89%8D%E4%B8%A4%E4%BD%8D%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C%EF%BC%8C%E7%9B%B4%E8%87%B3%E4%B8%8D%E8%83%BD%E5%86%99%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E8%BF%99%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E3%80%82%EF%BC%88%E5%90%8C%E4%B8%8A%E9%A2%98%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%9D%BF%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">选板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89-10-%E9%A2%97%E7%B3%96%EF%BC%8C%E6%AF%8F%E5%A4%A9%E8%87%B3%E5%B0%91%E5%90%83%E4%B8%80%E9%A2%97%EF%BC%8C%E5%90%83%E5%AE%8C%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E5%90%83%E6%B3%95%E3%80%82"><span class="toc-number">6.1.</span> <span class="toc-text">例题：有$10$颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E6%8F%92%E6%9D%BF"><span class="toc-number">7.</span> <span class="toc-text">分类插板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89-15-%E9%A2%97%E7%B3%96%EF%BC%8C%E6%AF%8F%E5%A4%A9%E8%87%B3%E5%B0%91%E5%90%83%E4%B8%89%E9%A2%97%EF%BC%8C%E5%90%83%E5%AE%8C%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E5%90%83%E6%B3%95%E3%80%82"><span class="toc-number">7.1.</span> <span class="toc-text">例题：有$15$颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%90%E6%AD%A5%E6%8F%92%E6%9D%BF"><span class="toc-number">8.</span> <span class="toc-text">逐步插板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E5%9C%A8%E4%B8%80%E5%BC%A0%E8%8A%82%E7%9B%AE%E5%8D%95%E4%B8%AD%E5%8E%9F%E6%9C%89-6-%E4%B8%AA%E8%8A%82%E7%9B%AE%EF%BC%8C%E8%8B%A5%E4%BF%9D%E6%8C%81%E8%BF%99%E4%BA%9B%E8%8A%82%E7%9B%AE%E7%9B%B8%E5%AF%B9%E6%AC%A1%E5%BA%8F%E4%B8%8D%E5%8F%98%EF%BC%8C%E5%86%8D%E6%B7%BB%E5%8A%A0-3-%E4%B8%AA%E8%8A%82%E7%9B%AE%EF%BC%8C%E5%85%B1%E6%9C%89%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9F"><span class="toc-number">8.1.</span> <span class="toc-text">例题：在一张节目单中原有$6$个节目，若保持这些节目相对次序不变，再添加$3$个节目，共有几种情况？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%BA%94%E7%94%A8%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">9.1.</span> <span class="toc-text">隔板法应用的条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%88%90%E7%9A%84%E7%BB%84%E5%88%AB%E8%A6%81%E4%B8%8D%E5%90%8C"><span class="toc-number">9.1.1.</span> <span class="toc-text">分成的组别要不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%9A%84%E6%AF%8F%E7%BB%84%E8%87%B3%E5%B0%91%E6%9C%89-1-%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="toc-number">9.1.2.</span> <span class="toc-text">分的每组至少有$1$个元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#n-%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%8D%E5%90%8C"><span class="toc-number">9.1.3.</span> <span class="toc-text">$n$个元素不同</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%B0%B1%E6%98%AF%E5%9C%A8-n-%E4%B8%AA%E5%85%83%E7%B4%A0%E9%97%B4-n-1-%E4%B8%AA%E7%A9%BA%E4%B8%AD%E6%8F%92%E5%85%A5-k-%E4%B8%AA%E6%9D%BF%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%8A%8A-n-%E4%B8%AA%E5%85%83%E7%B4%A0%E5%88%86%E6%88%90-k-1-%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">9.2.</span> <span class="toc-text">隔板法就是在$n$个元素间$(n-1)$个空中插入$k$个板，可以把$n$个元素分成$k+1$组的方法</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        隔板法 学习笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-10-07T08:21:21.000Z" itemprop="datePublished">2019-10-07</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.227Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%9D%E8%B5%9B/" rel="tag">初赛</a>, <a class="tag-link-link" href="/tags/%E9%9A%94%E6%9D%BF%E6%B3%95/" rel="tag">隔板法</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>$2019.10.19$就$CSP$第一轮了<img src="https://s2.ax1x.com/2019/10/06/uceGB8.png">（好慌</p>
+<h2 id="隔板法定义"><a href="#隔板法定义" class="headerlink" title="隔板法定义"></a>隔板法定义</h2><p>在组合数学中，隔板法（又叫插板法）是排列组合的推广，主要用于解决不相邻组合与追加排列的问题。 隔板法就是在$n$个元素间插入$(b-1)$个板，即把$n$个元素分成$b$组的方法。——百度百科</p>
+<h2 id="普通隔板法"><a href="#普通隔板法" class="headerlink" title="普通隔板法"></a>普通隔板法</h2><h3 id="经典问题：求-x-y-z-x3D-10-的正整数解的个数。"><a href="#经典问题：求-x-y-z-x3D-10-的正整数解的个数。" class="headerlink" title="经典问题：求$x+y+z&#x3D;10$的正整数解的个数。"></a>经典问题：求$x+y+z&#x3D;10$的正整数解的个数。</h3><p>这个问题与此问题相同：如图，有$10$个小球，现要插入$2$块板，问总共有多少种方法？ <img src="https://s2.ax1x.com/2019/10/09/uInhz6.png"> 就比如这种情况：当$x&#x3D;2,y&#x3D;5,z&#x3D;3$时，等式成立，同时转换成的隔板问题的情况是这样的： <img src="https://s2.ax1x.com/2019/10/09/uIuVS0.png"> 很显然，$10$个小球之间有$10-1&#x3D;9$个空隙，插$2$块板，不难得出答案就是$C_{2}^{9}&#x3D;36$种方法。 （不会组合数？那就戳<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BB%84%E5%90%88%E6%95%B0/2153250?fr=aladdin">这里</a>）</p>
+<h2 id="添元素隔板法"><a href="#添元素隔板法" class="headerlink" title="添元素隔板法"></a>添元素隔板法</h2><h3 id="例-1-：求-x-y-z-x3D-10-的非负整数解的个数。"><a href="#例-1-：求-x-y-z-x3D-10-的非负整数解的个数。" class="headerlink" title="例$1$：求$x+y+z&#x3D;10$的非负整数解的个数。"></a>例$1$：求$x+y+z&#x3D;10$的非负整数解的个数。</h3><p>我：这题和上题不是一模一样吗（小声bb 大佬：对对对，这题和上题一样水 （言归正传 本题注意是<strong>非负整数解</strong>，所以$x,y,z$可以有$0$（废话） 所以我们可以在等式两边同时加上$3$ 然后等式就变成了$x+y+z+3&#x3D;10+3$ 整理一下：$(x+1)+(y+1)+(z+1)&#x3D;13$ 然后设$A&#x3D;x+1,B&#x3D;y+1,C&#x3D;z+1$，代回原式：$A+B+C&#x3D;13$ 这格式好像和上题一模一样…<img src="https://s2.ax1x.com/2019/10/09/uIQAfA.png"> 因为$x,y,z$为<strong>非负整数</strong>，那么显而易见$A,B,C$均为正整数，所以$A,B,C$的方案数可以通过上一题的方法快速地求出，即：$C_{2}^{12}&#x3D;66$。 <img src="https://s2.ax1x.com/2019/10/09/uIlp3n.png"> <img src="https://s2.ax1x.com/2019/10/09/uIlJ4H.png"> 因为每一组得出的$A,B,C$对应着唯一一组$x,y,z$，所以$x,y,z$的方案数也是$66$。</p>
+<h3 id="例-2-：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。"><a href="#例-2-：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。" class="headerlink" title="例$2$：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。"></a>例$2$：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。</h3><p>首先，我们假设这类自然数的前两位数为$a,b$，显然，确定了前两位数，这个数字就确定了（因为每个数都要到不能写为止）。 根据题意，这个数必须有第三位，所以$a+b\leq 9$，并且$a$是最高位$a\not&#x3D;0$。 我：那我还是照着之前的思路，放$9$个球，插$1$个板，如下图，答案就是$C_{1}^{8}&#x3D;8$。 <img src="https://s2.ax1x.com/2019/10/09/uI1rsx.png"> 大佬：不对啊，$a\not&#x3D;0$，但是$b$可以为$0$啊，所以等式两边同时$+1$，所以$a+(b+1)\leq 10$，所以放$10$个球，插$1$个板，如下图，答案就是$C_{1}^{9}&#x3D;9$。 <img src="https://s2.ax1x.com/2019/10/09/uI3AfJ.png"> 我：原来是这样啊。 （这时，奆佬走了过来把纸撕了） 奆佬：不不不，你们都错了。 <img src="https://s2.ax1x.com/2019/10/09/uI3o9J.png"> 奆佬：$a+b$不一定等于$9$，所以我们应该再设一个变量$c$，使得$a+b+c&#x3D;9(c\ge 0)$，然后等式两边同时加$2$，所以$a+(b+1)+(c+1)&#x3D;11$，所以放$11$个球，插$2$个板，如下图，答案就是$C_{2}^{10}&#x3D;45$。 <img src="https://s2.ax1x.com/2019/10/09/uIJe6s.png"></p>
+<h2 id="添板插板法"><a href="#添板插板法" class="headerlink" title="添板插板法"></a>添板插板法</h2><h3 id="例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）"><a href="#例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）" class="headerlink" title="例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）"></a>例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）</h3><p>奆佬：上题还可以用添板插板法做 我：（大吃一惊） 我们还是设前两位为$a,b$，那么$a+b\leq 9,a\not&#x3D;0$。 <img src="https://s2.ax1x.com/2019/10/09/uIYQKA.png"> 我们可以在前$9$个空位中插$2$个隔板，分成$3$组，当$b&#x3D;0$时，则在第$10$个空位上插隔板。 那么答案就是总共在$10$个空位插$2$个隔板，$C_{2}^{10}&#x3D;45$。</p>
+<h2 id="选板法"><a href="#选板法" class="headerlink" title="选板法"></a>选板法</h2><h3 id="例题：有-10-颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。"><a href="#例题：有-10-颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。" class="headerlink" title="例题：有$10$颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。"></a>例题：有$10$颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。</h3><p>(我吃糖你还管我<img src="https://s2.ax1x.com/2019/10/09/uIYIVx.png"> <img src="https://s2.ax1x.com/2019/10/09/uIYvqI.png"> 如上图，有$9$个空位，可以插入$9$个板，每个板可以放或不放，所以总共有$2^9&#x3D;512$种吃法。 我：哇，有这么多种吃法，我每$10$天试一种，那我要吃多少天呢…</p>
+<h2 id="分类插板"><a href="#分类插板" class="headerlink" title="分类插板"></a>分类插板</h2><h3 id="例题：有-15-颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。"><a href="#例题：有-15-颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。" class="headerlink" title="例题：有$15$颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。"></a>例题：有$15$颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。</h3><p>(这题好像和上一题又是一模一样 因为题目中并没有规定要吃几天，也没有规定每天一定要吃几颗，所以需要分类讨论。 当吃$1$天时，答案就是$1$种（一天吃$15$颗糖） 当吃$2$天时，每天先吃$2$块，即有$11$颗糖，每天至少吃$1$颗，吃$2$天，有$C_{1}^{10}&#x3D;10$种情况。 当吃$3$天时，每天先吃$2$块，即有$9$颗糖，每天至少吃$1$颗，吃$3$天，有$C_{2}^{8}&#x3D;28$种情况。 当吃$4$天时，每天先吃$2$块，即有$7$颗糖，每天至少吃$1$颗，吃$4$天，有$C_{3}^{6}&#x3D;20$种情况。 当吃$5$天时，答案就是$1$种（每天吃$3$颗糖） 所以最终的答案就是$1+10+28+20+1&#x3D;60$种吃法。</p>
+<h2 id="逐步插板"><a href="#逐步插板" class="headerlink" title="逐步插板"></a>逐步插板</h2><h3 id="例题：在一张节目单中原有-6-个节目，若保持这些节目相对次序不变，再添加-3-个节目，共有几种情况？"><a href="#例题：在一张节目单中原有-6-个节目，若保持这些节目相对次序不变，再添加-3-个节目，共有几种情况？" class="headerlink" title="例题：在一张节目单中原有$6$个节目，若保持这些节目相对次序不变，再添加$3$个节目，共有几种情况？"></a>例题：在一张节目单中原有$6$个节目，若保持这些节目相对次序不变，再添加$3$个节目，共有几种情况？</h3><p><img src="https://s2.ax1x.com/2019/10/09/uIabTI.png"> 可以用一个节目去插$7$个空位，再用第二个节目去插$8$个空位，用最后个节目去插$9$个空位。 所以一共是$C_{1}^{7}\times C_{1}^{8}\times C_{1}^{9}&#x3D;504$种。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="隔板法应用的条件"><a href="#隔板法应用的条件" class="headerlink" title="隔板法应用的条件"></a>隔板法应用的条件</h3><h4 id="分成的组别要不同"><a href="#分成的组别要不同" class="headerlink" title="分成的组别要不同"></a>分成的组别要不同</h4><h4 id="分的每组至少有-1-个元素"><a href="#分的每组至少有-1-个元素" class="headerlink" title="分的每组至少有$1$个元素"></a>分的每组至少有$1$个元素</h4><h4 id="n-个元素不同"><a href="#n-个元素不同" class="headerlink" title="$n$个元素不同"></a>$n$个元素不同</h4><h3 id="隔板法就是在-n-个元素间-n-1-个空中插入-k-个板，可以把-n-个元素分成-k-1-组的方法"><a href="#隔板法就是在-n-个元素间-n-1-个空中插入-k-个板，可以把-n-个元素分成-k-1-组的方法" class="headerlink" title="隔板法就是在$n$个元素间$(n-1)$个空中插入$k$个板，可以把$n$个元素分成$k+1$组的方法"></a>隔板法就是在$n$个元素间$(n-1)$个空中插入$k$个板，可以把$n$个元素分成$k+1$组的方法</h3><p>完结撒花❀O(∩_∩)O❀</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">隔板法定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E9%9A%94%E6%9D%BF%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">普通隔板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98%EF%BC%9A%E6%B1%82-x-y-z-x3D-10-%E7%9A%84%E6%AD%A3%E6%95%B4%E6%95%B0%E8%A7%A3%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82"><span class="toc-number">3.1.</span> <span class="toc-text">经典问题：求$x+y+z&#x3D;10$的正整数解的个数。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%85%83%E7%B4%A0%E9%9A%94%E6%9D%BF%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">添元素隔板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-1-%EF%BC%9A%E6%B1%82-x-y-z-x3D-10-%E7%9A%84%E9%9D%9E%E8%B4%9F%E6%95%B4%E6%95%B0%E8%A7%A3%E7%9A%84%E4%B8%AA%E6%95%B0%E3%80%82"><span class="toc-number">4.1.</span> <span class="toc-text">例$1$：求$x+y+z&#x3D;10$的非负整数解的个数。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B-2-%EF%BC%9A%E6%9C%89%E4%B8%80%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%EF%BC%8C%E4%BB%8E%E7%AC%AC%E4%B8%89%E4%BD%8D%E5%BC%80%E5%A7%8B%E6%AF%8F%E4%B8%80%E4%BD%8D%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%97%E9%83%BD%E6%98%AF%E5%89%8D%E4%B8%A4%E4%BD%8D%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C%EF%BC%8C%E7%9B%B4%E8%87%B3%E4%B8%8D%E8%83%BD%E5%86%99%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E8%BF%99%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E3%80%82"><span class="toc-number">4.2.</span> <span class="toc-text">例$2$：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E6%9D%BF%E6%8F%92%E6%9D%BF%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">添板插板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89%E4%B8%80%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%EF%BC%8C%E4%BB%8E%E7%AC%AC%E4%B8%89%E4%BD%8D%E5%BC%80%E5%A7%8B%E6%AF%8F%E4%B8%80%E4%BD%8D%E4%B8%8A%E7%9A%84%E6%95%B0%E5%AD%97%E9%83%BD%E6%98%AF%E5%89%8D%E4%B8%A4%E4%BD%8D%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C%EF%BC%8C%E7%9B%B4%E8%87%B3%E4%B8%8D%E8%83%BD%E5%86%99%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E8%BF%99%E7%B1%BB%E8%87%AA%E7%84%B6%E6%95%B0%E6%9C%89%E5%A4%9A%E5%B0%91%E4%B8%AA%E3%80%82%EF%BC%88%E5%90%8C%E4%B8%8A%E9%A2%98%EF%BC%89"><span class="toc-number">5.1.</span> <span class="toc-text">例题：有一类自然数，从第三位开始每一位上的数字都是前两位数字之和，直至不能写为止，问这类自然数有多少个。（同上题）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%9D%BF%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">选板法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89-10-%E9%A2%97%E7%B3%96%EF%BC%8C%E6%AF%8F%E5%A4%A9%E8%87%B3%E5%B0%91%E5%90%83%E4%B8%80%E9%A2%97%EF%BC%8C%E5%90%83%E5%AE%8C%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E5%90%83%E6%B3%95%E3%80%82"><span class="toc-number">6.1.</span> <span class="toc-text">例题：有$10$颗糖，每天至少吃一颗，吃完为止，问有多少种吃法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%B1%BB%E6%8F%92%E6%9D%BF"><span class="toc-number">7.</span> <span class="toc-text">分类插板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E6%9C%89-15-%E9%A2%97%E7%B3%96%EF%BC%8C%E6%AF%8F%E5%A4%A9%E8%87%B3%E5%B0%91%E5%90%83%E4%B8%89%E9%A2%97%EF%BC%8C%E5%90%83%E5%AE%8C%E4%B8%BA%E6%AD%A2%EF%BC%8C%E9%97%AE%E6%9C%89%E5%A4%9A%E5%B0%91%E7%A7%8D%E5%90%83%E6%B3%95%E3%80%82"><span class="toc-number">7.1.</span> <span class="toc-text">例题：有$15$颗糖，每天至少吃三颗，吃完为止，问有多少种吃法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%90%E6%AD%A5%E6%8F%92%E6%9D%BF"><span class="toc-number">8.</span> <span class="toc-text">逐步插板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A%E5%9C%A8%E4%B8%80%E5%BC%A0%E8%8A%82%E7%9B%AE%E5%8D%95%E4%B8%AD%E5%8E%9F%E6%9C%89-6-%E4%B8%AA%E8%8A%82%E7%9B%AE%EF%BC%8C%E8%8B%A5%E4%BF%9D%E6%8C%81%E8%BF%99%E4%BA%9B%E8%8A%82%E7%9B%AE%E7%9B%B8%E5%AF%B9%E6%AC%A1%E5%BA%8F%E4%B8%8D%E5%8F%98%EF%BC%8C%E5%86%8D%E6%B7%BB%E5%8A%A0-3-%E4%B8%AA%E8%8A%82%E7%9B%AE%EF%BC%8C%E5%85%B1%E6%9C%89%E5%87%A0%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%9F"><span class="toc-number">8.1.</span> <span class="toc-text">例题：在一张节目单中原有$6$个节目，若保持这些节目相对次序不变，再添加$3$个节目，共有几种情况？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%BA%94%E7%94%A8%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">9.1.</span> <span class="toc-text">隔板法应用的条件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%88%90%E7%9A%84%E7%BB%84%E5%88%AB%E8%A6%81%E4%B8%8D%E5%90%8C"><span class="toc-number">9.1.1.</span> <span class="toc-text">分成的组别要不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%9A%84%E6%AF%8F%E7%BB%84%E8%87%B3%E5%B0%91%E6%9C%89-1-%E4%B8%AA%E5%85%83%E7%B4%A0"><span class="toc-number">9.1.2.</span> <span class="toc-text">分的每组至少有$1$个元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#n-%E4%B8%AA%E5%85%83%E7%B4%A0%E4%B8%8D%E5%90%8C"><span class="toc-number">9.1.3.</span> <span class="toc-text">$n$个元素不同</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%94%E6%9D%BF%E6%B3%95%E5%B0%B1%E6%98%AF%E5%9C%A8-n-%E4%B8%AA%E5%85%83%E7%B4%A0%E9%97%B4-n-1-%E4%B8%AA%E7%A9%BA%E4%B8%AD%E6%8F%92%E5%85%A5-k-%E4%B8%AA%E6%9D%BF%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%8A%8A-n-%E4%B8%AA%E5%85%83%E7%B4%A0%E5%88%86%E6%88%90-k-1-%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">9.2.</span> <span class="toc-text">隔板法就是在$n$个元素间$(n-1)$个空中插入$k$个板，可以把$n$个元素分成$k+1$组的方法</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=隔板法 学习笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=隔板法 学习笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=隔板法 学习笔记&body=Check out this article: http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=隔板法 学习笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=隔板法 学习笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/10/07/%E9%9A%94%E6%9D%BF%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=隔板法 学习笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

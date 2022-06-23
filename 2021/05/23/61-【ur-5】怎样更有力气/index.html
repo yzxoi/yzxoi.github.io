@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description 题目链接：#61. UR #5  大力水手问禅师：“大师，很多事情都需要用很大力气才能完成，而我在吃了菠菜之后力气很大，于是就导致我现在非常依赖菠菜。我很讨厌我的现状，有没有办法少吃点菠菜甚至不吃菠菜却仍很有力气？” 禅师浅笑，答：“方法很简单，不过若想我教你，你需先下山徒手修路。” 山下是 $n$ 座村庄从 $1$ 到 $n$ 编号，之间没有路相连。禅师给了大力水手一张草">
+<meta property="og:type" content="article">
+<meta property="og:title" content="#61. 【UR #5】怎样更有力气">
+<meta property="og:url" content="http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description 题目链接：#61. UR #5  大力水手问禅师：“大师，很多事情都需要用很大力气才能完成，而我在吃了菠菜之后力气很大，于是就导致我现在非常依赖菠菜。我很讨厌我的现状，有没有办法少吃点菠菜甚至不吃菠菜却仍很有力气？” 禅师浅笑，答：“方法很简单，不过若想我教你，你需先下山徒手修路。” 山下是 $n$ 座村庄从 $1$ 到 $n$ 编号，之间没有路相连。禅师给了大力水手一张草">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-23T13:00:10.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.542Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="并查集">
+<meta property="article:tag" content="最小生成树">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>#61. 【UR #5】怎样更有力气</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/05/20/p5222-game/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&text=#61. 【UR #5】怎样更有力气"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&is_video=false&description=#61. 【UR #5】怎样更有力气"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=#61. 【UR #5】怎样更有力气&body=Check out this article: http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&name=#61. 【UR #5】怎样更有力气&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&t=#61. 【UR #5】怎样更有力气"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        #61. 【UR #5】怎样更有力气
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-23T13:00:10.000Z" itemprop="datePublished">2021-05-23</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.542Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a>, <a class="tag-link-link" href="/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" rel="tag">最小生成树</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://uoj.ac/problem/61">#61. UR #5</a></p>
+</blockquote>
+<p>大力水手问禅师：“大师，很多事情都需要用很大力气才能完成，而我在吃了菠菜之后力气很大，于是就导致我现在非常依赖菠菜。我很讨厌我的现状，有没有办法少吃点菠菜甚至不吃菠菜却仍很有力气？”</p>
+<p>禅师浅笑，答：“方法很简单，不过若想我教你，你需先下山徒手修路。”</p>
+<p>山下是 $n$ 座村庄从 $1$ 到 $n$ 编号，之间没有路相连。禅师给了大力水手一张草图，这张草图里 $n$ 座村庄被 $n - 1$ 条双向道路连接，任意一个村庄都可以通过双向道路到达其它所有村庄。</p>
+<p>现在大力水手要根据禅师的意思在村庄间修路。禅师规定大力水手需要在 $m$ 天内完成任务，其中大力水手的修路方式如下：</p>
+<ol>
+<li>第 $i$ 天，禅师指定了两个村庄 $v_i$ 和 $u_i$，在<strong>草图上</strong> $v_i$ 号村庄到 $u_i$ 号村庄的最短路径上的所有村庄（包括 $v_i$ 和 $u_i$）中，大力水手需要选出若干对村庄（一个村庄可以被重复选多次，当然大力水手在这天也可以一对村庄都不选），然后在选出的每一对村庄间修建双向道路。</li>
+<li>在实地考察中大力水手发现，有 $p$ 个限制关系 $(t_i, a_i, b_i)$，表示在第 $t_i$ 天无法在 $a_i$ 号村庄到 $b_i$ 号村庄间修路（路是双向的，所以自然也无法在 $b_i$ 号村庄到 $a_i$ 号村庄间修路）。</li>
+<li>每一天都有个修理所需力气值 $w_i$，表示在第 $i$ 天每修建一条道路都要耗费 $w_i$ 点力气值。</li>
+</ol>
+<p>大力水手开始蛮力干了起来，一罐又一罐地吞食菠菜，结果经常修建一些无用的道路，每天都累得筋疲力尽。</p>
+<p>作为一个旁观者，请你帮大力水手求出要想让 $m$ 天后任意一对村庄之间都可以互相到达，所需要的总力气值最少是多少。注意最后修出来的道路不必和草图一致。</p>
+<p>$n,m,p \leq 300000$</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>首先肯定是想要把所有边按权值从小到大排序然后跑 MST。</p>
+<p>那么考虑如何把一天内所有限制之后的子图搞出来。</p>
+<p>如果限制的数量很少，甚至小于这两个点之间的距离，那么肯定存在一种方案使得任意两点之间连一条边，那么其实就相当于把所有点直接相互连边，那么直接暴力连就好了。</p>
+<p>否则两点之间的距离小于限制，那么可以直接暴力把路径上点全部扣下来，每次考虑选取限制最少的点，从这个点出发，暴力枚举所有与这个点没有限制的点并且尝试合并。</p>
+<p>对于所有与这个点之间有限制的点，可以直接暴力枚举，如果枚举到的点的限制的点集大小小于这个点可以连边的点集大小，说明必然存在一种方案使得其两点之间连通，所以也是直接连即可。否则直接暴力跑一次，由于度数最小的点的度数大约是 $\mathcal O(\sqrt N)$，所以这部分复杂度时 $\mathcal O(N)$ 的。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=3e5+10;</span><br><span class="line">int n,m,p,fir[N],nxt[N&lt;&lt;1],son[N&lt;&lt;1],tot,dep[N],f[N],w[N],mx[N],fa[N],vis[N];LL Ans;</span><br><span class="line">#define P pair&lt;int,int&gt;</span><br><span class="line">#define MP make_pair</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">vector&lt;int&gt; E[N],Y,X;</span><br><span class="line">vector&lt;P&gt; L[N];</span><br><span class="line">I void Add(CI x,CI y)&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y;&#125;</span><br><span class="line">#define to son[i]</span><br><span class="line">struct Edge&#123;int u,v,w,id;&#125;e[N];</span><br><span class="line">I bool cmp(Cn Edge&amp; x,Cn Edge&amp; y)&#123;return x.w&lt;y.w;&#125;</span><br><span class="line">I void Dfs(CI x)&#123;RI i;for(i=fir[x];i;i=nxt[i]) dep[to]=dep[x]+1,Dfs(to);&#125;</span><br><span class="line">I void Dfs2(CI x)&#123;RI i;for(i=fir[x];i;i=nxt[i]) Dfs2(to),w[fa[x]]+=w[x],w[mx[x]]&lt;w[to]&amp;&amp;(mx[x]=to);&#125;</span><br><span class="line">I int GF(CI x)&#123;return f[x]?f[x]=GF(f[x]):x;&#125;</span><br><span class="line">struct GetFa&#123;</span><br><span class="line">    int F[N];</span><br><span class="line">    I int GF(CI x)&#123;return x==F[x]?x:F[x]=GF(F[x]);&#125;</span><br><span class="line">&#125;O,U;</span><br><span class="line">I bool Ct(RI x,RI y,RI k)&#123;RI t=0;W(x^y)&#123;dep[x]&lt;dep[y]&amp;&amp;(swap(x,y),0),x=fa[x],t++;if(t&gt;L[k].size()) return 1;&#125;return t&gt;L[k].size();&#125;</span><br><span class="line">I void M(RI x,RI y,CI z)&#123;if((x=O.GF(x))^(y=O.GF(y))) O.F[x]=y,Ans+=z;&#125;</span><br><span class="line">I void FU(RI x,RI y,CI z)&#123;W(x^y) dep[x]&lt;dep[y]&amp;&amp;(swap(x,y),0),M(x,fa[x],z),U.F[x]=fa[x],x=U.GF(fa[x]);&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,j,t,x,y,Mn;for(read(n,m,p),dep[1]=w[1]=1,i=2;i&lt;=n;i++) read(x),Add(x,i),fa[i]=x,w[i]=1;Dfs(1);Dfs2(1);</span><br><span class="line">    for(i=1;i&lt;=m;i++) read(e[i].u,e[i].v,e[i].w),e[i].id=i;sort(e+1,e+m+1,cmp);</span><br><span class="line">    for(i=1;i&lt;=p;i++) read(t,x,y),L[t].push_back(MP(x,y));</span><br><span class="line">    for(i=1;i&lt;=n;i++) O.F[i]=U.F[i]=i;</span><br><span class="line">    for(i=1;i&lt;=m;i++) if(Ct(e[i].u,e[i].v,e[i].id)) FU(e[i].u,e[i].v,e[i].w);else&#123;</span><br><span class="line">        for(auto j:L[e[i].id]) E[j.fi].push_back(j.se),E[j.se].push_back(j.fi);</span><br><span class="line">        Y.clear(),x=e[i].u,y=e[i].v;W(x^y) dep[x]&lt;dep[y]&amp;&amp;(swap(x,y),0),Y.push_back(x),x=fa[x];Y.push_back(x);</span><br><span class="line">        Mn=2e9,t=0;for(auto j:Y) E[j].size()&lt;Mn&amp;&amp;(Mn=E[j].size(),t=j);</span><br><span class="line">        X.clear();for(auto j:E[t]) vis[j]=1;for(auto j:Y) if(!vis[j]) X.push_back(j),M(j,t,e[i].w);for(auto j:E[t]) vis[j]=0;</span><br><span class="line">        for(auto j:E[t])&#123;</span><br><span class="line">            for(auto k:E[j]) vis[k]=1;for(auto k:E[t]) !vis[k]&amp;&amp;(M(j,k,e[i].w),0);for(auto k:E[j]) vis[k]=0;</span><br><span class="line">            if(E[j].size()&lt;X.size()) M(t,j,e[i].w);</span><br><span class="line">            else&#123;for(auto k:E[j]) vis[k]=1;for(auto k:X) !vis[k]&amp;&amp;(M(k,j,e[i].w),0);for(auto k:E[j]) vis[k]=0;&#125;</span><br><span class="line">        &#125;for(auto j:L[e[i].id]) E[j.fi].clear(),E[j.se].clear();</span><br><span class="line">    &#125;return writeln(Ans),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&text=#61. 【UR #5】怎样更有力气"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&is_video=false&description=#61. 【UR #5】怎样更有力气"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=#61. 【UR #5】怎样更有力气&body=Check out this article: http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&title=#61. 【UR #5】怎样更有力气"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&name=#61. 【UR #5】怎样更有力气&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/&t=#61. 【UR #5】怎样更有力气"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

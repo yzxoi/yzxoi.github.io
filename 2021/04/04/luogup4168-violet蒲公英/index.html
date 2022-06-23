@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description 题目链接：P4168  给定一个长度为 $n$ 的序列，$m$ 次询问，每次询问输出区间众数，如果出现次数相同，输出编号小的。 强制在线。 $1\leq n\leq 4\times 10^4,1\leq m \leq 5\times 10^4,1\leq a_i\leq 10^9$ Solution看到区间众数，自然而然就想到可以直接分块，时间复杂度 $O((N+M)\sq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LuoguP4168 [Violet]蒲公英">
+<meta property="og:url" content="http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description 题目链接：P4168  给定一个长度为 $n$ 的序列，$m$ 次询问，每次询问输出区间众数，如果出现次数相同，输出编号小的。 强制在线。 $1\leq n\leq 4\times 10^4,1\leq m \leq 5\times 10^4,1\leq a_i\leq 10^9$ Solution看到区间众数，自然而然就想到可以直接分块，时间复杂度 $O((N+M)\sq">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-04T01:22:35.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.478Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="分块">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>LuoguP4168 [Violet]蒲公英</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/04/05/p4117-ynoi2018-%E4%BA%94%E5%BD%A9%E6%96%91%E6%96%93%E7%9A%84%E4%B8%96%E7%95%8C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/04/04/luogup5071-ynoi2015-%E6%AD%A4%E6%97%B6%E6%AD%A4%E5%88%BB%E7%9A%84%E5%85%89%E8%BE%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&text=LuoguP4168 [Violet]蒲公英"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&is_video=false&description=LuoguP4168 [Violet]蒲公英"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LuoguP4168 [Violet]蒲公英&body=Check out this article: http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&name=LuoguP4168 [Violet]蒲公英&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&t=LuoguP4168 [Violet]蒲公英"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        LuoguP4168 [Violet]蒲公英
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-04T01:22:35.000Z" itemprop="datePublished">2021-04-04</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.478Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%86%E5%9D%97/" rel="tag">分块</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4168">P4168</a></p>
+</blockquote>
+<p>给定一个长度为 $n$ 的序列，$m$ 次询问，每次询问输出区间众数，如果出现次数相同，输出编号小的。</p>
+<p><strong>强制在线</strong>。</p>
+<p>$1\leq n\leq 4\times 10^4,1\leq m \leq 5\times 10^4,1\leq a_i\leq 10^9$</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>看到区间众数，自然而然就想到可以直接分块，时间复杂度 $O((N+M)\sqrt{N})$，空间复杂度 $O(N\sqrt{N})$，足矣通过此题，由于其他题解都写得很详细，这里就不再赘述。</p>
+<p>那有没有更加优秀的算法呢？当然有，可以仿照<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5048">P5048 [Ynoi2019 模拟赛] Yuno loves sqrt technology III</a>的思路，预处理出 $[i,j]$ 块的众数出现次数，用 vector 按顺序存储每个数的所有元素出现位置，记录对应下标，每次询问的时候整块直接用预处理中的即可，散块个数最多为 $2\sqrt{N}$ 个，所以最多使答案增加 $2\sqrt{N}$，所以我们只需要扫一遍，判断这些数的出现个数是否能使答案加一即可。</p>
+<p>总时间复杂度 $O((N+M)\sqrt{N})$，空间复杂度 $O(N)$，然而这种做法常数更小，所以跑得飞快，顺手卡一卡就拿到了最优解。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>普通分块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=4e4+10,S=500,M=N/S+10;</span><br><span class="line">int n,m,a[N],b[N],cnt,tot,Ans,L[M],R[M],Cnt[M][N],F[M][M],sum[N];</span><br><span class="line">#define GetCnt(i,j,k) (Cnt[(j)][(k)]-Cnt[(i)-1][(k)])</span><br><span class="line">I void Build()&#123;</span><br><span class="line">    RI i,j,k,t,now;for(sort(b,b+n),cnt=unique(b,b+n)-b,i=0;i&lt;n;i++) a[i]=lower_bound(b,b+cnt,a[i])-b;</span><br><span class="line">    for(i=0;i&lt;n;i++) if(i%S==0) R[tot]=i-1,L[++tot]=i;R[tot]=n-1;</span><br><span class="line">    for(i=1;i&lt;=tot;i++) for(j=L[i];j&lt;=R[i];j++) Cnt[i][a[j]]++;for(i=1;i&lt;=tot;i++) for(j=0;j&lt;cnt;j++) Cnt[i][j]+=Cnt[i-1][j];</span><br><span class="line">    for(i=1;i&lt;=tot;i++) for(now=a[j=i];j&lt;=tot;j++) for(k=L[j];k==R[j]+1&amp;&amp;(F[i][j]=now),k&lt;=R[j];k++)</span><br><span class="line">    if(GetCnt(i,j,a[k])&gt;GetCnt(i,j,now)GetCnt(i,j,a[k])==GetCnt(i,j,now)&amp;&amp;a[k]&lt;now) now=a[k];</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;int&gt; v;</span><br><span class="line">I int Query(CI Ll,CI Rr)&#123;</span><br><span class="line">    RI i,j,l,r,now;l=Ll/S+1,r=Rr/S+1;v.clear();memset(sum,0,sizeof(sum));</span><br><span class="line">    if(l==r)&#123;for(i=Ll;i&lt;=Rr;i++) v.push_back(a[i]),now=a[i],sum[a[i]]++;for(auto i:v) if(sum[i]&gt;sum[now]sum[i]==sum[now]&amp;&amp;i&lt;now) now=i;return b[now];&#125;</span><br><span class="line">    if(L[l]^Ll)&#123;for(i=Ll;i&lt;=R[l];i++) v.push_back(a[i]),sum[a[i]]++;l++;&#125;</span><br><span class="line">    if(R[r]^Rr)&#123;for(i=L[r];i&lt;=Rr;i++) v.push_back(a[i]),sum[a[i]]++;r--;&#125;</span><br><span class="line">    now=F[l][r];for(auto i:v) if(sum[i]+GetCnt(l,r,i)&gt;sum[now]+GetCnt(l,r,now)sum[i]+GetCnt(l,r,i)==sum[now]+GetCnt(l,r,now)&amp;&amp;i&lt;now) now=i;</span><br><span class="line">    return b[now];</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,l,r,p=0;for(read(n,m),i=0;i&lt;n;i++) read(a[i]),b[i]=a[i];</span><br><span class="line">    for(Build();m--;) read(l,r),l=(l+p-1)%n,r=(r+p-1)%n,l&gt;r&amp;&amp;(swap(l,r),0),writeln(p=Query(l,r));return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种做法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    #define FS 100000</span><br><span class="line">    #define tc() (FA==FB&amp;&amp;(FB=(FA=FI)+fread(FI,1,FS,stdin),FA==FB)?EOF:*FA++)</span><br><span class="line">    #define pc(c) (FC==FE&amp;&amp;(clear(),0),*FC++=c)</span><br><span class="line">    int OT;char oc,FI[FS],FO[FS],OS[FS],*FA=FI,*FB=FI,*FC=FO,*FE=FO+FS;</span><br><span class="line">    I void clear()&#123;fwrite(FO,1,FC-FO,stdout),FC=FO;&#125;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;x=0;W(!isdigit(oc=tc()));W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(oc&amp;15),isdigit(oc=tc()));&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y) &#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void writeln(Ty x)&#123;W(OS[++OT]=x%10+48,x/=10);W(OT) pc(OS[OT--]);pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=4e4+2,S=106,M=N/S+2;</span><br><span class="line">int n,m,a[N],b[N],cnt,tot,Ans,Cnt[N],F[M][M],pos[N],DP[M][M],SZ[N];</span><br><span class="line">vector&lt;int&gt; v[N];</span><br><span class="line">I void Build()&#123;</span><br><span class="line">    RI i,j,k,t,now;for(sort(b,b+n),cnt=unique(b,b+n)-b,i=0;i&lt;n;i++)</span><br><span class="line">    a[i]=lower_bound(b,b+cnt,a[i])-b,pos[i]=SZ[a[i]]++,v[a[i]].push_back(i);tot=(n-1)/S+1;</span><br><span class="line">    for(i=1;i&lt;=tot;i++) for(memset(Cnt,0,sizeof(Cnt)),now=a[j=i];j&lt;=tot;j++)</span><br><span class="line">    for(k=(j-1)*S;k==min(j*S-1,n-1)+1&amp;&amp;(F[i][j]=Cnt[now],DP[i][j]=now),k&lt;=min(j*S-1,n-1);k++) if(++Cnt[a[k]],Cnt[a[k]]&gt;Cnt[now](Cnt[a[k]]==Cnt[now]&amp;&amp;a[k]&lt;now)) now=a[k];</span><br><span class="line">&#125;</span><br><span class="line">I int Query(CI Ll,CI Rr)&#123;</span><br><span class="line">    RI i,j,l=Ll/S+1,r=Rr/S+1,now=0,zz=0;if(l==r)&#123;</span><br><span class="line">        for(now=0,i=Ll;i&lt;=Rr;i++)&#123;W(pos[i]+now&lt;SZ[a[i]]&amp;&amp;v[a[i]][pos[i]+now]&lt;=Rr) zz=a[i],now++;if(pos[i]+now-1&lt;SZ[a[i]]&amp;&amp;v[a[i]][pos[i]+now-1]&lt;=Rr&amp;&amp;zz&gt;a[i]) zz=a[i];&#125;</span><br><span class="line">        return b[zz];</span><br><span class="line">    &#125;if(l+1&lt;=r-1) now=F[l+1][r-1],zz=DP[l+1][r-1];</span><br><span class="line">    for(i=Ll;i&lt;=min(l*S-1,n-1);i++)&#123;W(pos[i]+now&lt;SZ[a[i]]&amp;&amp;v[a[i]][pos[i]+now]&lt;=Rr) zz=a[i],now++;if(pos[i]+now-1&lt;SZ[a[i]]&amp;&amp;v[a[i]][pos[i]+now-1]&lt;=Rr&amp;&amp;zz&gt;a[i]) zz=a[i];&#125;</span><br><span class="line">    for(i=(r-1)*S;i&lt;=Rr;i++)&#123;W(pos[i]-now&gt;=0&amp;&amp;v[a[i]][pos[i]-now]&gt;=Ll) zz=a[i],now++;if(pos[i]-(now-1)&gt;=0&amp;&amp;v[a[i]][pos[i]-(now-1)]&gt;=Ll&amp;&amp;zz&gt;a[i]) zz=a[i];&#125;</span><br><span class="line">    return b[zz];</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,l,r,p=0;for(read(n,m),i=0;i&lt;n;i++) read(a[i]),b[i]=a[i];</span><br><span class="line">    for(Build();m--;) read(l,r),l=l+p-1,l&gt;=n&amp;&amp;(l%=n,0),r=r+p-1,r&gt;=n&amp;&amp;(r%=n,0),l&gt;r&amp;&amp;(swap(l,r),0),writeln(p=Query(l,r));</span><br><span class="line">    return clear(),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&text=LuoguP4168 [Violet]蒲公英"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&is_video=false&description=LuoguP4168 [Violet]蒲公英"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=LuoguP4168 [Violet]蒲公英&body=Check out this article: http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&title=LuoguP4168 [Violet]蒲公英"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&name=LuoguP4168 [Violet]蒲公英&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/04/04/luogup4168-violet%E8%92%B2%E5%85%AC%E8%8B%B1/&t=LuoguP4168 [Violet]蒲公英"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

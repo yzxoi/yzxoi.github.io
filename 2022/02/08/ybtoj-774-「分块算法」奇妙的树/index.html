@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：YbtOJ #774  小 A 有一棵 $n$ 个点的有根树，以 $1$ 号点为根。$i$ 号点的点权为 $a_i$。 假设 $i$ 号点的父节点为 $f_i$（方便起见认为 $f_1&#x3D;0$），小 A 发现这棵树非常奇妙，它满足一个特殊的性质：对于任意整数 $i\in[2,n]$，满足 $f_{i-1}\le f_i &lt; i$。 小 A 将会进行 $q$ 次询问，第 $">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YbtOJ 774「分块算法」奇妙的树">
+<meta property="og:url" content="http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题目链接：YbtOJ #774  小 A 有一棵 $n$ 个点的有根树，以 $1$ 号点为根。$i$ 号点的点权为 $a_i$。 假设 $i$ 号点的父节点为 $f_i$（方便起见认为 $f_1&#x3D;0$），小 A 发现这棵树非常奇妙，它满足一个特殊的性质：对于任意整数 $i\in[2,n]$，满足 $f_{i-1}\le f_i &lt; i$。 小 A 将会进行 $q$ 次询问，第 $">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-08T07:13:30.000Z">
+<meta property="article:modified_time" content="2022-06-23T13:13:28.060Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="分块">
+<meta property="article:tag" content="树链剖分">
+<meta property="article:tag" content="卡常">
+<meta property="article:tag" content="倍增">
+<meta property="article:tag" content="重链剖分">
+<meta property="article:tag" content="长链剖分">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>YbtOJ 774「分块算法」奇妙的树</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/02/08/ybtoj-582-%E3%80%8C%E7%BD%91%E7%BB%9C%E6%B5%81%E3%80%8D%E5%A4%A7%E6%94%B6%E8%97%8F%E5%AE%B6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/02/08/ybtoj-884-%E3%80%8C%E7%BA%BF%E6%80%A7%E5%9F%BA%E3%80%8D%E8%BF%9E%E9%80%9A%E7%9A%84%E5%9B%BE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&text=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&is_video=false&description=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 774「分块算法」奇妙的树&body=Check out this article: http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&name=YbtOJ 774「分块算法」奇妙的树&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&t=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        YbtOJ 774「分块算法」奇妙的树
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-02-08T07:13:30.000Z" itemprop="datePublished">2022-02-08</time>
+        
+        (Updated: <time datetime="2022-06-23T13:13:28.060Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%80%8D%E5%A2%9E/" rel="tag">倍增</a>, <a class="tag-link-link" href="/tags/%E5%88%86%E5%9D%97/" rel="tag">分块</a>, <a class="tag-link-link" href="/tags/%E5%8D%A1%E5%B8%B8/" rel="tag">卡常</a>, <a class="tag-link-link" href="/tags/%E6%A0%91%E9%93%BE%E5%89%96%E5%88%86/" rel="tag">树链剖分</a>, <a class="tag-link-link" href="/tags/%E9%87%8D%E9%93%BE%E5%89%96%E5%88%86/" rel="tag">重链剖分</a>, <a class="tag-link-link" href="/tags/%E9%95%BF%E9%93%BE%E5%89%96%E5%88%86/" rel="tag">长链剖分</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.ybtoj.com.cn/problem/774">YbtOJ #774</a></p>
+</blockquote>
+<p>小 A 有一棵 $n$ 个点的有根树，以 $1$ 号点为根。$i$ 号点的点权为 $a_i$。</p>
+<p>假设 $i$ 号点的父节点为 $f_i$（方便起见认为 $f_1&#x3D;0$），小 A 发现这棵树非常奇妙，它满足一个特殊的性质：对于任意整数 $i\in[2,n]$，满足 $f_{i-1}\le f_i &lt; i$。</p>
+<p>小 A 将会进行 $q$ 次询问，第 $i$ 次询问给出一个区间 $[l_i,r_i]$，求：</p>
+<p>$$<br>(\sum_{x&#x3D;l_i}^{r_i}\sum_{y&#x3D;l_i}^{r_i}[l_i\le \operatorname{LCA}(x,y)\le r_i]\cdot a_x\cdot a_y)\mod998244353<br>$$</p>
+<p><strong>强制在线</strong>。</p>
+<p>$1\le n,q\le2.5\times10^5$，$0\le a_i &lt; 998244353$，$1\le l_i\le r_i\le n$。保证对于任意整数 $i\in[2,n]$，满足 $f_{i-1}\le f_i &lt; i$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>容易通过归纳证明如下几个性质：</p>
+<ul>
+<li>性质一：$x$ 的祖先标号必然小于 $x$。</li>
+<li>性质二：$dep_i$ 随着 $i$ 的增大不降。</li>
+<li>性质三：设 $g_i$ 为 满足 $f_j &lt; i$ 的最大 $j$，则 $i$ 和 $g_i$ 的深度至多相差 $1$。</li>
+<li>性质四：标号在 $[l,r]$ 范围内的点构成以 $[l,\min{r,g_l}]$ 中的点为根的若干无交连通子树。</li>
+</ul>
+<p>则，对于一个询问 $[l,r]$，如果我们只保留 $[l,r]$ 范围内的点，根据性质四，它将构成以 $[l,\min{r,g_l}]$ 中的点为根的若干无交连通子树。</p>
+<p>显然，当且仅当选择的点对 $(x,y)$ 位于同一棵子树中，$\operatorname{LCA}(x,y)$ 会在 $[l,r]$ 范围内。</p>
+<p>而要在一棵子树 $T$ 中选择两个点，它们的乘积和为：<br>$$<br>\sum_{x\in T}\sum_{y\in T}a_xa_y&#x3D;(\sum_{x\in T}a_x)(\sum_{y\in T}a_y)&#x3D;(\sum_{x\in T}a_x)^2<br>$$</p>
+<p>即 $T$ 中所有点权和的平方。</p>
+<p>综上，我们要求出的就是仅保留 $[l,r]$ 中的点时， 这些子树点权和的平方和。</p>
+<p>据性质一，$[1,l)$ 中的点不可能出现在 $[l,r]$ 中的点的子树里，因此我们实际上可以不用只保留 $[l,r]$ 中的点，而是保留 $[1,r]$ 中的所有点。</p>
+<p>于是假设可以离线，把询问按照右端点排序，然后就能把节点一个个加入来扩展右端点了。加入的过程需要更新所有祖先的子树点权和的平方，询问时就是对 $[l,\min{r,g_i}]$ 区间求和。</p>
+<p>但这样时间复杂度未免过于浪费，考虑把这个过程分块一下，即每加入 $S$ 个点就重构一次（遍历整棵树统计所有点的子树点权和，并对其平方做前缀和方便区间查询），不满 $S$ 个点根据具体询问，直接求出这个点在谁的子树中更新对应子树点权和并更新答案即可。</p>
+<p>至于如何判断一个点 $x$ 在谁的子树中，根据性质三，$[l,\min{r,g_i}]$ 最多只有两种不同的深度，我们求出 $x$ 深度为 $dep_l+1$ 的祖先 $t$（可以使用 $O(n\log n)$ 预处理+$O(1)$ 查询的长链剖分求 $k$ 级祖先算法），如果 $t\le g_i$ 说明 $x$ 在 $t$ 的子树中，否则说明 $x$ 在 $f_t$ 的子树中。</p>
+<p>然后发现我们实际上没有必要离线，可以事先预处理出这些信息存下来在线做。</p>
+<p>即对于所有 $i&#x3D;1\sim\lceil\frac nS\rceil$，记录下仅保留标号在 $1\sim (i-1)\times S$ 范围内的点时，所有点的子树点权和 $w_{i,x}$，及其平方的前缀和 $s_{i,x}$。</p>
+<p>假设询问的是 $[l,r]$，按照先前的方式，我们在加入 $1\sim (\lceil\frac rS\rceil-1)\times S$ 中的所有点的基础上，枚举 $(\lceil\frac rS\rceil-1)\times S+1\sim r$ 中的点，求出它在谁的子树中更新对应子树点权和并更新答案。</p>
+<p>PS: 卡常。本人长链被卡，重链剖分与倍增择选复杂度优的跑然后调了调块长才过。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#pragma GCC optimize(&quot;Ofast&quot;)</span><br><span class="line">#pragma GCC target(&quot;sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma&quot;)</span><br><span class="line">#pragma GCC optimize(&quot;unroll-loops&quot;)</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">using namespace std;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    #define FS 100000</span><br><span class="line">    #define tc() (FA==FB&amp;&amp;(FB=(FA=FI)+fread(FI,1,FS,stdin),FA==FB)?EOF:*FA++)</span><br><span class="line">    #define pc(c) (FC==FE&amp;&amp;(clear(),0),*FC++=c)</span><br><span class="line">    int OT;char oc,FI[FS],FO[FS],OS[FS],*FA=FI,*FB=FI,*FC=FO,*FE=FO+FS;</span><br><span class="line">    I void clear() &#123;fwrite(FO,1,FC-FO,stdout),FC=FO;&#125;</span><br><span class="line">    Tp I void read(Ty&amp; x) &#123;x=0;W(!isdigit(oc=tc()));W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(oc&amp;15),isdigit(oc=tc()));&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y) &#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void writeln(Ty x) &#123;W(OS[++OT]=x%10+48,x/=10);W(OT) pc(OS[OT--]);pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=250002,M=510+2,p=998244353;</span><br><span class="line">int n,q,sz,a[N],f[N],S[M][N],SS[M][N],fa[N],dep[N],g[N],bl[N],mx[N],dfn[N],bk[N],cnt,top[N],st[N][20],wei[N],lg[N];</span><br><span class="line">int fir[N],nxt[N],son[N],tot;</span><br><span class="line">I void Add(CI x,CI y)&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y;&#125;</span><br><span class="line">I void addup(int&amp; x,CI y)&#123;(x+=y)&gt;=p&amp;&amp;(x-=p);&#125;</span><br><span class="line">I int add(CI x,CI y)&#123;return (x+y)-(x+y&gt;=p?p:0);&#125;</span><br><span class="line">I void DFS1(CI x)&#123;bl[x]=1;for(RI i=fir[x];i;i=nxt[i]) dep[son[i]]=dep[x]+1,DFS1(son[i]),bl[x]+=bl[son[i]],bl[mx[x]]&lt;bl[son[i]]&amp;&amp;(mx[x]=son[i]);&#125;</span><br><span class="line">I void DFS2(CI x)&#123;if(bk[dfn[x]=++cnt]=x,mx[x]) top[mx[x]]=top[x],wei[mx[x]]=wei[x],DFS2(mx[x]);for(RI i=fir[x];i;i=nxt[i]) son[i]^mx[x]&amp;&amp;(top[son[i]]=son[i],wei[son[i]]=wei[x]+1,DFS2(son[i]),0);&#125;</span><br><span class="line">I int Jump1(RI x,RI k)&#123;W(k&gt;=dfn[x]-dfn[top[x]]+1&amp;&amp;x!=1) k-=(dfn[x]-dfn[top[x]]+1),x=f[top[x]];return bk[dfn[x]-k];&#125;</span><br><span class="line">I int Jump2(RI x,CI k)&#123;for(RI i=lg[k];~i;i--) k&gt;&gt;i&amp;1&amp;&amp;(x=st[x][i]);return x;&#125;</span><br><span class="line">I int Jump(CI x,CI k)&#123;return wei[x]&lt;lg[k]?Jump1(x,k):Jump2(x,k);&#125;</span><br><span class="line">I int Q(CI l,CI r)&#123;</span><br><span class="line">    RI i,t,X=add(SS[bl[r]][g[l]],p-SS[bl[r]][l-1]);</span><br><span class="line">    for(i=max(l,(bl[r]-1)*sz+1);i&lt;=r;i++) t=Jump(i,max(0,dep[i]-dep[l]-1)),t&gt;g[l]&amp;&amp;(t=f[t]),fa[i]=t,addup(X,p-1LL*S[bl[r]][t]*S[bl[r]][t]%p),addup(S[bl[r]][t],a[i]),addup(X,1LL*S[bl[r]][t]*S[bl[r]][t]%p);</span><br><span class="line">    for(i=max(l,(bl[r]-1)*sz+1);i&lt;=r;i++) addup(S[bl[r]][fa[i]],p-a[i]);return X;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    freopen(&quot;slight.in&quot;,&quot;r&quot;,stdin),freopen(&quot;slight.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    RI i,j,lst=0,l,r;for(read(n,q),lg[0]=-1,i=1;i&lt;=n;i++) read(a[i]),lg[i]=lg[i/2]+1;</span><br><span class="line">    for(dep[1]=j=1,i=2;i&lt;=n;i++)&#123;read(f[i]),Add(f[i],i),dep[i]=dep[st[i][0]=f[i]]+1;W(j&lt;=f[i]) g[j++]=i-1;&#125;W(j&lt;=n) g[j++]=n;</span><br><span class="line">    for(j=1;j&lt;=lg[n];j++) for(i=1;i&lt;=n;i++) st[i][j]=st[st[i][j-1]][j-1];</span><br><span class="line">    for(DFS1(1),DFS2(wei[1]=1),sz=n/M+2,i=1;i&lt;=n;i++) bl[i]=(i-1)/sz+1;for(i=1;i&lt;=bl[n];i++)&#123;</span><br><span class="line">        for(j=1;j&lt;=(i-1)*sz;j++) S[i][j]=a[j];for(j=n;j;j--) addup(S[i][f[j]],S[i][j]);for(j=1;j&lt;=n;j++) SS[i][j]=add(SS[i][j-1],1LL*S[i][j]*S[i][j]%p);</span><br><span class="line">    &#125;W(q--) read(l,r),writeln(lst=Q(l^lst,r^lst));return clear(),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&text=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&is_video=false&description=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 774「分块算法」奇妙的树&body=Check out this article: http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&title=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&name=YbtOJ 774「分块算法」奇妙的树&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/08/ybtoj-774-%E3%80%8C%E5%88%86%E5%9D%97%E7%AE%97%E6%B3%95%E3%80%8D%E5%A5%87%E5%A6%99%E7%9A%84%E6%A0%91/&t=YbtOJ 774「分块算法」奇妙的树"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

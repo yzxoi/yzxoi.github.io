@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="A. 「NOIP模拟赛 叁」木板题意将一个边长为$ N $的正方形裁剪成四个直角三角形。注意面积不能为$ 0$。  三个必要的切割中的两个始终从一个角落$G$进行（图中$G$位于$A$，实际上也可以是$B$、$C$、$D$），第三次切割必须垂直于前面两个之一（在图中，$AE$部分垂直于$EF$部分）。 切割机仅接受整个坐标值，这意味着$N$必须是整数的，并且点$E$和$F$的坐标必须是整数的。 有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="A. 「NOIP模拟赛 叁」木板题意将一个边长为$ N $的正方形裁剪成四个直角三角形。注意面积不能为$ 0$。  三个必要的切割中的两个始终从一个角落$G$进行（图中$G$位于$A$，实际上也可以是$B$、$C$、$D$），第三次切割必须垂直于前面两个之一（在图中，$AE$部分垂直于$EF$部分）。 切割机仅接受整个坐标值，这意味着$N$必须是整数的，并且点$E$和$F$的坐标必须是整数的。 有">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204164423.png">
+<meta property="og:image" content="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204165656.png">
+<meta property="og:image" content="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204172204.png">
+<meta property="article:published_time" content="2020-02-04T08:47:50.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:51:52.025Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="点分治">
+<meta property="article:tag" content="构造">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204164423.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/01/27/luogu-p3054-usaco12open%E8%B7%91%E5%9C%88running-laps-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&text=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&is_video=false&description=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解&body=Check out this article: http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&name=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&t=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E6%9C%A8%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">A. 「NOIP模拟赛 叁」木板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">1.3.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E5%8D%A1%E8%BD%A6"><span class="toc-number">2.</span> <span class="toc-text">B. 「NOIP模拟赛 叁」卡车</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-%E2%80%93%E7%82%B9%E5%88%86%E6%B2%BB"><span class="toc-number">2.3.</span> <span class="toc-text">Code –点分治</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E9%AA%86%E9%A9%BC"><span class="toc-number">3.</span> <span class="toc-text">C. 「NOIP模拟赛 叁」骆驼</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.2.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-04T08:47:50.000Z" itemprop="datePublished">2020-02-04</time>
+        
+        (Updated: <time datetime="2022-06-23T12:51:52.025Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a>, <a class="tag-link-link" href="/tags/%E6%9E%84%E9%80%A0/" rel="tag">构造</a>, <a class="tag-link-link" href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" rel="tag">点分治</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="A-「NOIP模拟赛-叁」木板"><a href="#A-「NOIP模拟赛-叁」木板" class="headerlink" title="A. 「NOIP模拟赛 叁」木板"></a>A. 「NOIP模拟赛 叁」木板</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>将一个边长为$ N $的正方形裁剪成四个直角三角形。注意面积不能为$ 0$。</p>
+<p><img src="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204164423.png"></p>
+<p>三个必要的切割中的两个始终从一个角落$G$进行（图中$G$位于$A$，实际上也可以是$B$、$C$、$D$），第三次切割必须垂直于前面两个之一（在图中，$AE$部分垂直于$EF$部分）。</p>
+<p>切割机仅接受整个坐标值，这意味着$N$必须是整数的，并且点$E$和$F$的坐标必须是整数的。 有时候这可能是不可能的。</p>
+<p>编写一个程序，根据给出的$ N$，确定是否可以将四边形的正方形三角形切割成四个矩形三角形，如果可能的话，可以采用多少种方法来完成。 对于$40%$的数据，$n\leq {10}^{7}$。 对于另$10%$的数据，$n$为质数。 对于$100%$的数据，$n\leq {10} ^ {14}$，不超过$5$组数据。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><img src="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204165656.png"></p>
+<p>易证$\triangle ABE \sim \triangle ECF$ 所以$\frac{X}{A}&#x3D;\frac{N}{N-X}$。 也就是$A&#x3D;\frac{X\times (N-X)}{N}$ 因为$A、X、N都是整数$ 所以$\frac{X\times (N-x)}{N}$是整数。 即：$\frac{X\times N - X^2}{N}$ 分式拆分下：$X-\frac{X^2}{N}$是整数。 就是$X^2 \mod N &#x3D;0$。 就是$X^2$可以整除$N$。 设$N&#x3D;\prod {p_i}^{q_i}$（把$N$分解质因数） 那么有$\prod {p_i}^{\lceil \frac{q_i}{2} \rceil }X$。 由于$X$取值范围是$\text{[}1,N\text{)}$。 那么答案就是$\frac{N}{\prod {p_i}^{\lceil \frac{q_i}{2} \rceil }} -1$. 化简下就是$\prod {p_i}^{\lfloor \frac{q_i}{2} \rfloor }-1$。 那么筛下素数再弄个快速幂就好了。</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define re  </span><br><span class="line">#define int long long </span><br><span class="line">#define LD double</span><br><span class="line">#define MAXN 10000000</span><br><span class="line">#define mod 998244353</span><br><span class="line"></span><br><span class="line">class Quick_Input_Output&#123;</span><br><span class="line">    private:</span><br><span class="line">        static const int S=1&lt;&lt;21;</span><br><span class="line">        #define tc() (A==B&amp;&amp;(B=(A=Rd)+fread(Rd,1,S,stdin),A==B)?EOF:*A++)</span><br><span class="line">        char Rd[S],*A,*B;</span><br><span class="line">        #define pc putchar</span><br><span class="line">    public:</span><br><span class="line">        #undef gc</span><br><span class="line">        #define gc getchar </span><br><span class="line">        inline int read()&#123;</span><br><span class="line">            int res=0,f=1;char ch=gc();</span><br><span class="line">            while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=gc();&#125;</span><br><span class="line">            while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=gc();</span><br><span class="line">            return res*f;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void write(int x)&#123;</span><br><span class="line">            if(x&lt;0) pc(&#x27;-&#x27;),x=-x;</span><br><span class="line">            if(x&lt;10) pc(x+&#x27;0&#x27;);</span><br><span class="line">            else write(x/10),pc(x%10+&#x27;0&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        #undef gc</span><br><span class="line">        #undef pc</span><br><span class="line">&#125;I;</span><br><span class="line">#define File freopen(&quot;tmp.in&quot;,&quot;r&quot;,stdin);freopen(&quot;tmp.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line"></span><br><span class="line">int n;</span><br><span class="line">class Solve&#123;</span><br><span class="line">    private:</span><br><span class="line">        int prime[MAXN],tot,ans;</span><br><span class="line">        bool vis[MAXN+5];</span><br><span class="line">    public:</span><br><span class="line">        inline void get_prime()&#123;</span><br><span class="line">            for(int i=2;i&lt;=MAXN;i++)&#123;</span><br><span class="line">                if(vis[i]==0)&#123;</span><br><span class="line">                    prime[++tot]=i;</span><br><span class="line">                    for(int j=2*i;j&lt;=MAXN;j+=i) vis[j]=1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inline int fpow(int a,int b)&#123;</span><br><span class="line">            re int s=1;</span><br><span class="line">            while(b)&#123;</span><br><span class="line">                if(b&amp;1) s*=a;</span><br><span class="line">                a*=a;</span><br><span class="line">                b&gt;&gt;=1;</span><br><span class="line">            &#125;</span><br><span class="line">            return s;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void solve()&#123;</span><br><span class="line">            ans=1;</span><br><span class="line">            for(int s,i=1;prime[i]&lt;=n&amp;&amp;i&lt;=tot;i++)&#123;</span><br><span class="line">                s=0;</span><br><span class="line">                while(n%prime[i]==0) s++,n/=prime[i];</span><br><span class="line">                ans*=fpow(prime[i],s/2);</span><br><span class="line">            &#125;</span><br><span class="line">            I.write((ans-1ll)*8ll);putchar(&#x27;\n&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;S;</span><br><span class="line">signed main()&#123;</span><br><span class="line">    S.get_prime();</span><br><span class="line">    while(n=I.read()) S.solve();</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="B-「NOIP模拟赛-叁」卡车"><a href="#B-「NOIP模拟赛-叁」卡车" class="headerlink" title="B. 「NOIP模拟赛 叁」卡车"></a>B. 「NOIP模拟赛 叁」卡车</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>卡车在$ n $个城市之间运送货物，城市由$ n−1$条道路连成网络，使得任意两座城市之间存在唯一的道路。 城市网络中每个城市有一个权值$ d_i$，道路也都有一个权值$w_i$。 对于一条路径，令路径上所有城市权值$ d_i$的最小值为$ {min}_d$，路径上所有道路权值$w_i$的总和为$ {sum}_w$，则该条路径的总权值为$ {min}_d\times {sum}_w$。 路径的起点和终点可以是任意城市，且路径中不能出现重复的城市。 请求网络中所有路径总权值中的最大值。 $n\leq 2\times {10}^5 , 1 \leq d_i ,w_i \leq {10}^9$</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>本题有多种解法。首先是点分治的思想，在点分治的时候，我们每一次选取一个中心，先统计过中心的路径最大值，然后删掉中心，递归处理其它子树。统计过中心的路径最大值，我们以中心为根深度搜索一遍，一个需要注意的地方是路径的两个端点不能在同一子树内，因为这样可能会重复统计。所以我们把路径按子树分类，然后点权排序以后更新路径按子树分类的最大值和次大值，之和与当前点权的乘积就是答案。</p>
+<p>本题还可以用并查集来解决。将所有点按照权值从大到小排序，对于将当前点和与其相连的所有点依次合并到一个集合中。并查集需要维护当前集合中的最长路径长度和对应的两个端点。在合并两个集合后，最终集合的最长路一定只有两类情况：一类是其中一个集合的最长路，一共有 2 种；一类是由两个集合的最长路的端点互相连接而成，一共有 2×2&#x3D;4 种。需要用到最近公共祖先的算法预处理求两点在树上的距离，离线处理即可。每次合并并查集之后用当前点的权值乘以最长路的总长度来更新最优结果即可。即使这个点不在当前合并后的集合的最长路上也是没有问题的，因为如果这样的话，必然已经在之前得到了对应的结果，这次合并不会对最终结果产生影响。</p>
+<h3 id="Code-–点分治"><a href="#Code-–点分治" class="headerlink" title="Code –点分治"></a>Code –点分治</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define re  </span><br><span class="line">#define int long long </span><br><span class="line">#define LD double</span><br><span class="line">#define MAXN 200010</span><br><span class="line">#define mod 998244353</span><br><span class="line"></span><br><span class="line">class Quick_Input_Output&#123;</span><br><span class="line">    private:</span><br><span class="line">        static const int S=1&lt;&lt;21;</span><br><span class="line">        #define tc() (A==B&amp;&amp;(B=(A=Rd)+fread(Rd,1,S,stdin),A==B)?EOF:*A++)</span><br><span class="line">        char Rd[S],*A,*B;</span><br><span class="line">        #define pc putchar</span><br><span class="line">    public:</span><br><span class="line">        #undef gc</span><br><span class="line">        #define gc getchar </span><br><span class="line">        inline int read()&#123;</span><br><span class="line">            int res=0,f=1;char ch=gc();</span><br><span class="line">            while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=gc();&#125;</span><br><span class="line">            while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=gc();</span><br><span class="line">            return res*f;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void write(int x)&#123;</span><br><span class="line">            if(x&lt;0) pc(&#x27;-&#x27;),x=-x;</span><br><span class="line">            if(x&lt;10) pc(x+&#x27;0&#x27;);</span><br><span class="line">            else write(x/10),pc(x%10+&#x27;0&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        #undef gc</span><br><span class="line">        #undef pc</span><br><span class="line">&#125;I;</span><br><span class="line">#define File freopen(&quot;tmp.in&quot;,&quot;r&quot;,stdin);freopen(&quot;tmp.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line"></span><br><span class="line">int n,d[MAXN],vis[MAXN],sz[MAXN],ans,t,cnt;</span><br><span class="line">struct node&#123;int d,w;bool operator &lt;(const node b)const&#123;return d&lt;b.d;&#125;&#125;;</span><br><span class="line">inline node make_node(int x,int y)&#123;node pp;pp=(node)&#123;x,y&#125;;return pp;&#125;</span><br><span class="line">struct Tree&#123;int d,w,t;&#125;tr[MAXN];</span><br><span class="line">inline Tree make_tr(int x,int y,int z)&#123;Tree pp;pp=(Tree)&#123;x,y,z&#125;;return pp;&#125;</span><br><span class="line">inline int cmp(Tree x,Tree y)&#123;return x.d&lt;y.d;&#125;</span><br><span class="line">class Edge&#123;</span><br><span class="line">    public:</span><br><span class="line">        int fir[MAXN*2],nxt[MAXN*2],son[MAXN*2],w[MAXN*2],tot;</span><br><span class="line">        inline void add(int x,int y,int z)&#123;</span><br><span class="line">            ++tot;</span><br><span class="line">            nxt[tot]=fir[x];</span><br><span class="line">            fir[x]=tot;</span><br><span class="line">            son[tot]=y;</span><br><span class="line">            w[tot]=z;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;E;</span><br><span class="line">class Solve&#123;</span><br><span class="line">    public:</span><br><span class="line">        inline void init()&#123;</span><br><span class="line">            n=I.read();</span><br><span class="line">            for(int i=1;i&lt;=n;i++) d[i]=I.read();</span><br><span class="line">            for(int x,y,z,i=1;i&lt;n;i++)&#123;</span><br><span class="line">                x=I.read();y=I.read();z=I.read();</span><br><span class="line">                E.add(x,y,z);</span><br><span class="line">                E.add(y,x,z);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inline node find(int x,int fa,int siz)&#123;//找当前树的重心</span><br><span class="line">            node res=make_node(2e18,-1);</span><br><span class="line">            re int Max=0;sz[x]=1;</span><br><span class="line">            for(int to,i=E.fir[x];i;i=E.nxt[i])&#123;</span><br><span class="line">                to=E.son[i];</span><br><span class="line">                if(vis[to]==1to==fa) continue ;</span><br><span class="line">                res=min(res,find(to,x,siz));</span><br><span class="line">                sz[x]+=sz[to];</span><br><span class="line">                Max=max(Max,sz[to]);</span><br><span class="line">            &#125;</span><br><span class="line">            Max=max(Max,siz-sz[x]);</span><br><span class="line">            res=min(res,make_node(Max,x));</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void Get_Min_And_Sum(int x,int fa,int _d,int w)&#123;//更新点权最小值与边权之和</span><br><span class="line">            tr[++t]=make_tr(_d,w,cnt);</span><br><span class="line">            for(int to,_w,i=E.fir[x];i;i=E.nxt[i])&#123;</span><br><span class="line">                to=E.son[i];_w=E.w[i];</span><br><span class="line">                if(to==favis[to]==1) continue ;</span><br><span class="line">                Get_Min_And_Sum(to,x,min(_d,d[to]),w+_w);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        inline int get_nowans()&#123;//当前答案</span><br><span class="line">            sort(tr+1,tr+t+1,cmp);</span><br><span class="line">//          for(int i=1;i&lt;=t;i++)&#123;</span><br><span class="line">//              cout&lt;&lt;tr[i].d&lt;&lt;&quot; &quot;&lt;&lt;tr[i].w&lt;&lt;&quot; &quot;&lt;&lt;tr[i].t&lt;&lt;endl;</span><br><span class="line">//          &#125;</span><br><span class="line">            int res=0,sum1=tr[t].w,sum2=0,T=tr[t].t;</span><br><span class="line">            for(int i=t-1;i&gt;=1;i--)&#123;</span><br><span class="line">                if(tr[i].t!=T) res=max(res,tr[i].d*(tr[i].w+sum1));</span><br><span class="line">                else res=max(res,tr[i].d*(tr[i].w+sum2));</span><br><span class="line">                if(tr[i].w&gt;sum1)&#123;</span><br><span class="line">                    if(tr[i].t==T) sum1=tr[i].w;</span><br><span class="line">                    else sum2=sum1,sum1=tr[i].w,T=tr[i].t;</span><br><span class="line">                &#125;else if(tr[i].w&gt;sum2&amp;&amp;tr[i].t!=T) sum2=tr[i].w;</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        inline int get(int rt,int tot)&#123;//递归点分治</span><br><span class="line">            int x=find(rt,0,tot).w,res=0;</span><br><span class="line">            t=0;</span><br><span class="line">//          cout&lt;&lt;&quot;Get &quot;&lt;&lt;rt&lt;&lt;&quot; &quot;&lt;&lt;tot&lt;&lt;&quot; &quot;&lt;&lt;x&lt;&lt;endl;</span><br><span class="line">            vis[x]=1;</span><br><span class="line">            tr[++t]=make_tr(d[x],0,cnt);</span><br><span class="line">            for(int to,w,i=E.fir[x];i;i=E.nxt[i])&#123;</span><br><span class="line">                to=E.son[i];w=E.w[i];</span><br><span class="line">                if(vis[to]==1) continue ;</span><br><span class="line">                ++cnt;</span><br><span class="line">                Get_Min_And_Sum(to,x,min(d[to],d[x]),w);</span><br><span class="line">            &#125;</span><br><span class="line">            res=max(res,get_nowans());</span><br><span class="line">            for(int to,i=E.fir[x];i;i=E.nxt[i])&#123;</span><br><span class="line">                to=E.son[i];</span><br><span class="line">                if(vis[to]==1) continue ;</span><br><span class="line">                res=max(res,get(to,sz[to]));</span><br><span class="line">            &#125;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void solve()&#123;</span><br><span class="line">            ans=get(1,n);</span><br><span class="line">            I.write(ans);putchar(&#x27;\n&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;S;</span><br><span class="line">signed main()&#123;S.init();S.solve();&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="C-「NOIP模拟赛-叁」骆驼"><a href="#C-「NOIP模拟赛-叁」骆驼" class="headerlink" title="C. 「NOIP模拟赛 叁」骆驼"></a>C. 「NOIP模拟赛 叁」骆驼</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>我们都熟悉走马步，现在我们定义一种新的移动方式——骆驼步，它在一个国际棋盘上的移动规则是这样的。</p>
+<p><img src="https://imgupd.oss-cn-beijing.aliyuncs.com/20200204172204.png"></p>
+<p>可以看出，骆驼步可以向八个方向走动，且不能走出棋盘范围。</p>
+<p>现在给出一个$ N\times N $的棋盘，其中$ N $是$5$的倍数。</p>
+<p>你需要从左上角出发，每步按照骆驼步的规则，经过每个格子恰好一次，且当你走了$ N^2−1$步后，你离起点恰好只有一步的距离。</p>
+<p>请给出一种合法的方案。 $N\leq 1000$。</p>
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>因为$N$是$5$的倍数。 自然而然地就会想到拿$5\times 5$的矩阵来构造$N\times N$的。 然后乱拼下就好了。</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E6%9C%A8%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">A. 「NOIP模拟赛 叁」木板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">1.3.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E5%8D%A1%E8%BD%A6"><span class="toc-number">2.</span> <span class="toc-text">B. 「NOIP模拟赛 叁」卡车</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-%E2%80%93%E7%82%B9%E5%88%86%E6%B2%BB"><span class="toc-number">2.3.</span> <span class="toc-text">Code –点分治</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E5%8F%81%E3%80%8D%E9%AA%86%E9%A9%BC"><span class="toc-number">3.</span> <span class="toc-text">C. 「NOIP模拟赛 叁」骆驼</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.2.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&text=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&is_video=false&description=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解&body=Check out this article: http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&title=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&name=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/&t=HHHOJ NOIP2020模拟赛（叁）2020.02.03 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

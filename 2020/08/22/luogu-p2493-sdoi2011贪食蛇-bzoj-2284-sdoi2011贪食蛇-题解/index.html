@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description 题目链接Luogu 题目链接bzoj  相信大家都玩过贪食蛇游戏，现在有一个改版贪食蛇游戏，跟传统的贪食蛇游戏一样，贪食蛇在活动区域内运动，吃食物，但是这个改版的贪食蛇游戏有着一些特别的规则。 活动区域：贪食蛇的活动区域是一个R行C列的网格A，贪食蛇活动不能超过这个网格的范围。第i行第j列的方格用Ai,j表示。每个方格有一个整数权值，记作w(Aij)。0&lt;&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description 题目链接Luogu 题目链接bzoj  相信大家都玩过贪食蛇游戏，现在有一个改版贪食蛇游戏，跟传统的贪食蛇游戏一样，贪食蛇在活动区域内运动，吃食物，但是这个改版的贪食蛇游戏有着一些特别的规则。 活动区域：贪食蛇的活动区域是一个R行C列的网格A，贪食蛇活动不能超过这个网格的范围。第i行第j列的方格用Ai,j表示。每个方格有一个整数权值，记作w(Aij)。0&lt;&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162123959.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162137710.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162147781.png">
+<meta property="og:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162157866.png">
+<meta property="article:published_time" content="2020-08-22T03:38:17.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.369Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="bfs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162123959.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/09/17/luogu-p4772-%E7%81%B0%E5%8C%96%E8%82%A5%EF%BC%8C%E4%BC%9A%E6%8C%A5%E5%8F%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/08/21/luogu-p2446-sdoi2010%E5%A4%A7%E9%99%86%E4%BA%89%E9%9C%B8-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&text=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解&body=Check out this article: http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&name=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&t=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E5%8C%BA%E5%9F%9F%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">活动区域：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%90%91%EF%BC%9A"><span class="toc-number">1.0.2.</span> <span class="toc-text">方向：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%EF%BC%9A"><span class="toc-number">1.0.3.</span> <span class="toc-text">贪食蛇：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%9F%E7%89%A9%EF%BC%9A"><span class="toc-number">1.0.4.</span> <span class="toc-text">食物：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%E7%9A%84%E8%BF%90%E5%8A%A8%EF%BC%9A"><span class="toc-number">1.0.5.</span> <span class="toc-text">贪食蛇的运动：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%E7%9A%84%E8%BF%9B%E9%A3%9F%EF%BC%9A"><span class="toc-number">1.0.6.</span> <span class="toc-text">贪食蛇的进食：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E5%8A%A8%E6%88%96%E8%BF%9B%E9%A3%9F%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E6%97%B6%E9%97%B4%EF%BC%9A"><span class="toc-number">1.0.7.</span> <span class="toc-text">运动或进食所需要的时间：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-22T03:38:17.000Z" itemprop="datePublished">2020-08-22</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.369Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/bfs/" rel="tag">bfs</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2493">题目链接Luogu</a> <a target="_blank" rel="noopener" href="https://darkbzoj.tk/problem/2284">题目链接bzoj</a></p>
+</blockquote>
+<p>相信大家都玩过贪食蛇游戏，现在有一个改版贪食蛇游戏，跟传统的贪食蛇游戏一样，贪食蛇在活动区域内运动，吃食物，但是这个改版的贪食蛇游戏有着一些特别的规则。</p>
+<h4 id="活动区域："><a href="#活动区域：" class="headerlink" title="活动区域："></a>活动区域：</h4><p>贪食蛇的活动区域是一个R行C列的网格A，贪食蛇活动不能超过这个网格的范围。第i行第j列的方格用Ai,j表示。每个方格有一个整数权值，记作w(Aij)。0&lt;&#x3D;w(Aij)&lt;&#x3D;8，w(Aij)&#x3D;0时，Aij禁止进入；w(Aij)&gt;0时，Aij允许进入。</p>
+<h4 id="方向："><a href="#方向：" class="headerlink" title="方向："></a>方向：</h4><p>对于P&#x3D;(X0,Y0)、Q&#x3D;(X1,Y1)，有以下四种基本方向：</p>
+<ul>
+<li><p>正左(L)：X0&#x3D;X1且Y0&#x3D;Y1-1，则称P位于Q的正左方向。</p>
+</li>
+<li><p>正右(R)：X0&#x3D;X1且Y0&#x3D;Y1+1，则称P位于Q的正右方向。</p>
+</li>
+<li><p>正上(U)：X0&#x3D;X1-1且Y0&#x3D;Y1，则称P位于Q的正上方向。</p>
+</li>
+<li><p>正下(D)：X0&#x3D;X1+1且Y0&#x3D;Y1，则称P位于Q的正下方向。</p>
+</li>
+</ul>
+<h4 id="贪食蛇："><a href="#贪食蛇：" class="headerlink" title="贪食蛇："></a>贪食蛇：</h4><p>贪食蛇B是占据若干方格的图形，占据的方格数为贪食蛇的长度，记为m，则贪食蛇从头到尾，用B1、B2、……、Bm表示。记p为贪食蛇的形态，若Bi位于第Xi行第Yi列，则p(Bi)&#x3D;(Xi,Yi)。初始情况下，m&#x3D;4，且运动过程中始终需要满足以下限制：</p>
+<ul>
+<li><p>对于Bi和Bi+1(1&lt;&#x3D;i&lt;m)，就是贪食蛇的前、后相邻两部分，必须满足Bi位于Bi+1的L、R、U、D四个方向之一。</p>
+</li>
+<li><p>对于Bi和Bj(1&lt;&#x3D;i&lt;j&lt;&#x3D;m)，p(Bi)&#x3D;(Xi,Yi)，p(Bj)&#x3D;(Xj,Yj)，需要满足Xi!&#x3D;Xj或Yi!&#x3D;Yj。也就是说，贪食蛇身体的任意一部分不能相交。</p>
+</li>
+</ul>
+<h4 id="食物："><a href="#食物：" class="headerlink" title="食物："></a>食物：</h4><p>贪食蛇的活动区域内存在一些食物。每个食物位于一个允许进入的方格上，食物不会重叠。每个食物只能被吃一次。</p>
+<h4 id="贪食蛇的运动："><a href="#贪食蛇的运动：" class="headerlink" title="贪食蛇的运动："></a>贪食蛇的运动：</h4><p>如果贪食蛇的头部B1的L、R、U、D四个方向之一的Aij能进入，且Aij上不存在食物，则贪食蛇可以向该方向运动，新的头部位于Aij上。记p’为贪食蛇新的形态，则：</p>
+<ul>
+<li><p>p’(Bk)&#x3D;p(Bk-1)，当2&lt;&#x3D;k&lt;&#x3D;m。</p>
+</li>
+<li><p>p’(Bk)&#x3D;(i,j)，当k&#x3D;1</p>
+</li>
+</ul>
+<h4 id="贪食蛇的进食："><a href="#贪食蛇的进食：" class="headerlink" title="贪食蛇的进食："></a>贪食蛇的进食：</h4><p>如果贪食蛇的头部B1的L、R、U、D四个方向之一的Aij能进入，且Aij上存在食物，则贪食蛇可以向该方向进食，新的头部位于Aij上，蛇的新长度m’&#x3D;m+1。记p’为贪食蛇新的位置，则：</p>
+<ul>
+<li><p>p’(Bk)&#x3D;p(Bk-1)，当2&lt;&#x3D;k&lt;&#x3D;m’。</p>
+</li>
+<li><p>p’(Bk)&#x3D;(i,j)，当k&#x3D;1</p>
+</li>
+</ul>
+<p>注意：运动或进食后的贪食蛇形态，仅仅需要考虑变换后的形态是否满足限制，不需要考虑变换的过程。也就是说，原来形态合法的贪食蛇的头部可以运动到尾部的位置，因为在变换后头部和尾部仍不会重叠。</p>
+<h4 id="运动或进食所需要的时间："><a href="#运动或进食所需要的时间：" class="headerlink" title="运动或进食所需要的时间："></a>运动或进食所需要的时间：</h4><p>贪食蛇运动或进食，需要消耗时间。设运动或进食前头部所在的方格是P，运动或进食后头部所在的方格是Q，则此次运动或进食的所消耗的时间为w(P)-w(Q)+1。</p>
+<p>游戏的会在开始前给出贪食蛇的初始位置和所有食物的位置。你的任务是，以最少的时间令贪食蛇吃完所有食物。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>一句话题意：初始时有一条长度为$4$的贪吃蛇，每走一步需要时间为两格权值之差的绝对值，问最少的时间令贪吃蛇吃完所有的食物。</p>
+<p>其中，食物数量$\leq 4$，矩阵长宽均$\leq 15$。</p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162123959.png"></p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162137710.png"></p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162147781.png"></p>
+<p><img src="https://gitee.com/yzx1798106406/yzximg/raw/master/img/20170328162157866.png"></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;int res=0,f=1;char ch=getchar();while(!isdigit(ch)) f=ch==&#x27;-&#x27;?-1:f,ch=getchar();while(isdigit(ch)) res=(res&lt;&lt;3)+(res&lt;&lt;1)+(ch&amp;15),ch=getchar();return res*f;&#125;</span><br><span class="line">inline void write(int x)&#123;if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;if(x&lt;10) putchar(x+&#x27;0&#x27;);else write(x/10),putchar(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">const int dx[]=&#123;0,0,-1,1&#125;,</span><br><span class="line">          dy[]=&#123;-1,1,0,0&#125;;</span><br><span class="line">const char W[]=&#123;&#x27;L&#x27;,&#x27;R&#x27;,&#x27;U&#x27;,&#x27;D&#x27;&#125;;</span><br><span class="line">int n,m,w[17][17],snk[5][2],fd,g[17][17],HH,TT,S[1&lt;&lt;11][4],T[1&lt;&lt;11][4],Q[255*1200*16*8],pre[255*1200*16*8],Ans,AnsT,AnsN;</span><br><span class="line">char c,AnsP[17*17];</span><br><span class="line">unsigned long long vis[1&lt;&lt;23];</span><br><span class="line">inline int abs(int x)&#123;return x&lt;0?-x:x;&#125;</span><br><span class="line">inline void init()&#123;</span><br><span class="line">n=read(),m=read();</span><br><span class="line">c=getchar();for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">while(!isdigit(c)) c=getchar();</span><br><span class="line">for(int j=1;j&lt;=m;j++) w[i][j]=c-&#x27;0&#x27;,c=getchar();</span><br><span class="line">&#125;</span><br><span class="line">for(int i=1;i&lt;=4;i++)</span><br><span class="line">for(int j=0;j&lt;=1;j++) snk[i][j]=read();</span><br><span class="line">fd=read();</span><br><span class="line">for(int x,y,i=1;i&lt;=fd;i++) x=read(),y=read(),g[x][y]=i;</span><br><span class="line">&#125;</span><br><span class="line">inline int get(int s,int len,int t)&#123;</span><br><span class="line">len+=4;t^=1;</span><br><span class="line">int x=dx[t],y=dy[t];</span><br><span class="line">for(int j=s,i=2;i&lt;len;i++,j&gt;&gt;=2)&#123;</span><br><span class="line">x+=dx[j&amp;3],y+=dy[j&amp;3];</span><br><span class="line">if(!x&amp;&amp;!y) return -1;</span><br><span class="line">&#125;</span><br><span class="line">return (s&lt;&lt;2&amp;((1&lt;&lt;((len-1)&lt;&lt;1))-1))t;</span><br><span class="line">&#125;</span><br><span class="line">inline int pos(int x,int y,int xx,int yy)&#123;</span><br><span class="line">for(int i=0;i&lt;4;i++)</span><br><span class="line">if(x+dx[i]==xx&amp;&amp;y+dy[i]==yy) return i;</span><br><span class="line">&#125;</span><br><span class="line">inline void load()&#123;</span><br><span class="line">memset(S,0xFF,sizeof(S));</span><br><span class="line">memset(T,0xFF,sizeof(T));</span><br><span class="line">memset(vis,0,sizeof(vis));</span><br><span class="line">HH=TT=0;</span><br><span class="line">int s=0;</span><br><span class="line">for(int i=4;i&gt;=2;i--)</span><br><span class="line">s=(s&lt;&lt;2)pos(snk[i-1][0],snk[i-1][1],snk[i][0],snk[i][1]);</span><br><span class="line">s&lt;&lt;=2;vis[s]=++TT;Q[TT]=s;</span><br><span class="line">while(HH&lt;TT)&#123;</span><br><span class="line">int u=Q[++HH];</span><br><span class="line">int del=u&gt;&gt;2,len=u&amp;3;</span><br><span class="line">for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">int nxt=get(del,len,i);</span><br><span class="line">if(nxt&lt;0) continue ;</span><br><span class="line">int s=(nxt&amp;((1&lt;&lt;12)-1))&lt;&lt;2len;</span><br><span class="line">if(!vis[s]) Q[++TT]=s,vis[s]=TT;</span><br><span class="line">S[HH][i]=vis[s];</span><br><span class="line">&#125;</span><br><span class="line">for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">int nxt=get(del,len+1,i);</span><br><span class="line">if(nxt&lt;0) continue ;</span><br><span class="line">if(len&lt;3)&#123;</span><br><span class="line">int s=(nxt&amp;((1&lt;&lt;12)-1))&lt;&lt;2(len+1);</span><br><span class="line">if(!vis[s]) Q[++TT]=s,vis[s]=TT;</span><br><span class="line">T[HH][i]=vis[s];</span><br><span class="line">&#125;else T[HH][i]=0;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">#define make_S(x,y,ss,tt,wt) ((x)&lt;&lt;22((y)&lt;&lt;18)(ss&lt;&lt;7)((tt)&lt;&lt;3)(wt))</span><br><span class="line">#define check(s,wt) (vis[(s)&gt;&gt;3]&amp;1&lt;&lt;(wt))</span><br><span class="line">inline void bfs()&#123;</span><br><span class="line">memset(vis,0,sizeof(vis));</span><br><span class="line">HH=TT=0;</span><br><span class="line">Q[++TT]=make_S(snk[1][0],snk[1][1],1,(1&lt;&lt;fd)-1,0);</span><br><span class="line">vis[Q[TT]&gt;&gt;3]=1;</span><br><span class="line">while(HH&lt;TT)&#123;</span><br><span class="line">int u=Q[++HH];</span><br><span class="line">int x=u&gt;&gt;22&amp;((1&lt;&lt;4)-1),y=u&gt;&gt;18&amp;((1&lt;&lt;4)-1),sq=u&gt;&gt;7&amp;((1&lt;&lt;11)-1),t=u&gt;&gt;3&amp;((1&lt;&lt;4)-1),wt=u&amp;((1&lt;&lt;3)-1);</span><br><span class="line">if(!t&amp;&amp;!wt)&#123;Ans=HH;break ;&#125;</span><br><span class="line">if(wt)&#123;</span><br><span class="line">int s=make_S(x,y,sq,t,wt-1);</span><br><span class="line">if(!check(s,wt-1)) Q[++TT]=s,vis[s&gt;&gt;3]=1&lt;&lt;(wt-1),pre[TT]=HH;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">for(int i=0;i&lt;4;i++)&#123;</span><br><span class="line">int xx=x+dx[i],yy=y+dy[i],ns=S[sq][i],nt=t,nwt=abs(w[xx][yy]-w[x][y]);</span><br><span class="line">if(!w[xx][yy]) continue ;</span><br><span class="line">if(g[xx][yy]&amp;&amp;t&amp;1&lt;&lt;(g[xx][yy]-1)) ns=T[sq][i],nt^=1&lt;&lt;(g[xx][yy]-1);</span><br><span class="line">else ns=S[sq][i];</span><br><span class="line">if(ns&lt;0) continue ;</span><br><span class="line">int s=make_S(xx,yy,ns,nt,nwt);</span><br><span class="line">if(!check(s,nwt))</span><br><span class="line">Q[++TT]=s,</span><br><span class="line">vis[s&gt;&gt;3]=1&lt;&lt;nwt,</span><br><span class="line">pre[TT]=HH;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">inline void solve()&#123;</span><br><span class="line">for(int p=Ans;p&gt;1;p=pre[p])&#123;</span><br><span class="line">++AnsT;</span><br><span class="line">int wt=Q[pre[p]]&amp;((1&lt;&lt;3)-1);</span><br><span class="line">if(wt) continue ;</span><br><span class="line">int x=Q[pre[p]]&gt;&gt;22&amp;((1&lt;&lt;4)-1),y=Q[pre[p]]&gt;&gt;18&amp;((1&lt;&lt;4)-1),xx=Q[p]&gt;&gt;22&amp;((1&lt;&lt;4)-1),yy=Q[p]&gt;&gt;18&amp;((1&lt;&lt;4)-1);</span><br><span class="line">AnsP[AnsN++]=W[pos(x,y,xx,yy)];</span><br><span class="line">&#125;</span><br><span class="line">for(int i=0;i&lt;(AnsN&gt;&gt;1);i++) swap(AnsP[i],AnsP[AnsN-i-1]);</span><br><span class="line">&#125;</span><br><span class="line">inline void print()&#123;</span><br><span class="line">if(!Ans)&#123;</span><br><span class="line">puts(&quot;No solution.&quot;);</span><br><span class="line">return ;</span><br><span class="line">&#125;</span><br><span class="line">write(AnsT);putchar(&#x27;\n&#x27;);</span><br><span class="line">for(int i=0;i&lt;AnsN;i++) putchar(AnsP[i]);putchar(&#x27;\n&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;return init(),load(),bfs(),solve(),print(),0;&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B4%BB%E5%8A%A8%E5%8C%BA%E5%9F%9F%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">活动区域：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%90%91%EF%BC%9A"><span class="toc-number">1.0.2.</span> <span class="toc-text">方向：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%EF%BC%9A"><span class="toc-number">1.0.3.</span> <span class="toc-text">贪食蛇：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A3%9F%E7%89%A9%EF%BC%9A"><span class="toc-number">1.0.4.</span> <span class="toc-text">食物：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%E7%9A%84%E8%BF%90%E5%8A%A8%EF%BC%9A"><span class="toc-number">1.0.5.</span> <span class="toc-text">贪食蛇的运动：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%AA%E9%A3%9F%E8%9B%87%E7%9A%84%E8%BF%9B%E9%A3%9F%EF%BC%9A"><span class="toc-number">1.0.6.</span> <span class="toc-text">贪食蛇的进食：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E5%8A%A8%E6%88%96%E8%BF%9B%E9%A3%9F%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E6%97%B6%E9%97%B4%EF%BC%9A"><span class="toc-number">1.0.7.</span> <span class="toc-text">运动或进食所需要的时间：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&text=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解&body=Check out this article: http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&title=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&name=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/08/22/luogu-p2493-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-bzoj-2284-sdoi2011%E8%B4%AA%E9%A3%9F%E8%9B%87-%E9%A2%98%E8%A7%A3/&t=Luogu P2493 [SDOI2011]贪食蛇 &amp; bzoj 2284. [Sdoi2011]贪食蛇 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

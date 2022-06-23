@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description 题目链接：P5222  给定一个 $N\times M$ 的网格，其中有 $T$ 个格子有障碍，现需要在第一列摆一定量棋子，每一次可以执行以下操作：  向上&#x2F;向下移动一枚棋子一个单位，且该位置没有障碍、没有其他棋子 将本列所有棋子移动到下一列，且下一列目标位置没有障碍  再给定 $Q$ 个询问，每个询问给出 $k_i$，询问最多能在第一列上放多少棋子，使得经过若干">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P5222 Game">
+<meta property="og:url" content="http://yzxoi.top/2021/05/20/p5222-game/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description 题目链接：P5222  给定一个 $N\times M$ 的网格，其中有 $T$ 个格子有障碍，现需要在第一列摆一定量棋子，每一次可以执行以下操作：  向上&#x2F;向下移动一枚棋子一个单位，且该位置没有障碍、没有其他棋子 将本列所有棋子移动到下一列，且下一列目标位置没有障碍  再给定 $Q$ 个询问，每个询问给出 $k_i$，询问最多能在第一列上放多少棋子，使得经过若干">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic4.58cdn.com.cn/nowater/webim/big/n_v20c3c3ed52360431096ed4eb5d46bec71.png">
+<meta property="og:image" content="https://pic7.58cdn.com.cn/nowater/webim/big/n_v2d72d65f0c4414970b99b16d2b08b6540.png">
+<meta property="article:published_time" content="2021-05-20T07:39:58.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:45:03.540Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="缩点">
+<meta property="article:tag" content="费用流">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.58cdn.com.cn/nowater/webim/big/n_v20c3c3ed52360431096ed4eb5d46bec71.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P5222 Game</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/05/18/p5481-bjoi2015-%E7%B3%96%E6%9E%9C/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/20/p5222-game/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/20/p5222-game/&text=P5222 Game"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/20/p5222-game/&is_video=false&description=P5222 Game"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P5222 Game&body=Check out this article: http://yzxoi.top/2021/05/20/p5222-game/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/20/p5222-game/&name=P5222 Game&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/20/p5222-game/&t=P5222 Game"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#80%E5%88%86%E5%81%9A%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">80分做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#100%E5%88%86%E5%81%9A%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">100分做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E8%A6%81%E8%B7%91%E5%BE%97%E6%9B%B4%E5%BF%AB%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">想要跑得更快？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P5222 Game
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-20T07:39:58.000Z" itemprop="datePublished">2021-05-20</time>
+        
+        (Updated: <time datetime="2022-06-23T12:45:03.540Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%BC%A9%E7%82%B9/" rel="tag">缩点</a>, <a class="tag-link-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5222">P5222</a></p>
+</blockquote>
+<p>给定一个 $N\times M$ 的网格，其中有 $T$ 个格子有障碍，现需要在第一列摆一定量棋子，每一次可以执行以下操作：</p>
+<ol>
+<li>向上&#x2F;向下移动一枚棋子一个单位，且该位置没有障碍、没有其他棋子</li>
+<li>将本列所有棋子移动到下一列，且下一列目标位置没有障碍</li>
+</ol>
+<p>再给定 $Q$ 个询问，每个询问给出 $k_i$，询问最多能在第一列上放多少棋子，使得经过若干操作后把所有棋子移动到最后一列，且所有棋子加起来总共最多执行 $k_i$ 次 $1$ 操作。</p>
+<p>$N\leq 50,M\leq 10^6,T\leq 10^3,Q\leq 10^5$</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>首先可以发现 $M$ 肯定是没有任何用的，可以把中间全是没有障碍的列直接缩掉，这样网格就变成了 $N\times T$ 大小。</p>
+<p>然后我们还可以对询问进行转化，可以先预处理出一开始摆放 $i(1\leq i \leq N)$ 个棋子在第一列时，最少执行操作 $1$ 的次数，从而在每次询问中做到 $\mathcal O(N)$ 求解答案，那么询问总时间复杂度就是 $\mathcal O(NQ)$ 的。</p>
+<p>接下来的问题就是如何预处理摆放 $i$ 个棋子为第一列时，最少执行操作 $1$ 次数。</p>
+<p>既有障碍物又不能和另外的棋子重叠，这时我们可以想到可以用费用流解决这道题。</p>
+<h3 id="80分做法"><a href="#80分做法" class="headerlink" title="80分做法"></a>80分做法</h3><p>可以把每个点向合法的上&#x2F;下面的相邻的点连一条容量为 $inf$，代价为 $1$ 的边，表示操作 $1$。</p>
+<p>每个点再向合法的右边一列连一条容量为 $1$，代价为 $0$ 的边，表示操作 $2$。</p>
+<p>但为什么操作 $1$ 要连 $inf$ 呢？</p>
+<p>可以参考这种情况：</p>
+<p><img src="https://pic4.58cdn.com.cn/nowater/webim/big/n_v20c3c3ed52360431096ed4eb5d46bec71.png"></p>
+<p>其中<code>.</code>表示空，方块表示障碍。</p>
+<p><img src="https://pic7.58cdn.com.cn/nowater/webim/big/n_v2d72d65f0c4414970b99b16d2b08b6540.png"></p>
+<p>显然中间有一条上下的边会走过两次，如果容量为 $1$ 就无法通过。</p>
+<p>最后再建立一个超级源点连接第一列所有点，超级汇点连接最后一列所有点，容量均为 $1$，代价均为 $0$，再把超级源点拆成两个点，每次多摆放一个棋子就把这两个点之间的容量 $+1$ 即可。</p>
+<p>此时点的总数为 $NT$，边的总数为 $N^2T$。</p>
+<p>期望总时间复杂度为 $\mathcal O(N^2TF)$，最坏时间复杂度为 $\mathcal O(N^3T^2F)$（$F$ 表示最大流流量）。</p>
+<h3 id="100分做法"><a href="#100分做法" class="headerlink" title="100分做法"></a>100分做法</h3><p>由于费用流期望复杂度为 $\mathcal O(MF)$，最坏复杂度为 $\mathcal O(NMF)$，然而这里所有的边的容量均为 $1$，所以可以在这种 $0&#x2F;1$ 网格图中跑 Spfa 时用双端队列 (deque) 优化 Spfa，每次插入时跟队头比较，如果更小就插入队头，否则插入队尾，然后我不知道这样时间复杂度为多少，反正出题人 CYJian 说是 $\mathcal O(N^3T)$，足以通过此题。</p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=2e3+10,M=55,R=N*M,E=N*M*M;</span><br><span class="line">int n,m,S,T,TT,Q,cnt,G[M][N],fir[R],nxt[E&lt;&lt;1],son[E&lt;&lt;1],w[E&lt;&lt;1],cost[E&lt;&lt;1],tot=1,Ans,Cost,F[R],C[R],P[R],vis[R],inf=2e9,ans[M];</span><br><span class="line">#define PA pair&lt;int,int&gt;</span><br><span class="line">#define MP make_pair</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">PA b[N];</span><br><span class="line">I bool cmp(Cn PA&amp; x,Cn PA&amp; y)&#123;return x.se&lt;y.se;&#125;</span><br><span class="line">I void Add(CI x,CI y,CI z,CI c)&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y,w[tot]=z,cost[tot]=c;nxt[++tot]=fir[y],fir[y]=tot,son[tot]=x,w[tot]=0,cost[tot]=-c;&#125;</span><br><span class="line">deque&lt;int&gt; q;</span><br><span class="line">#define to son[i]</span><br><span class="line">I bool bfs()&#123;</span><br><span class="line">    RI u,i;W(!q.empty()) q.pop_front();q.push_front(S);memset(C,63,sizeof(C)),memset(vis,0,sizeof(vis));F[S]=inf=C[0];C[S]=0;W(!q.empty())</span><br><span class="line">        for(i=fir[vis[u=q.front()]=0,u],q.pop_front();i;i=nxt[i]) if(w[i]&gt;0&amp;&amp;C[to]&gt;C[u]+cost[i]) C[to]=C[u]+cost[P[to]=i],F[to]=min(F[u],w[i]),!vis[to]&amp;&amp;(q.empty()?q.push_front(to),0:(C[to]&gt;C[q.front()]?q.push_back(to):q.push_front(to),0),vis[to]=1);//Spfa 双端队列优化</span><br><span class="line">    return C[T]&lt;inf;</span><br><span class="line">&#125;</span><br><span class="line">I void MCMF()&#123;</span><br><span class="line">    RI i;W(bfs())&#123;</span><br><span class="line">        for(i=T;i^S;i=son[P[i]^1]) w[P[i]]-=F[T],w[P[i]^1]+=F[T];</span><br><span class="line">        Ans+=F[T];Cost+=F[T]*C[T];</span><br><span class="line">    &#125;return ;</span><br><span class="line">&#125;</span><br><span class="line">#define idx(i,j) (((i)-1)*cnt+j)</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,j,x;for(read(n,m,TT,Q),i=1;i&lt;=TT;i++) read(b[i].fi,b[i].se);sort(b+1,b+TT+1,cmp);</span><br><span class="line">    for(i=1;i&lt;=TT;i++) b[i-1].se+2&lt;=b[i].se&amp;&amp;cnt++,b[i-1].se&lt;b[i].se&amp;&amp;cnt++,G[b[i].fi][cnt]=1;//删除空白列</span><br><span class="line">    for(S=n*cnt+1,T=n*cnt+2,i=1;i&lt;=n;i++) for(j=2;j&lt;=cnt;j++) if(!G[i][j-1]&amp;&amp;!G[i][j]) Add(idx(i,j-1),idx(i,j),1,0);//向同行下一列连边</span><br><span class="line">    for(i=1;i&lt;n;i++) for(j=1;j&lt;=cnt;j++) if(!G[i][j]&amp;&amp;!G[i+1][j]) Add(idx(i,j),idx(i+1,j),inf,1),Add(idx(i+1,j),idx(i,j),inf,1);//向同列隔壁行连边</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(!G[i][1]) Add(0,idx(i,1),1,0);//超级源点向第一列连边</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(!G[i][cnt]) Add(idx(i,cnt),T,1,0);//最后一列向超级汇点连边</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(Add(S,0,1,0),MCMF(),Ans==i) ans[i]=Cost;else n=i-1;//每次多加1的容量</span><br><span class="line">    for(i=1;i&lt;=Q;i++)&#123;for(read(x),j=n;~j;j--) if(ans[j]&lt;=x) break ;writeln(j);&#125;return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="想要跑得更快？"><a href="#想要跑得更快？" class="headerlink" title="想要跑得更快？"></a>想要跑得更快？</h3><p>陈指导发现这个图其实可以<strong>缩点</strong>，然后时间复杂度就变成了优秀的 $\mathcal O(NT)$。</p>
+<p>首先可以知道如果有 $x$ 个连续的棋子一起向上移动一个单位就等价于把最下面的一个棋子向上移动 $x$ 个单位。</p>
+<p>也就是我们可以花费 $i-j$ 的代价把同一列第 $i$ 行棋子移动到第 $j$ 行，但要求 $i$ 到 $j$ 之间没有障碍。</p>
+<p>另外还有一个显然的结论就是如果下一个格子没有障碍，我们就不必花费 $1$ 的代价移动这个棋子。</p>
+<p>也就是同一行连续一段没有障碍的格子一旦进入了这一段后，必然会一直沿着这条路直到碰到障碍。</p>
+<p>那么我们可以把<strong>同一行的连续的空格子的点缩成一个点</strong>。</p>
+<p>这样点数就变成了 $\mathcal O(T)$，边数变成了 $\mathcal O(NT)$，然后就有了十分优秀的复杂度。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=2e3+10,M=55,R=N*M,E=N*M*M;</span><br><span class="line">int n,m,S,T,TT,Q,cnt,G[M][N],fir[R],nxt[E&lt;&lt;1],son[E&lt;&lt;1],w[E&lt;&lt;1],cost[E&lt;&lt;1],tot=1,Ans,Cost,F[R],C[R],P[R],vis[R],inf=2e9,ans[M],ID,id[M][N];</span><br><span class="line">#define PA pair&lt;int,int&gt;</span><br><span class="line">#define MP make_pair</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">PA b[N];</span><br><span class="line">I bool cmp(Cn PA&amp; x,Cn PA&amp; y)&#123;return x.se&lt;y.se;&#125;</span><br><span class="line">I void Add(CI x,CI y,CI z,CI c)&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y,w[tot]=z,cost[tot]=c;nxt[++tot]=fir[y],fir[y]=tot,son[tot]=x,w[tot]=0,cost[tot]=-c;&#125;</span><br><span class="line">deque&lt;int&gt; q;</span><br><span class="line">#define to son[i]</span><br><span class="line">I bool bfs()&#123;</span><br><span class="line">    RI u,i;W(!q.empty()) q.pop_front();q.push_front(S);memset(C,63,sizeof(C)),memset(vis,0,sizeof(vis));F[S]=inf=C[0];C[S]=0;W(!q.empty())</span><br><span class="line">        for(i=fir[vis[u=q.front()]=0,u],q.pop_front();i;i=nxt[i]) if(w[i]&gt;0&amp;&amp;C[to]&gt;C[u]+cost[i]) C[to]=C[u]+cost[P[to]=i],F[to]=min(F[u],w[i]),!vis[to]&amp;&amp;(q.empty()?q.push_front(to),0:(C[to]&gt;C[q.front()]?q.push_back(to):q.push_front(to),0),vis[to]=1);//Spfa 双端队列优化</span><br><span class="line">    return C[T]&lt;inf;</span><br><span class="line">&#125;</span><br><span class="line">I void MCMF()&#123;</span><br><span class="line">    RI i;W(bfs())&#123;</span><br><span class="line">        for(i=T;i^S;i=son[P[i]^1]) w[P[i]]-=F[T],w[P[i]^1]+=F[T];</span><br><span class="line">        Ans+=F[T];Cost+=F[T]*C[T];</span><br><span class="line">    &#125;return ;</span><br><span class="line">&#125;</span><br><span class="line">#define idx(i,j) id[i][j]</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,j,k,x;for(read(n,m,TT,Q),i=1;i&lt;=TT;i++) read(b[i].fi,b[i].se);sort(b+1,b+TT+1,cmp);</span><br><span class="line">    for(i=1;i&lt;=TT;i++) b[i-1].se+2&lt;=b[i].se&amp;&amp;cnt++,b[i-1].se&lt;b[i].se&amp;&amp;cnt++,G[b[i].fi][cnt]=1;</span><br><span class="line">    for(i=1;i&lt;=n;i++) for(j=1;j&lt;=cnt;j++) if(!G[i][j]&amp;&amp;!G[i][j-1]&amp;&amp;j&gt;1) id[i][j]=id[i][j-1];else id[i][j]=++ID;//缩点+重新标号</span><br><span class="line">    for(S=++ID,T=++ID,S&lt;&lt;=1,T&lt;&lt;=1,i=1;i&lt;=n;i++) for(j=1;j&lt;cnt;j++)&#123;</span><br><span class="line">        k=i-1;W(k&gt;=1&amp;&amp;G[i][j+1]&amp;&amp;!G[i][j]&amp;&amp;!G[k][j]) !G[k][j+1]&amp;&amp;(Add(idx(i,j)&lt;&lt;11,idx(k,j+1)&lt;&lt;1,1,abs(i-k)),0),k--;</span><br><span class="line">        k=i+1;W(k&lt;=n&amp;&amp;G[i][j+1]&amp;&amp;!G[i][j]&amp;&amp;!G[k][j]) !G[k][j+1]&amp;&amp;(Add(idx(i,j)&lt;&lt;11,idx(k,j+1)&lt;&lt;1,1,abs(i-k)),0),k++;//转化：向同列不同行连边</span><br><span class="line">    &#125;for(i=1;i&lt;=ID-2;i++) Add(i&lt;&lt;1,i&lt;&lt;11,1,0);//每个点拆成两个点，限制流量</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(!G[i][1]) Add(0,idx(i,1)&lt;&lt;1,1,0);</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(!G[i][cnt]) Add(idx(i,cnt)&lt;&lt;11,T,1,0);</span><br><span class="line">    for(i=1;i&lt;=n;i++) if(Add(S,0,1,0),MCMF(),Ans==i) ans[i]=Cost;else n=i-1;</span><br><span class="line">    for(i=1;i&lt;=Q;i++)&#123;for(read(x),j=n;~j;j--) if(ans[j]&lt;=x) break ;writeln(j);&#125;return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#80%E5%88%86%E5%81%9A%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">80分做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#100%E5%88%86%E5%81%9A%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">100分做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%83%B3%E8%A6%81%E8%B7%91%E5%BE%97%E6%9B%B4%E5%BF%AB%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">想要跑得更快？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/20/p5222-game/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/20/p5222-game/&text=P5222 Game"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/20/p5222-game/&is_video=false&description=P5222 Game"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P5222 Game&body=Check out this article: http://yzxoi.top/2021/05/20/p5222-game/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/20/p5222-game/&title=P5222 Game"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/20/p5222-game/&name=P5222 Game&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/20/p5222-game/&t=P5222 Game"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

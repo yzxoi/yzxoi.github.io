@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Describe 题目链接  某收费有线电视网计划转播一场重要的足球比赛。他们的转播网和用户终端构成一棵树状结构，这棵树的根结点位于足球比赛的现场，树叶为各个用户终端，其他中转站为该树的内部节点。 从转播站到转播站以及从转播站到所有用户终端的信号传输费用都是已知的，一场转播的总费用等于传输信号的费用总和。 现在每个用户都准备了一笔费用想观看这场精彩的足球比赛，有线电视网有权决定给哪些用户提供信号而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luogu P1273 有线电视网 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Describe 题目链接  某收费有线电视网计划转播一场重要的足球比赛。他们的转播网和用户终端构成一棵树状结构，这棵树的根结点位于足球比赛的现场，树叶为各个用户终端，其他中转站为该树的内部节点。 从转播站到转播站以及从转播站到所有用户终端的信号传输费用都是已知的，一场转播的总费用等于传输信号的费用总和。 现在每个用户都准备了一笔费用想观看这场精彩的足球比赛，有线电视网有权决定给哪些用户提供信号而">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-18T08:41:02.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.479Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="树形dp">
+<meta property="article:tag" content="分组背包">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Luogu P1273 有线电视网 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/19/luogu-p1801-%E9%BB%91%E5%8C%A3%E5%AD%90-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/17/luogu-p2585-zjoi2006%E4%B8%89%E8%89%B2%E4%BA%8C%E5%8F%89%E6%A0%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&text=Luogu P1273 有线电视网 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P1273 有线电视网 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P1273 有线电视网 题解&body=Check out this article: http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&name=Luogu P1273 有线电视网 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&t=Luogu P1273 有线电视网 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Luogu P1273 有线电视网 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-18T08:41:02.000Z" itemprop="datePublished">2020-03-18</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.479Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%86%E7%BB%84%E8%83%8C%E5%8C%85/" rel="tag">分组背包</a>, <a class="tag-link-link" href="/tags/%E6%A0%91%E5%BD%A2dp/" rel="tag">树形dp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1273">题目链接</a></p>
+</blockquote>
+<p>某收费有线电视网计划转播一场重要的足球比赛。他们的转播网和用户终端构成一棵树状结构，这棵树的根结点位于足球比赛的现场，树叶为各个用户终端，其他中转站为该树的内部节点。 从转播站到转播站以及从转播站到所有用户终端的信号传输费用都是已知的，一场转播的总费用等于传输信号的费用总和。 现在每个用户都准备了一笔费用想观看这场精彩的足球比赛，有线电视网有权决定给哪些用户提供信号而不给哪些用户提供信号。 写一个程序找出一个方案使得有线电视网在不亏本的情况下使观看转播的用户尽可能多。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>类似于分组背包。 设$f[i][j]$表示第$i$个子树，使用$j$个的最大钱数。 $f[i][j]&#x3D;$$max(f[i][j-k]$$+f[to][k]-$$w[edge])$ 那么转移就好了</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int n,m,fir[3010],nxt[3010],w[3010],son[3010],tot,v[3010],f[3010][3010];</span><br><span class="line">inline void add(int x,int y,int z)&#123;++tot;nxt[tot]=fir[x];fir[x]=tot;son[tot]=y;w[tot]=z;&#125;</span><br><span class="line">inline int DFS(int x)&#123;</span><br><span class="line">    if(n-m+1&lt;=x&amp;&amp;x&lt;=n)&#123;</span><br><span class="line">        f[x][1]=v[x];</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    int sum=0;</span><br><span class="line">    for(int tmp,to,i=fir[x];i;i=nxt[i])&#123;</span><br><span class="line">        to=son[i];</span><br><span class="line">        tmp=DFS(to);</span><br><span class="line">        sum+=tmp;</span><br><span class="line">        for(int j=sum;j;j--)&#123;</span><br><span class="line">            for(int k=1;k&lt;=tmp;k++)&#123;</span><br><span class="line">                if(j-k&gt;=0) f[x][j]=max(f[x][j],f[x][j-k]+f[to][k]-w[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);</span><br><span class="line">    for(int x,y,z,i=1;i&lt;=n-m;i++)&#123;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">        for(;x;x--) scanf(&quot;%d%d&quot;,&amp;y,&amp;z),add(i,y,z);</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=n-m+1;i&lt;=n;i++) scanf(&quot;%d&quot;,&amp;v[i]);</span><br><span class="line">    memset(f,-63,sizeof(f));</span><br><span class="line">    for(int i=1;i&lt;=n;i++) f[i][0]=0;</span><br><span class="line">    DFS(1);</span><br><span class="line">    for(int i=m;i&gt;=1;i--)&#123;</span><br><span class="line">        if(f[1][i]&gt;=0)&#123;printf(&quot;%d &quot;,i);break;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&text=Luogu P1273 有线电视网 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P1273 有线电视网 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P1273 有线电视网 题解&body=Check out this article: http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&title=Luogu P1273 有线电视网 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&name=Luogu P1273 有线电视网 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/18/luogu-p1273-%E6%9C%89%E7%BA%BF%E7%94%B5%E8%A7%86%E7%BD%91-%E9%A2%98%E8%A7%A3/&t=Luogu P1273 有线电视网 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

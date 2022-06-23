@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：YbtOJ #976  小 A 有一个长度为 $n$ 的序列 $a$ 和一个初始值为 $0$ 的计数器 $cnt$，他想要对其进行 $k$ 次操作。 每次操作，他会等概率随机选中一个 $i$，将 $a_i$ 减 $1$，并将 $cnt$ 加上 此时 除 $a_i$ 以外所有数的乘积，即 $\prod_{j\not&#x3D;i}a_j$。 现在，他希望知道 $cnt$ 在模 $10^9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YbtOJ 976「母函数」随机减法">
+<meta property="og:url" content="http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题目链接：YbtOJ #976  小 A 有一个长度为 $n$ 的序列 $a$ 和一个初始值为 $0$ 的计数器 $cnt$，他想要对其进行 $k$ 次操作。 每次操作，他会等概率随机选中一个 $i$，将 $a_i$ 减 $1$，并将 $cnt$ 加上 此时 除 $a_i$ 以外所有数的乘积，即 $\prod_{j\not&#x3D;i}a_j$。 现在，他希望知道 $cnt$ 在模 $10^9">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-10T07:36:18.000Z">
+<meta property="article:modified_time" content="2022-06-23T13:14:53.859Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="组合数">
+<meta property="article:tag" content="卷积">
+<meta property="article:tag" content="母函数">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>YbtOJ 976「母函数」随机减法</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/02/10/ybtoj-594-%E3%80%8C%E8%B4%B9%E7%94%A8%E6%B5%81%E3%80%8D%E5%A4%A7%E5%9B%BE%E4%B9%A6%E9%A6%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/02/09/ybtoj-574-%E3%80%8C%E4%BA%8C%E5%88%86%E5%9B%BE%E5%8C%B9%E9%85%8D%E3%80%8D%E5%AD%A4%E7%AB%8B%E7%82%B9%E9%9B%86/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&text=YbtOJ 976「母函数」随机减法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&is_video=false&description=YbtOJ 976「母函数」随机减法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 976「母函数」随机减法&body=Check out this article: http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&name=YbtOJ 976「母函数」随机减法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&t=YbtOJ 976「母函数」随机减法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        YbtOJ 976「母函数」随机减法
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-02-10T07:36:18.000Z" itemprop="datePublished">2022-02-10</time>
+        
+        (Updated: <time datetime="2022-06-23T13:14:53.859Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/dp/" rel="tag">dp</a>, <a class="tag-link-link" href="/tags/%E5%8D%B7%E7%A7%AF/" rel="tag">卷积</a>, <a class="tag-link-link" href="/tags/%E6%AF%8D%E5%87%BD%E6%95%B0/" rel="tag">母函数</a>, <a class="tag-link-link" href="/tags/%E7%BB%84%E5%90%88%E6%95%B0/" rel="tag">组合数</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.ybtoj.com.cn/problem/976">YbtOJ #976</a></p>
+</blockquote>
+<p>小 A 有一个长度为 $n$ 的序列 $a$ 和一个初始值为 $0$ 的计数器 $cnt$，他想要对其进行 $k$ 次操作。</p>
+<p>每次操作，他会等概率随机选中一个 $i$，将 $a_i$ 减 $1$，并将 $cnt$ 加上 <strong>此时</strong> 除 $a_i$ 以外所有数的乘积，即 $\prod_{j\not&#x3D;i}a_j$。</p>
+<p>现在，他希望知道 $cnt$ 在模 $10^9+7$ 意义下的期望值。</p>
+<p>$1\le n\le5\times10^3$，$1\le k\le10^9$，$0\le a_i &lt; 10^9+7$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>容易发现将 $a_i$ 减 $1$ 后，除它以外所有数的乘积恰好是 $\prod_{i&#x3D;1}^na_i$ 的变化量。</p>
+<p>所以说，答案实际上就是原本的 $\prod_{i&#x3D;1}^na_i$ 减去修改后 $\prod_{i&#x3D;1}^na_i’$ 的期望值。</p>
+<p>设 $f_{i,j}$ 表示前 $i$ 个数一共修改了 $j$ 次的所有方案下乘积之和，则：</p>
+<p>$$<br>f_{i,p+q}&#x3D;\sum C_{p+q}^p\times (a_i-p)\times f_{i-1,q}<br>$$</p>
+<p>于是：</p>
+<p>$$<br>\frac{f_{i,p+q}}{(p+q)!}&#x3D;\sum\frac{a_i-p}{p!}\times\frac{f_{i-1,q}}{q!}<br>$$</p>
+<p>设 $F_i(x)&#x3D;\sum_{p&#x3D;0}^{+\infty}f_{i,p}\frac{x^p}{p!},G_i(x)&#x3D;\sum_{p&#x3D;0}^{+\infty}(a_i-p)\frac{x^p}{p!}$，得到：</p>
+<p>$$<br>F_i(x)&#x3D;F_{i-1}(x)*G_i(x)<br>$$</p>
+<p>因此只要把 $G_{1\sim n}(x)$ 这 $n$ 个生成函数卷起来就能得到 $F_n(x)$，而它的 $k$ 次项系数就是 $\frac{f_{n,k}}{k!}$ 了。</p>
+<p>对于 $G_i(x)$，我们把 $a_i-p$ 分开来：</p>
+<p>$$<br>G_i(x)&#x3D;a_i\sum_{p&#x3D;0}^{+\infty}\frac{x^p}{p!}-\sum_{p&#x3D;0}^{+\infty}\frac{x^{p+1}}{p!}&#x3D;(a_i-x)e^x<br>$$</p>
+<p>设 $A_i(x)&#x3D;a_i-x$，发现 $F_n(x)$ 就是 $A_{1\sim n}(x)$ 这 $n$ 个生成函数卷起来之后再卷上 $e^{nx}$。</p>
+<p>很容易 $O(n^2)$ 暴力求出 $A_{1\sim n}(x)$ 卷起来后每一项的系数 $f_i$，于是：</p>
+<p>$$<br>F_n(x)&#x3D;(\sum_{i&#x3D;0}^{+\infty}f_ix^i)*(\sum_{i&#x3D;0}^{+\infty}\frac {(nx)^i}{i!})\<br>[x^k]F_n(x)&#x3D;\sum_{i&#x3D;0}^kf_i\times\frac{n^{k-i}}{(k-i)!}<br>$$</p>
+<p>乘上一个 $k!$ 得到了总和 $f_{n,k}$，再除以总方案数 $n^k$ 得到期望：</p>
+<p>$$<br>E&#x3D;\sum_{i&#x3D;0}^{k}\frac{f_i\times k^{\underline i}}{n^i}<br>$$</p>
+<p>最终答案就是$\prod_{i&#x3D;1}^na_i-E$。</p>
+<p>注意一开始卷积直接暴力卷即可。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">#pragma GCC optimize(&quot;Ofast&quot;)</span><br><span class="line">#pragma GCC target(&quot;sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma&quot;)</span><br><span class="line">#pragma GCC optimize(&quot;unroll-loops&quot;)</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    #define FS 100000</span><br><span class="line">    #define tc() (FA==FB&amp;&amp;(FB=(FA=FI)+fread(FI,1,FS,stdin),FA==FB)?EOF:*FA++)</span><br><span class="line">    #define pc(c) (FC==FE&amp;&amp;(clear(),0),*FC++=c)</span><br><span class="line">    int OT;char oc,FI[FS],FO[FS],OS[FS],*FA=FI,*FB=FI,*FC=FO,*FE=FO+FS;</span><br><span class="line">    I void clear() &#123;fwrite(FO,1,FC-FO,stdout),FC=FO;&#125;</span><br><span class="line">    Tp I void read(Ty&amp; x) &#123;x=0;RI f=1;W(!isdigit(oc=tc())) f=oc^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(oc&amp;15),isdigit(oc=tc()));x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y) &#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x) &#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x);W(OS[++OT]=x%10+48,x/=10);W(OT) pc(OS[OT--]);&#125;</span><br><span class="line">    Tp I void writeln(Ty x) &#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x);W(OS[++OT]=x%10+48,x/=10);W(OT) pc(OS[OT--]);pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=5e3+10,XX=1e9+7;</span><br><span class="line">int n,k,a[N],sa[N],sb[N],ic[N],Ans;</span><br><span class="line">I int QP(RI a,RI b,CI p=XX)&#123;RI s=1;W(b) b&amp;1&amp;&amp;(s=1LL*s*a%p),a=1LL*a*a%p,b&gt;&gt;=1;return s;&#125;</span><br><span class="line">// class Poly&#123;</span><br><span class="line">//     private:</span><br><span class="line">//         int P,L,R[N&lt;&lt;2],B[N&lt;&lt;2];</span><br><span class="line">//         I void NTT(int *s,CI op)&#123;</span><br><span class="line">//             RI i,j,k,x,y,U,S;for(i=0;i&lt;P;i++) i&lt;R[i]&amp;&amp;(swap(s[i],s[R[i]]),0);</span><br><span class="line">//             for(i=1;i&lt;P;i&lt;&lt;=1) for(U=QP(QP(3,op,X),(X-1)/(i&lt;&lt;1),X),j=0;j&lt;P;j+=i&lt;&lt;1)</span><br><span class="line">//             for(S=1,k=0;k&lt;i;k++,S=1LL*S*U%X) s[j+k]=((x=s[j+k])+(y=1LL*S*s[i+j+k]%X))%X,s[i+j+k]=(x-y+X)%X;</span><br><span class="line">//         &#125;</span><br><span class="line">//     public:</span><br><span class="line">//         int X,A[N&lt;&lt;2];</span><br><span class="line">//         I void Mul(CI n,int *a,CI m,int *b)&#123;</span><br><span class="line">//             RI i,t;P=1,L=0;W(P&lt;=n+m) P&lt;&lt;=1,++L;for(i=0;i&lt;P;i++) R[i]=(R[i&gt;&gt;1]&gt;&gt;1)((i&amp;1)&lt;&lt;L-1);</span><br><span class="line">//             for(i=0;i&lt;P;i++) A[i]=B[i]=0;for(i=0;i&lt;=n;i++) A[i]=a[i];for(i=0;i&lt;=m;i++) B[i]=b[i];</span><br><span class="line">//             for(NTT(A,1),NTT(B,1),i=0;i&lt;P;i++) A[i]=1LL*A[i]*B[i]%X;</span><br><span class="line">//             for(t=QP(P,X-2,X),NTT(A,X-2),i=0;i&lt;=n+m;i++) A[i]=1LL*A[i]*t%X; </span><br><span class="line">//         &#125;</span><br><span class="line">// &#125;T[3];</span><br><span class="line">// I LL CRT(LL r1,LL p1,LL r2,LL p2,CI fg)&#123;</span><br><span class="line">//     LL k=1LL*((r2-r1)%p2+p2)*QP(p1%p2,p2-2,p2)%p2;</span><br><span class="line">//     return fg?((p1%XX)*k+r1)%XX:(p1*k+r1)%(p1*p2);</span><br><span class="line">// &#125;</span><br><span class="line">// I void Mul(CI n,int *a,CI m,int *b)&#123;</span><br><span class="line">//     RI i;for(i=0;i&lt;3;i++) T[i].Mul(n,a,m,b);</span><br><span class="line">//     for(i=0;i&lt;=n+m;i++) a[i]=CRT(CRT(T[0].A[i],T[0].X,T[1].A[i],T[1].X,0),1LL*T[0].X*T[1].X,T[2].A[i],T[2].X,1);</span><br><span class="line">// &#125;</span><br><span class="line">int T[N];</span><br><span class="line">I void Mul(CI n,int *a,CI m,int *b)&#123;</span><br><span class="line">    RI i,j;for(i=0;i&lt;=n+m;i++) T[i]=0;</span><br><span class="line">    for(i=0;i&lt;=n;i++) for(j=0;j&lt;=m;j++) T[i+j]=(1LL*a[i]*b[j]%XX+T[i+j])%XX;</span><br><span class="line">    for(i=0;i&lt;=n+m;i++) a[i]=T[i];</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    freopen(&quot;calculate.in&quot;,&quot;r&quot;,stdin),freopen(&quot;calculate.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    RI i,t;for(read(n,k),Ans=i=1;i&lt;=n;i++) read(a[i]),Ans=1LL*Ans*a[i]%XX;//T[0].X=998244353,T[1].X=469762049,T[2].X=1004535809;</span><br><span class="line">    for(sa[0]=a[1],sa[1]=XX-1,i=2;i&lt;=n;i++) sb[0]=a[i],sb[1]=XX-1,Mul(i-1,sa,1,sb);</span><br><span class="line">    for(ic[n]=QP(QP(n,n),XX-2),i=n-1;~i;i--) ic[i]=1LL*ic[i+1]*n%XX;</span><br><span class="line">    for(t=1,i=0;i&lt;=n;i++) Ans=(XX-1LL*sa[i]*t%XX*ic[i]%XX+Ans)%XX,t=1LL*t*(k-i)%XX;</span><br><span class="line">    return writeln(Ans),cerr&lt;&lt;clock()&lt;&lt;&#x27;\n&#x27;,clear(),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&text=YbtOJ 976「母函数」随机减法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&is_video=false&description=YbtOJ 976「母函数」随机减法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 976「母函数」随机减法&body=Check out this article: http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&title=YbtOJ 976「母函数」随机减法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&name=YbtOJ 976「母函数」随机减法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/10/ybtoj-976-%E3%80%8C%E6%AF%8D%E5%87%BD%E6%95%B0%E3%80%8D%E9%9A%8F%E6%9C%BA%E5%87%8F%E6%B3%95/&t=YbtOJ 976「母函数」随机减法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

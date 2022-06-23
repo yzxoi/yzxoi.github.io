@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Describe 题目链接  给定一个 $N$ 个点， $M$ 条边的有向图，求从 $A$ 到 $B$ 的路径上边权和是 $P$ 的倍数的最短路径的长度及路径。 对于所有数据，$2\leq N \leq$$ 5\times $${10}^{4}$$,M\leq$$ 2 \times {10}^5$$ , 1\leq P $$\leq 50$。 Solution设$dis[i][j]$表示从起点出发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luogu P5060 旅行 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Describe 题目链接  给定一个 $N$ 个点， $M$ 条边的有向图，求从 $A$ 到 $B$ 的路径上边权和是 $P$ 的倍数的最短路径的长度及路径。 对于所有数据，$2\leq N \leq$$ 5\times $${10}^{4}$$,M\leq$$ 2 \times {10}^5$$ , 1\leq P $$\leq 50$。 Solution设$dis[i][j]$表示从起点出发">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-16T12:33:08.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.474Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="最短路">
+<meta property="article:tag" content="Dijikstra">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Luogu P5060 旅行 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/17/luogu-p2585-zjoi2006%E4%B8%89%E8%89%B2%E4%BA%8C%E5%8F%89%E6%A0%91-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&text=Luogu P5060 旅行 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P5060 旅行 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P5060 旅行 题解&body=Check out this article: http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&name=Luogu P5060 旅行 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&t=Luogu P5060 旅行 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Luogu P5060 旅行 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-16T12:33:08.000Z" itemprop="datePublished">2020-03-16</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.474Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Dijikstra/" rel="tag">Dijikstra</a>, <a class="tag-link-link" href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF/" rel="tag">最短路</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5060">题目链接</a></p>
+</blockquote>
+<p>给定一个 $N$ 个点， $M$ 条边的有向图，求从 $A$ 到 $B$ 的路径上边权和是 $P$ 的倍数的最短路径的长度及路径。 对于所有数据，$2\leq N \leq$$ 5\times $${10}^{4}$$,M\leq$$ 2 \times {10}^5$$ , 1\leq P $$\leq 50$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>设$dis[i][j]$表示从起点出发走到$i$的路径边权和$\% P&#x3D;j$的最小值。 那么跑一次$Dijikstra$即可。 注意转移$dis[to][v+w[i]]&#x3D;dis[u][v]+w[i]$。 保存路径可以记录根节点最后递归输出。 由于此题出题人不是特别友好，所以此题卡$spfa$，本人亲测$spfa$只有$80pts$。</p>
+<blockquote>
+<p>关于spfa，她死了</p>
+</blockquote>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define int long long //注意此题数据范围要开long long</span><br><span class="line">using namespace std;</span><br><span class="line">char buf[1&lt;&lt;23],*p1=buf,*p2=buf,obuf[1&lt;&lt;23],*O=obuf;</span><br><span class="line">#define getchar() (p1==p2&amp;&amp;(p2=(p1=buf)+fread(buf,1,1&lt;&lt;21,stdin),p1==p2)?EOF:*p1++)//fread快读</span><br><span class="line">inline int read()&#123;int res=0,f=1;char ch=getchar();while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();return res*f;&#125;</span><br><span class="line">inline void write(int x)&#123;if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;if(x&lt;10) putchar(x+&#x27;0&#x27;);else write(x/10),putchar(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">int n,m,p,s,t,fir[50010],nxt[200010],son[200010],w[200010],tot,dis[50010][60],vis[50010][60],pre[50010][60][3],inf;</span><br><span class="line">inline void add(int x,int y,int z)&#123;++tot;nxt[tot]=fir[x];fir[x]=tot;son[tot]=y;w[tot]=z;&#125;</span><br><span class="line">struct node&#123;int id,val,note;bool operator &lt; (const node &amp;x) const&#123;return val&gt;x.val;&#125;&#125;;</span><br><span class="line">inline node make(int x,int y,int z)&#123;node pp;pp.id=x,pp.val=y,pp.note=z;return pp;&#125;</span><br><span class="line">priority_queue&lt;node&gt; q;</span><br><span class="line">inline void dij()&#123;</span><br><span class="line">    while(!q.empty()) q.pop();//清空队列是个好习惯</span><br><span class="line">    dis[s][0]=0;</span><br><span class="line">    q.push(make(s,0,0));</span><br><span class="line">    while(!q.empty())&#123;</span><br><span class="line">        node u=q.top();q.pop();</span><br><span class="line">        if(vis[u.id][u.note]) continue ;</span><br><span class="line">        vis[u.id][u.note]=1;</span><br><span class="line">        for(int to,i=fir[u.id];i;i=nxt[i])&#123;</span><br><span class="line">            to=son[i];</span><br><span class="line">            if(!vis[to][(u.note+w[i])%p]&amp;&amp;dis[to][(u.note+w[i])%p]&gt;dis[u.id][u.note]+w[i])&#123;</span><br><span class="line">                dis[to][(u.note+w[i])%p]=dis[u.id][u.note]+w[i];</span><br><span class="line">                pre[to][(u.note+w[i])%p][0]=u.id;//记录路径</span><br><span class="line">                pre[to][(u.note+w[i])%p][1]=u.note;</span><br><span class="line">                q.push(make(to,dis[to][(u.note+w[i])%p],(u.note+w[i])%p));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">inline void print(int x,int note,int fir)&#123;//递归输出路径</span><br><span class="line">    if(!x) return ;</span><br><span class="line">    print(pre[x][note][0],pre[x][note][1],1);</span><br><span class="line">    write(x);</span><br><span class="line">    if(!fir) return ;//判断不输出第一个-&gt;</span><br><span class="line">    putchar(&#x27;-&#x27;);putchar(&#x27;&gt;&#x27;);</span><br><span class="line">&#125;</span><br><span class="line">signed main()&#123;</span><br><span class="line">    n=read(),m=read(),p=read(),s=read(),t=read();</span><br><span class="line">    for(int x,y,z,i=1;i&lt;=m;i++) x=read(),y=read(),z=read(),add(x,y,z);//有向图</span><br><span class="line">    memset(dis,63,sizeof(dis));inf=dis[0][0];//清零</span><br><span class="line">    dij();</span><br><span class="line">    if(dis[t][0]==inf) puts(&quot;jjc fails in travelling&quot;);</span><br><span class="line">    else write(dis[t][0]),putchar(&#x27;\n&#x27;),print(t,0,0),putchar(&#x27;\n&#x27;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&text=Luogu P5060 旅行 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P5060 旅行 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P5060 旅行 题解&body=Check out this article: http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&title=Luogu P5060 旅行 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&name=Luogu P5060 旅行 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/16/luogu-p5060-%E6%97%85%E8%A1%8C-%E9%A2%98%E8%A7%A3/&t=Luogu P5060 旅行 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description给定一棵 $n$ 个节点的树，有 $m$ 个询问，每次给定 $l,r$，查询若只保留点编号在 $[l,r]$ 的点，边编号在 $[l,r]$ 的边，有多少个连通块。 此时点 $a$ 与点 $b$ 连通当且仅当 $l\leq a,b\leq r$，且 $a,b$ 在树上的简单路径中所有的点与边的编号都在 $[l,r]$ 之间。 $1\leq n,m\leq 10^6$。 Sol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="义乌中学暑假集训 2021.07.10 D">
+<meta property="og:url" content="http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description给定一棵 $n$ 个节点的树，有 $m$ 个询问，每次给定 $l,r$，查询若只保留点编号在 $[l,r]$ 的点，边编号在 $[l,r]$ 的边，有多少个连通块。 此时点 $a$ 与点 $b$ 连通当且仅当 $l\leq a,b\leq r$，且 $a,b$ 在树上的简单路径中所有的点与边的编号都在 $[l,r]$ 之间。 $1\leq n,m\leq 10^6$。 Sol">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-22T06:35:27.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.838Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="树状数组">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>义乌中学暑假集训 2021.07.10 D</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-11-d/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-09-d/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&text=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&is_video=false&description=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=义乌中学暑假集训 2021.07.10 D&body=Check out this article: http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&name=义乌中学暑假集训 2021.07.10 D&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&t=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        义乌中学暑假集训 2021.07.10 D
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-07-22T06:35:27.000Z" itemprop="datePublished">2021-07-22</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.838Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" rel="tag">树状数组</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>给定一棵 $n$ 个节点的树，有 $m$ 个询问，每次给定 $l,r$，查询若只保留点编号在 $[l,r]$ 的点，边编号在 $[l,r]$ 的边，有多少个连通块。</p>
+<p>此时点 $a$ 与点 $b$ 连通当且仅当 $l\leq a,b\leq r$，且 $a,b$ 在树上的简单路径中所有的点与边的编号都在 $[l,r]$ 之间。</p>
+<p>$1\leq n,m\leq 10^6$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>考虑连通块个数&#x3D;点数-边数。</p>
+<p>而点数 $&#x3D;r-l+1$​ 是确定的，那么只需要考虑如何维护边数即可。</p>
+<p>那么如何判断是否是有用的边？</p>
+<p>其实就等价于对于边 $i$，满足 $l\leq i\leq r$，并且 $i$ 连接的两个点 $x,y$，满足 $l\leq x,y\leq r$。</p>
+<p>也就是说，对于边 $i$，需要满足 $l\leq \min(i,x,y)\leq \max(i,x,y)\leq r$​。</p>
+<p>然后这题就成了二维数点问题。</p>
+<p>可以先把询问离线。</p>
+<p>按照 $r$ 从小到大，依次加入点与边。</p>
+<p>然后用树状数组维护即可。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define I inline</span><br><span class="line">#define W while</span><br><span class="line">#define RI register int </span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp; </span><br><span class="line">#define gc getchar</span><br><span class="line">#define pc putchar</span><br><span class="line">#define LL long long</span><br><span class="line">using namespace std;</span><br><span class="line">I void read(int&amp; x)&#123;RI f=1;char c=gc();x=0;W(!(&#x27;0&#x27;&lt;=c&amp;&amp;c&lt;=&#x27;9&#x27;)) f=c^&#x27;-&#x27;?f:-1,c=gc();W(&#x27;0&#x27;&lt;=c&amp;&amp;c&lt;=&#x27;9&#x27;) x=x*10+(c-&#x27;0&#x27;),c=gc();x*=f;&#125;</span><br><span class="line">I void write(RI x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x),x&gt;=10&amp;&amp;(write(x/10),0),pc(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">Cn int N=1e6+10;</span><br><span class="line">int n,m,Ans[N];</span><br><span class="line">struct Edge&#123;int x,y;&#125;e[N];</span><br><span class="line">struct Que&#123;int x,y,id;&#125;q[N];</span><br><span class="line">I bool cmp(Cn Edge&amp; x,Cn Edge&amp; y)&#123;return x.x&gt;y.x;&#125;</span><br><span class="line">I bool cmp2(Cn Que&amp; x,Cn Que&amp; y)&#123;return x.x&gt;y.x;&#125;</span><br><span class="line">class TreeArray&#123;</span><br><span class="line">    private:</span><br><span class="line">        int c[N];</span><br><span class="line">        #define lowbit(x) (x&amp;(-x))</span><br><span class="line">    public:</span><br><span class="line">        I void U(CI x,CI y)&#123;RI i;for(i=x;i&lt;=n;i+=lowbit(i)) c[i]+=y;&#125;</span><br><span class="line">        I int Q(CI x)&#123;RI i,S=0;for(i=x;i;i-=lowbit(i)) S+=c[i];return S;&#125;</span><br><span class="line">&#125;T;</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,j,l,r;for(read(n),read(m),i=1;i&lt;n;i++) read(l),read(r),e[i]=(Edge)&#123;min(min(l,r),i),max(max(l,r),i)&#125;;</span><br><span class="line">    for(i=1;i&lt;=m;i++) read(q[i].x),read(q[i].y),q[i].id=i;</span><br><span class="line">    for(j=1,sort(e+1,e+n,cmp),sort(q+1,q+m+1,cmp2),i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        W(j&lt;n&amp;&amp;e[j].x&gt;=q[i].x) T.U(e[j].y,1),j++;</span><br><span class="line">        Ans[q[i].id]=q[i].y-q[i].x+1-T.Q(q[i].y);</span><br><span class="line">    &#125;for(i=1;i&lt;=m;i++) write(Ans[i]),pc(&#x27;\n&#x27;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&text=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&is_video=false&description=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=义乌中学暑假集训 2021.07.10 D&body=Check out this article: http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&title=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&name=义乌中学暑假集训 2021.07.10 D&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-10-d/&t=义乌中学暑假集训 2021.07.10 D"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

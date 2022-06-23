@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description 题目链接：P6774  给定长度为 $n$ 的序列，其中第 $i$ 个点的权值为 $p_i$，保证 $p_i$ 为 $[1,n]$ 的排列。 有 $m$ 个询问，每个询问给定 $l,r,x,y$ 表示求出序列区间为 $[l,r]$ 的矩形的值在 $[x,y]$ 的顺序对数量。 $n\leq 10^5,m\leq 2\times 10^5$ Solution历经 9 个月，终">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P6774 [NOI2020] 时代的眼泪">
+<meta property="og:url" content="http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description 题目链接：P6774  给定长度为 $n$ 的序列，其中第 $i$ 个点的权值为 $p_i$，保证 $p_i$ 为 $[1,n]$ 的排列。 有 $m$ 个询问，每个询问给定 $l,r,x,y$ 表示求出序列区间为 $[l,r]$ 的矩形的值在 $[x,y]$ 的顺序对数量。 $n\leq 10^5,m\leq 2\times 10^5$ Solution历经 9 个月，终">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-24T13:09:09.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.805Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="分块">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P6774 [NOI2020] 时代的眼泪</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/05/27/sp11444-maxor-maxor-bzoj-2741-%E3%80%90fotile%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%91l/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/05/23/61-%E3%80%90ur-5%E3%80%91%E6%80%8E%E6%A0%B7%E6%9B%B4%E6%9C%89%E5%8A%9B%E6%B0%94/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&text=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&is_video=false&description=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6774 [NOI2020] 时代的眼泪&body=Check out this article: http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&name=P6774 [NOI2020] 时代的眼泪&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&t=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P6774 [NOI2020] 时代的眼泪
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-24T13:09:09.000Z" itemprop="datePublished">2021-05-24</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.805Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%86%E5%9D%97/" rel="tag">分块</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6774">P6774</a></p>
+</blockquote>
+<p>给定长度为 $n$ 的序列，其中第 $i$ 个点的权值为 $p_i$，保证 $p_i$ 为 $[1,n]$ 的排列。</p>
+<p>有 $m$ 个询问，每个询问给定 $l,r,x,y$ 表示求出序列区间为 $[l,r]$ 的矩形的值在 $[x,y]$ 的顺序对数量。</p>
+<p>$n\leq 10^5,m\leq 2\times 10^5$</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>历经 9 个月，终于回来补这道题了。</p>
+<blockquote>
+<p>一道非常优秀的分块<strong>入门</strong>题，值得分块初学者花时间思考，不值得一写。</p>
+<p>——BFqwq</p>
+</blockquote>
+<p>假设我们需要询问的是 $(l,r,x,y)$ 的答案，那么我们就可以把这个区间拆成中间是整块，两边是散块的结构。那么我们只需要分别考虑对应的贡献即可。</p>
+<ol>
+<li>首先是左右散块之内的 事先预处理所有块内排序，并离散化，预处理出前缀权值、位置的点的数量，查询时直接暴力枚举所有权值，每个点直接查询前缀和即可。</li>
+<li>其次是左散块对右散块的贡献 块内事先排序，查询时直接归并排序查询顺序对数。</li>
+<li>左右散块对中间整块的贡献 直接暴力枚举散块内所有点，预处理时开个前缀和记录前缀块、权值点的数量，查询时直接用前缀和计算即可。</li>
+<li>中间整块之间 显然整块之间的答案可以通过容斥解决，直接暴力枚举每个块，考虑先加上之前块（包含本块）对这个块的贡献（预处理后前缀和查询），显然此时肯定会导致重复，那么再减去这个块自己内部的重复，再减去剩下之前的块的重复即可。</li>
+</ol>
+<p>至此，你就切掉了这个分块入门题，祝你好运！&gt;.&lt;</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">s[i][j]表示1~i块权值&lt;=j的数</span><br><span class="line">g[i]表示块内离散化后的值</span><br><span class="line">r[i][j]表示第i块离散化后j还原对应值</span><br><span class="line">v[i][j]第i块&lt;=j数个数</span><br><span class="line">F1[k][i][j]第k块离散化后权值&lt;=i位置&lt;=j的权值的个数</span><br><span class="line">F2[k][i][j]第k块离散化后权值&lt;=i与&lt;=j的块构成顺序对的个数</span><br><span class="line">F3[k][i][j]第k块离散化后权值在[i,j]的顺序对数</span><br><span class="line">*/</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=1e5+10,M=sqrt(N)+10;</span><br><span class="line">int n,m,S,a[N],bl[N],tot,L[M],R[M],v[M][N],s[M][N],g[N],r[M][M],id,F1[M][M][M],F2[M][M][M],F3[M][M][M];</span><br><span class="line">I void Build()&#123;</span><br><span class="line">    RI i,j,k;S=sqrt(n);for(i=1;i&lt;=n;i++) !((i-1)%S)&amp;&amp;(R[tot]=i-1,L[++tot]=i),bl[i]=tot;R[tot]=n;</span><br><span class="line">    for(j=1;j&lt;=tot;j++)&#123;</span><br><span class="line">        for(i=L[j];i&lt;=R[j];i++) v[j][a[i]]=i;</span><br><span class="line">        for(id=0,i=1;i&lt;=n;i++) v[j][i]&amp;&amp;(r[j][g[v[j][i]]=++id]=v[j][i],v[j][i]=1),v[j][i]+=v[j][i-1],s[j][i]=s[j-1][i]+v[j][i];</span><br><span class="line">    &#125;</span><br><span class="line">    for(k=1;k&lt;=tot;k++)&#123;</span><br><span class="line">        for(i=L[k];i&lt;=R[k];i++) F1[k][g[i]][i-L[k]+1]=1;</span><br><span class="line">        for(i=1;i&lt;=R[k]-L[k]+1;i++) for(j=1;j&lt;=R[k]-L[k]+1;j++) F1[k][i][j]+=F1[k][i][j-1]+F1[k][i-1][j]-F1[k][i-1][j-1];</span><br><span class="line">        for(i=L[k];i&lt;=R[k];i++) for(j=i+1;j&lt;=R[k];j++) g[i]&lt;g[j]&amp;&amp;(F3[k][g[i]][g[j]]=1);</span><br><span class="line">        for(i=1;i&lt;=R[k]-L[k]+1;i++) for(j=1;j&lt;=R[k]-L[k]+1;j++) F3[k][i][j]+=F3[k][i][j-1]+F3[k][i-1][j]-F3[k][i-1][j-1];</span><br><span class="line">        for(i=L[k];i&lt;=R[k];i++)&#123;</span><br><span class="line">            for(j=1;j&lt;k;j++) F2[k][g[i]][j]=s[j][a[i]]-s[j-1][a[i]];</span><br><span class="line">            F2[k][g[i]][k]=F3[k][g[i]][g[i]]-F3[k][g[i]][g[i]-1];</span><br><span class="line">        &#125;for(i=1;i&lt;=R[k]-L[k]+1;i++) for(j=1;j&lt;=tot;j++) F2[k][i][j]+=F2[k][i][j-1]+F2[k][i-1][j]-F2[k][i-1][j-1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#define QS(O,l,r,x,y) (O[r][y]-O[(l)-1][y]-O[r][(x)-1]+O[(l)-1][(x)-1])</span><br><span class="line">I LL Q(CI k,CI l,CI r,RI x,RI y)&#123;</span><br><span class="line">    RI i;x=v[k][x-1]+1,y=v[k][y];LL Ans=0;for(i=l;i&lt;=r;i++) if(x&lt;=g[i]&amp;&amp;g[i]&lt;=y) Ans+=QS(F1[k],x,g[i],l-L[k]+1,i-L[k]);</span><br><span class="line">    return Ans;</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;int&gt; A,B;</span><br><span class="line">I LL Q(CI bL,CI bR,CI Ll,CI Lr,CI Rl,CI Rr,CI x,CI y)&#123;</span><br><span class="line">    A.clear(),B.clear();RI i,j,Ans=0;for(i=v[bL][x-1]+1;i&lt;=v[bL][y];i++) if(Ll&lt;=r[bL][i]&amp;&amp;r[bL][i]&lt;=Lr) A.push_back(a[r[bL][i]]);</span><br><span class="line">    for(i=v[bR][x-1]+1;i&lt;=v[bR][y];i++) if(Rl&lt;=r[bR][i]&amp;&amp;r[bR][i]&lt;=Rr) B.push_back(a[r[bR][i]]);</span><br><span class="line">    for(i=j=0;j&lt;B.size();j++)&#123;W(i&lt;A.size()&amp;&amp;A[i]&lt;=B[j]) i++;Ans+=i;&#125;return Ans;</span><br><span class="line">&#125;</span><br><span class="line">I LL Q(CI l,CI r,CI x,CI y)&#123;</span><br><span class="line">    RI i,bL=bl[l],bR=bl[r];if(bL==bR) return Q(bL,l,r,x,y);</span><br><span class="line">    LL Ans=Q(bL,l,R[bL],x,y)+Q(bR,L[bR],r,x,y)+Q(bL,bR,l,R[bL],L[bR],r,x,y);</span><br><span class="line">    for(i=l;i&lt;=R[bL];i++) if(x&lt;=a[i]&amp;&amp;a[i]&lt;=y) Ans+=QS(s,bL+1,bR-1,a[i],y);</span><br><span class="line">    for(i=L[bR];i&lt;=r;i++) if(x&lt;=a[i]&amp;&amp;a[i]&lt;=y) Ans+=QS(s,bL+1,bR-1,x,a[i]);</span><br><span class="line">    for(i=bL+1;i&lt;=bR-1;i++)&#123;</span><br><span class="line">        RI X=v[i][x-1]+1,Y=v[i][y];</span><br><span class="line">        Ans+=QS(F2[i],X,Y,bL+1,i)-QS(F3[i],1,X-1,X,Y)-(Y-X+1)*QS(s,bL+1,i-1,1,x-1);</span><br><span class="line">    &#125;return Ans;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,l,r,x,y;for(read(n,m),i=1;i&lt;=n;i++) read(a[i]);Build();W(m--) read(l,r,x,y),writeln(Q(l,r,x,y));return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&text=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&is_video=false&description=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6774 [NOI2020] 时代的眼泪&body=Check out this article: http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&title=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&name=P6774 [NOI2020] 时代的眼泪&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/05/24/p6774-noi2020-%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA/&t=P6774 [NOI2020] 时代的眼泪"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="P6274 eJOI 2017 Problem B Six  Elly 正在研究关于 正整数 $N$ 的一些性质，发现 $N$ 有不多于 $6$ 个不同的质因数。 接下来，她以一种特定的方式来生成的一个列表，一开始列表为空。她先写下了 $N$ 的一个大于一的因数 $x$ ，加入列表前，她先要确保 在所有已经在列表中的数中， 不能有 超过 $1$ 个 数与 $x$ 不互质。  举个例子，当 $N&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P6274 [eJOI2017]六">
+<meta property="og:url" content="http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="P6274 eJOI 2017 Problem B Six  Elly 正在研究关于 正整数 $N$ 的一些性质，发现 $N$ 有不多于 $6$ 个不同的质因数。 接下来，她以一种特定的方式来生成的一个列表，一开始列表为空。她先写下了 $N$ 的一个大于一的因数 $x$ ，加入列表前，她先要确保 在所有已经在列表中的数中， 不能有 超过 $1$ 个 数与 $x$ 不互质。  举个例子，当 $N&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-07T07:23:31.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:53.005Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="状压">
+<meta property="article:tag" content="记忆化搜索">
+<meta property="article:tag" content="质因数分解">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P6274 [eJOI2017]六</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/06/07/cf536d-tavas-in-kansas/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/06/04/hhhoj-2022-05-29%E3%80%8Cnoip%E6%A8%A1%E6%8B%9F%E8%B5%9B-%E8%B4%B0%E3%80%8D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&text=P6274 [eJOI2017]六"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&is_video=false&description=P6274 [eJOI2017]六"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6274 [eJOI2017]六&body=Check out this article: http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&name=P6274 [eJOI2017]六&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&t=P6274 [eJOI2017]六"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P6274 [eJOI2017]六
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-06-07T07:23:31.000Z" itemprop="datePublished">2022-06-07</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:53.005Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%8A%B6%E5%8E%8B/" rel="tag">状压</a>, <a class="tag-link-link" href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/" rel="tag">记忆化搜索</a>, <a class="tag-link-link" href="/tags/%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/" rel="tag">质因数分解</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6274">P6274</a> <a target="_blank" rel="noopener" href="http://ejoi.org/wp-content/themes/ejoi/assets/pdfs/tasks_day_1/EN/six_statement-en.pdf">eJOI 2017 Problem B Six</a></p>
+</blockquote>
+<p>Elly 正在研究关于 正整数 $N$ 的一些性质，发现 $N$ 有不多于 $6$ 个不同的质因数。</p>
+<p>接下来，她以一种特定的方式来生成的一个列表，一开始列表为空。她先写下了 $N$ 的一个大于一的因数 $x$ ，加入列表前，她先要确保 在所有已经在列表中的数中， 不能有 <strong>超过</strong> $1$ <strong>个</strong> 数与 $x$ <strong>不互质</strong>。</p>
+<hr>
+<p>举个例子，当 $N&#x3D;12156144$ 时：</p>
+<p>合法的列表有： $ (42), (616, 6, 91, 23),(91, 616, 6, 23), (66, 7), (66, 7, 7, 23, 299, 66), \(143, 13, 66),(42,12156144),\text{etc.} $</p>
+<p>而不合法的有：之一是 $(5,11)$，原因是 $5$ 不是 $N$ 的因子；还有一个是 $ (66, 13, 143)$ ，原因是 $143$ 与其他两个数都不互质。</p>
+<hr>
+<p>现在 Elly 希望你计算出给定的 $N$，可以生成几个不同的合法的列表。答案对 $10^9+7$ 取模。</p>
+<p><strong>若两个列表长度不同，或存在一个位置使得两个列表的该位置的值不同，那么我们说这两个列表不同的</strong>。</p>
+<p>对于所有数据，保证 $1\le N\le 10^{15}$，$N$ 至多有 $6$ 个质因数。</p>
+<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p>考虑如何转换 <code>不能有超过 $1$ 个数与 $x$ 不互质</code> 的限制。</p>
+<p>注意到 $N$ 至多只有 $6$ 个质因数，因此如果对所有数质因数分解，将会只有至多 $6$ 个状态（有&#x2F;无该因子），将其压起来设为状态 $S$，判断是否互质即等价于判断其 $S$ 的按位与是否非 $0$。</p>
+<p>考虑使用一个三进制来表示状态，可以先预处理出所有状态对应的方案数 $O(2^MM)$。</p>
+<p>每个状态包含 $i$ 类数的数量以及与其不互质的数的个数。转移的话直接枚举 $j$ 类数即可转移。</p>
+<p>看上去状态数很多，实际上很少，因此可过（（</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int M=7,X=1e9+7,N=1e7+10;</span><br><span class="line">LL n,p[M];</span><br><span class="line">int f[1&lt;&lt;M],c[M],cnt,g[N],Ans;</span><br><span class="line">map&lt;__int128,int&gt; mp;</span><br><span class="line">I int DFS(__int128 x)&#123;</span><br><span class="line">    if(mp.count(x)) return mp[x];</span><br><span class="line">    RI i,j,k,S=1,o;for(i=1;i&lt;(1&lt;&lt;cnt);i++) if((k=(x&gt;&gt;(i&lt;&lt;1))&amp;3)&lt;2)&#123;</span><br><span class="line">        __int128 t=x;for(j=0;j&lt;(1&lt;&lt;cnt);j++) i&amp;j&amp;&amp;(x&gt;&gt;(j&lt;&lt;1)&amp;3)&lt;2&amp;&amp;(x+=((__int128)1&lt;&lt;(j&lt;&lt;1)),0);</span><br><span class="line">        if(!f[i]) for(f[i]=1,j=1;j&lt;=cnt;j++) i&gt;&gt;j-1&amp;1&amp;&amp;(f[i]=1LL*f[i]*c[j]%X);</span><br><span class="line">        S=(1LL*DFS(x)*f[i]%X+S)%X,x=t;</span><br><span class="line">    &#125;return mp[x]=S;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    LL i;for(read(n),i=2;i*i&lt;=n;i++) if(!(n%i))&#123;</span><br><span class="line">        p[++cnt]=i;W(!(n%i)) n/=i,++c[cnt];</span><br><span class="line">    &#125;n&gt;1&amp;&amp;(p[++cnt]=n,c[cnt]=1);</span><br><span class="line">    return writeln(DFS(0)-1),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&text=P6274 [eJOI2017]六"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&is_video=false&description=P6274 [eJOI2017]六"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6274 [eJOI2017]六&body=Check out this article: http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&title=P6274 [eJOI2017]六"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&name=P6274 [eJOI2017]六&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/06/07/p6274-ejoi2017%E5%85%AD/&t=P6274 [eJOI2017]六"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

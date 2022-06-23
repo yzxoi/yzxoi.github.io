@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：YbtOJ #794  小 A 有一张 $n$ 个点的图，他会依次往里面加入 $m$ 条带权边。 每加入一条边之后，小 A 都要先判断是否存在一个边集使得所有点度数都是奇数，若存在则求出所有符合要求的边集中 最大边权 的 最小值，若不存在则输出 -1。 $1\le n\le10^5$，$1\le m\le 3\times10^5$，$0\leq v\leq 10^9$。 Solutio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YbtOJ 794「cdq 分治 整体二分」奇度边集">
+<meta property="og:url" content="http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题目链接：YbtOJ #794  小 A 有一张 $n$ 个点的图，他会依次往里面加入 $m$ 条带权边。 每加入一条边之后，小 A 都要先判断是否存在一个边集使得所有点度数都是奇数，若存在则求出所有符合要求的边集中 最大边权 的 最小值，若不存在则输出 -1。 $1\le n\le10^5$，$1\le m\le 3\times10^5$，$0\leq v\leq 10^9$。 Solutio">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-12T08:53:50.000Z">
+<meta property="article:modified_time" content="2022-06-23T13:14:10.756Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="线段树分治">
+<meta property="article:tag" content="连通块">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>YbtOJ 794「cdq 分治 整体二分」奇度边集</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/02/12/ybtoj-971-%E3%80%8Cfwt%E3%80%8D%E7%8C%9C%E6%8B%B3%E6%B8%B8%E6%88%8F/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/02/12/ybtoj-714-%E3%80%8C%E7%82%B9%E5%88%86%E6%B2%BB%E3%80%8D%E6%9F%93%E8%89%B2%E8%AE%A1%E5%88%92/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&text=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&is_video=false&description=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 794「cdq 分治 整体二分」奇度边集&body=Check out this article: http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&name=YbtOJ 794「cdq 分治 整体二分」奇度边集&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&t=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        YbtOJ 794「cdq 分治 整体二分」奇度边集
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-02-12T08:53:50.000Z" itemprop="datePublished">2022-02-12</time>
+        
+        (Updated: <time datetime="2022-06-23T13:14:10.756Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%88%86%E6%B2%BB/" rel="tag">线段树分治</a>, <a class="tag-link-link" href="/tags/%E8%BF%9E%E9%80%9A%E5%9D%97/" rel="tag">连通块</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.ybtoj.com.cn/problem/794">YbtOJ #794</a></p>
+</blockquote>
+<p>小 A 有一张 $n$ 个点的图，他会依次往里面加入 $m$ 条带权边。</p>
+<p>每加入一条边之后，小 A 都要先判断是否存在一个边集使得所有点度数都是奇数，若存在则求出所有符合要求的边集中 <strong>最大边权</strong> 的 <strong>最小值</strong>，若不存在则输出 <code>-1</code>。</p>
+<p>$1\le n\le10^5$，$1\le m\le 3\times10^5$，$0\leq v\leq 10^9$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>发现“所有点度数都是奇数”等价于“这个图中只存在大小为<strong>偶数</strong>的连通块”。</p>
+<p>简单证明：</p>
+<ul>
+<li>必要性：假设存在一个奇数大小的连通块，由于每个点的度数都为奇数，所有度数之和也必定为奇数，而每条边对总度数贡献为 $2$，故总度数必然为偶数，与假设矛盾。所以仅存在偶数大小的连通块。</li>
+<li>充分性：每个偶数大小的连通块，随便跑个生成树，从底往上扫一遍，如果该节点的儿子连上来的边数为偶数，就与其父亲相连，我们发现这样构造可以满足除了根以外的点限制，而又由所有点度数之和为偶数，其他节点数量为奇数，度数也为奇数，所以根的度数也为奇数。</li>
+</ul>
+<p>转换为题意后，考虑权值从小到大加边，如果用并查集维护一下奇连通块的个数，我们就可以完成了一个静态的题目。</p>
+<p>下面考虑如何扩展到动态。</p>
+<p>注意到一条边如果进入时没有进入最优边集，那么就再也不会进入。</p>
+<p>也就是说每条边会有一个影响范围。</p>
+<p>考虑线段树分治，每访问到一个叶子，直接后移指针，添加边，直到合法为止。显然此时就是这条边的影响范围结束位置，而每条边的出现位置显然，于是就做好了。</p>
+<p>但我们发现这是一个边分治一边 cover 的处理过程，直接线段树分治起来可能会有点小问题，因为这个时间点上 cover 上的边不知道什么时候撤回掉。</p>
+<p>这也很简单啊，只 cover 到当前时间减一就可以了，这个点上 cover 上的边在这个点直接撤回就完事了。</p>
+<p>这个算法的原理也很好理解：</p>
+<p>我们每次在叶子节点找答案，祖先节点上 cover 上的时间戳必然合法，在这个点上 cover 上的边也会因为判断而只加起始时间在当前时间点之前的边。</p>
+<p>原本我们的时间复杂度因为每一次暴力加边而变得不可接受。</p>
+<p>而通过计算决策的影响范围与将这些范围线段树分治，就减少了大量的重复计算。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">#define min(x,y) ((x)&lt;(y)?(x):(y))</span><br><span class="line">#define max(x,y) ((x)&gt;(y)?(x):(y))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=3e5+10,P=1e5+10;</span><br><span class="line">int n,m,fa[P],s[P],Ans[N],p;</span><br><span class="line">struct Edge&#123;int x,y,z,id;&#125;e[N];</span><br><span class="line">I bool cmp(Cn Edge&amp; x,Cn Edge&amp; y)&#123;return x.z&lt;y.z;&#125;</span><br><span class="line">I int GF(CI x)&#123;return x==fa[x]?x:fa[x]=GF(fa[x]);&#125;</span><br><span class="line">struct node&#123;int x,y,v;&#125;;</span><br><span class="line">vector&lt;node&gt; stk;</span><br><span class="line">#define pb push_back</span><br><span class="line">I void M(RI x,RI y)&#123;(x=GF(x))^(y=GF(y))&amp;&amp;(s[x]&lt;s[y]&amp;&amp;(swap(x,y),0),s[x]&amp;1&amp;&amp;s[y]&amp;1?n-=2,stk.pb((node)&#123;x,y,2&#125;):stk.pb((node)&#123;x,y,0&#125;),s[x]+=s[y],fa[y]=x,0);&#125;</span><br><span class="line">I void R(CI o)&#123;W(stk.size()^o) s[stk.back().x]-=s[stk.back().y],fa[stk.back().y]=stk.back().y,n+=stk.back().v,stk.pop_back();&#125;</span><br><span class="line">vector&lt;int&gt; G[N&lt;&lt;2];</span><br><span class="line">class SegmentTree&#123;</span><br><span class="line">    private:</span><br><span class="line">        #define mid (l+r&gt;&gt;1)</span><br><span class="line">        #define PT CI x=1,CI l=1,CI r=m</span><br><span class="line">        #define LT x&lt;&lt;1,l,mid</span><br><span class="line">        #define RT x&lt;&lt;11,mid+1,r</span><br><span class="line">        I void U(CI L,CI R,CI v,PT)&#123;if(L&gt;R) return ;if(L&lt;=l&amp;&amp;r&lt;=R) return void(G[x].pb(v));L&lt;=mid&amp;&amp;(U(L,R,v,LT),0),R&gt;mid&amp;&amp;(U(L,R,v,RT),0);&#125;</span><br><span class="line">    public:</span><br><span class="line">        I void Q(PT)&#123;</span><br><span class="line">            RI o=stk.size();for(auto i:G[x]) M(e[i].x,e[i].y);G[x].clear();</span><br><span class="line">            if(l==r)&#123;W(n&amp;&amp;p&lt;m) e[++p].id&lt;=l&amp;&amp;(M(e[p].x,e[p].y),U(e[p].id,l-1,p),0);Ans[l]=n?-1:e[p].z;&#125;</span><br><span class="line">            else Q(RT),Q(LT);R(o);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;T;</span><br><span class="line">int main()&#123;</span><br><span class="line">    freopen(&quot;edges.in&quot;,&quot;r&quot;,stdin),freopen(&quot;edges.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    RI i;for(read(n,m),i=1;i&lt;=n;i++) fa[i]=i,s[i]=1;</span><br><span class="line">    for(i=1;i&lt;=m;i++) read(e[i].x,e[i].y,e[i].z),e[i].id=i;</span><br><span class="line">    for(sort(e+1,e+m+1,cmp),T.Q(),i=1;i&lt;=m;i++) writeln(Ans[i]);return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&text=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&is_video=false&description=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 794「cdq 分治 整体二分」奇度边集&body=Check out this article: http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&title=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&name=YbtOJ 794「cdq 分治 整体二分」奇度边集&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/12/ybtoj-794-%E3%80%8Ccdq-%E5%88%86%E6%B2%BB-%E6%95%B4%E4%BD%93%E4%BA%8C%E5%88%86%E3%80%8D%E5%A5%87%E5%BA%A6%E8%BE%B9%E9%9B%86/&t=YbtOJ 794「cdq 分治 整体二分」奇度边集"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

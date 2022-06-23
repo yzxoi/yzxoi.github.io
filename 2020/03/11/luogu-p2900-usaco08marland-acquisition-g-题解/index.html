@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Describe 题目链接  Farmer John 准备扩大他的农场，眼前他正在考虑购买 $N$ 块长方形的土地。 如果 FJ 单买一块土地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长乘以最大的宽。比如 FJ 并购一块 $3 \times 5$ 和一块 $5 \times 3$ 的土地，他只需要支付 $5 \times 5&#x3D;25$ 元， 比单买合算。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Luogu P2900 [USACO08MAR]Land Acquisition G 题解">
+<meta property="og:url" content="http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Describe 题目链接  Farmer John 准备扩大他的农场，眼前他正在考虑购买 $N$ 块长方形的土地。 如果 FJ 单买一块土地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长乘以最大的宽。比如 FJ 并购一块 $3 \times 5$ 和一块 $5 \times 3$ 的土地，他只需要支付 $5 \times 5&#x3D;25$ 元， 比单买合算。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-11T09:27:49.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.468Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="斜率优化dp">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Luogu P2900 [USACO08MAR]Land Acquisition G 题解</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/15/luogu-p2656-%E9%87%87%E8%98%91%E8%8F%87-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/08/luogu-p3648-apio2014%E5%BA%8F%E5%88%97%E5%88%86%E5%89%B2-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&text=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2900 [USACO08MAR]Land Acquisition G 题解&body=Check out this article: http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&name=Luogu P2900 [USACO08MAR]Land Acquisition G 题解&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&t=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Luogu P2900 [USACO08MAR]Land Acquisition G 题解
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-11T09:27:49.000Z" itemprop="datePublished">2020-03-11</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.468Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%96%9C%E7%8E%87%E4%BC%98%E5%8C%96dp/" rel="tag">斜率优化dp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Describe"><a href="#Describe" class="headerlink" title="Describe"></a>Describe</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2900">题目链接</a></p>
+</blockquote>
+<p>Farmer John 准备扩大他的农场，眼前他正在考虑购买 $N$ 块长方形的土地。 如果 FJ 单买一块土地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长乘以最大的宽。比如 FJ 并购一块 $3 \times 5$ 和一块 $5 \times 3$ 的土地，他只需要支付 $5 \times 5&#x3D;25$ 元， 比单买合算。 FJ 希望买下所有的土地。他发现，将这些土地分成不同的小组来并购可以节省经费。 给定每份土地的尺寸，请你帮助他计算购买所有土地所需的最小费用。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>考虑$dp$，但是怎么$dp$呢？ 很显然，这需要先预处理。 将土地按照$w_i$从小到大排序，那么$l_i$筛选一下，一定是从大到小排序，否则肯定可以省略。 设$f_i$表示前$i$块土地的最小费用，那么有：$$f_i&#x3D;min(f_j+w_{j+1}\times l_{i})(0\leq j &lt;i)$$ 显然，这个式子可以斜率优化。 设$0\leq j&lt;k&lt;i$且$k$比$j$优，则$$f_j+w_{j+1}\times l_{i}\leq f_k+w_{k+1}\times l_{i}$$ 化简一下： $$(f_j-f_k)+l_i\times (w_{j+1}-w_{k+1})\leq 0$$ 即： $$\frac{f_k-f_j}{w_{j+1}-w_{k+1}}\ge l_i$$ 那么愉快的维护一个下凸壳即可。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define LD double</span><br><span class="line">using namespace std;</span><br><span class="line">int n,m,q[1000010],l,r;</span><br><span class="line">long long f[100010];</span><br><span class="line">struct node&#123;int w,l;&#125;a[1000010];</span><br><span class="line">inline int cmp(node x,node y)&#123;return x.w&gt;y.w(x.w==y.w&amp;&amp;x.l&gt;y.l);&#125;</span><br><span class="line">inline LD slope(int j,int k)&#123;</span><br><span class="line">    return (LD)((LD)(f[k]-f[j]))/((LD)(a[j+1].w-a[k+1].w));</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    for(int i=1;i&lt;=n;i++) scanf(&quot;%d%d&quot;,&amp;a[i].w,&amp;a[i].l);</span><br><span class="line">    sort(a+1,a+n+1,cmp);</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        if(a[i].l&gt;a[m].l) a[++m]=a[i];</span><br><span class="line">    l=r=1;q[1]=0;</span><br><span class="line">    for(int i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        while(l&lt;r&amp;&amp;slope(q[l],q[l+1])&lt;=a[i].l) l++;</span><br><span class="line">        f[i]=f[q[l]]+1ll*a[i].l*a[q[l]+1].w;</span><br><span class="line">        while(l&lt;r&amp;&amp;slope(q[r-1],q[r])&gt;=slope(q[r],i)) r--;</span><br><span class="line">        q[++r]=i;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%lld\n&quot;,f[m]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Describe"><span class="toc-number">1.</span> <span class="toc-text">Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&text=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&is_video=false&description=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Luogu P2900 [USACO08MAR]Land Acquisition G 题解&body=Check out this article: http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&title=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&name=Luogu P2900 [USACO08MAR]Land Acquisition G 题解&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/03/11/luogu-p2900-usaco08marland-acquisition-g-%E9%A2%98%E8%A7%A3/&t=Luogu P2900 [USACO08MAR]Land Acquisition G 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Description有一个 $2\cdot 10^9\times 2\cdot 10^9$ 的网格图，现要从 $(x_1,y_1)$ 走到 $(x_2,y_2)$，每次只能走上下左右四个方向且不能走到网格图外面。 假设当前位置为 $(x,y)$，  向南走一步（$x$ 加一）的代价为 $2xy^2+2y^2+x^2$； 向北走一步（$x$ 减一）的代价为 $-2xy^2+2y^2+x^2$； 向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="义乌中学暑假集训 2021.07.12 C">
+<meta property="og:url" content="http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="Description有一个 $2\cdot 10^9\times 2\cdot 10^9$ 的网格图，现要从 $(x_1,y_1)$ 走到 $(x_2,y_2)$，每次只能走上下左右四个方向且不能走到网格图外面。 假设当前位置为 $(x,y)$，  向南走一步（$x$ 加一）的代价为 $2xy^2+2y^2+x^2$； 向北走一步（$x$ 减一）的代价为 $-2xy^2+2y^2+x^2$； 向">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://z3.ax1x.com/2021/07/22/WBFniR.png">
+<meta property="article:published_time" content="2021-07-22T07:15:03.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.843Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="数学">
+<meta property="article:tag" content="分类讨论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://z3.ax1x.com/2021/07/22/WBFniR.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>义乌中学暑假集训 2021.07.12 C</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/07/23/cf453e-little-pony-and-lord-tirek/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-11-d/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&text=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&is_video=false&description=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=义乌中学暑假集训 2021.07.12 C&body=Check out this article: http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&name=义乌中学暑假集训 2021.07.12 C&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&t=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        义乌中学暑假集训 2021.07.12 C
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-07-22T07:15:03.000Z" itemprop="datePublished">2021-07-22</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.843Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA/" rel="tag">分类讨论</a>, <a class="tag-link-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>有一个 $2\cdot 10^9\times 2\cdot 10^9$ 的网格图，现要从 $(x_1,y_1)$ 走到 $(x_2,y_2)$，每次只能走上下左右四个方向且不能走到网格图外面。</p>
+<p>假设当前位置为 $(x,y)$，</p>
+<ul>
+<li>向南走一步（$x$ 加一）的代价为 $2xy^2+2y^2+x^2$；</li>
+<li>向北走一步（$x$ 减一）的代价为 $-2xy^2+2y^2+x^2$；</li>
+<li>向东走一步（$y$ 加一）的代价为 $2x^2y+2x^2+y^2$；</li>
+<li>向西走一步（$y$ 减一）的代价为 $-2x^2y+2x^2+y^2$；</li>
+</ul>
+<p>问从 $(x_1,y_1)$ 走到 $(x_2,y_2)$ 的最小代价对 $998244353$ 取模的结果是多少？</p>
+<p>$1\leq n\leq 5\times 10^4,1\leq x_1,y_1,x_2,y_2\leq 10^9$。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>显然，路径 $(x_1,y_1)\dots (x_2,y_2)$​ 的花费：<br>$$<br>T&#x3D;x_k^2y_k^2-x_1^2y_1^2+\sum_{i&#x3D;1}^{k-1}x_i^2+y_i^2<br>$$<br>我们把起点和终点有关的项 $x_k^2y_k^2-x_1^2y_1^2-x_k^2-y_k^2$ 先拿掉，相当于我们要最小化：<br>$$<br>\sum_{i&#x3D;1}^kx_i^2+y_i^2<br>$$<br>然后就可以无脑分类讨论了：</p>
+<p><img src="https://z3.ax1x.com/2021/07/22/WBFniR.png"></p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define I inline</span><br><span class="line">#define W while</span><br><span class="line">#define RI register int </span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp; </span><br><span class="line">#define gc getchar</span><br><span class="line">#define pc putchar</span><br><span class="line">#define int long long</span><br><span class="line">using namespace std;</span><br><span class="line">I void read(int&amp; x)&#123;RI f=1;char c=gc();x=0;W(!(&#x27;0&#x27;&lt;=c&amp;&amp;c&lt;=&#x27;9&#x27;)) f=c^&#x27;-&#x27;?f:-1,c=gc();W(&#x27;0&#x27;&lt;=c&amp;&amp;c&lt;=&#x27;9&#x27;) x=x*10+(c-&#x27;0&#x27;),c=gc();x*=f;&#125;</span><br><span class="line">I void write(int x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x),x&gt;=10&amp;&amp;(write(x/10),0),pc(x%10+&#x27;0&#x27;);&#125;</span><br><span class="line">Cn int N=510,P=998244353,Inv6=(P+1)/6;</span><br><span class="line">int Tt,sx,sy,tx,ty,Ans;</span><br><span class="line">signed main()&#123;</span><br><span class="line">    read(Tt);W(Tt--)&#123;</span><br><span class="line">        read(sx),read(sy),read(tx),read(ty);</span><br><span class="line">        #define LS(x) ((x)*((x)+1)%P*(2*(x)+1)%P*Inv6%P)</span><br><span class="line">        #define Sqr(x) ((x)*(x)%P)</span><br><span class="line">        #define CX(sx,sy,tx,ty) (sy&lt;ty?(LS(ty)-LS(sy)+Sqr(sy)-Sqr(ty)+Sqr(sx)*(ty-sy)%P):(LS(sy)-LS(ty)+Sqr(sx)*(sy-ty)))</span><br><span class="line">        #define CY(sx,sy,tx,ty) (sx&lt;tx?(LS(tx)-LS(sx)+Sqr(sx)-Sqr(tx)+Sqr(sy)*(tx-sx)%P):(LS(sx)-LS(tx)+Sqr(sy)*(sx-tx)))</span><br><span class="line">        #define CZ(sx,sy,tx,ty) (sx&lt;tx?(2*(LS(tx)-LS(sx))-Sqr(tx)+Sqr(sx)+2*(LS(tx)-LS(sx)-Sqr(tx)+Sqr(sx))%P):(2*(LS(sx)-LS(tx))-Sqr(sx)+Sqr(tx)+2*(LS(sx)-LS(tx))%P))</span><br><span class="line">        Ans=(Sqr(tx)*Sqr(ty)%P-Sqr(sx)*Sqr(sy))%P;</span><br><span class="line">        if(sx==tx)&#123;Ans+=CX(sx,sy,tx,ty);&#125;else</span><br><span class="line">        if(sy==ty)&#123;Ans+=CY(sx,sy,tx,ty);&#125;else</span><br><span class="line">        if(sx==sy&amp;&amp;tx==ty)&#123;Ans+=CZ(sx,sy,tx,ty);&#125;else</span><br><span class="line">        if(sx&lt;tx)&#123;</span><br><span class="line">            if(sy&gt;=ty) (Ans+=(CX(sx,sy,sx,ty)+CY(sx,ty,tx,ty))%P)%=P;else</span><br><span class="line">            if(sx&gt;=sy&amp;&amp;tx&gt;=ty) (Ans+=(sx&lt;=ty?(CX(sx,sy,sx,sx)+CZ(sx,sx,ty,ty)+CY(ty,ty,tx,ty)):(CX(sx,sy,sx,ty)+CY(sx,ty,tx,ty)))%P)%=P;else</span><br><span class="line">            if(sx&lt; sy&amp;&amp;tx&lt; ty) (Ans+=(sy&lt;=tx?(CY(sx,sy,sy,sy)+CZ(sy,sy,tx,tx)+CX(tx,tx,tx,ty)):(CY(sx,sy,tx,sy)+CX(tx,sy,tx,ty)))%P)%=P;else</span><br><span class="line">            if(sx&gt;=sy&amp;&amp;tx&lt; ty) (Ans+=(CX(sx,sy,sx,sx)+CZ(sx,sx,tx,tx)+CX(tx,tx,tx,ty))%P)%=P;else</span><br><span class="line">            if(sx&lt; sy&amp;&amp;tx&gt;=ty) (Ans+=(CY(sx,sy,sy,sy)+CZ(sy,sy,ty,ty)+CY(ty,ty,tx,ty))%P)%=P;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if(sy&lt;=ty) (Ans+=(CY(sx,sy,tx,sy)+CX(tx,sy,tx,ty))%P)%=P;else</span><br><span class="line">            if(sx&gt;=sy&amp;&amp;tx&gt;=ty) (Ans+=(sy&lt;=tx?(CY(sx,sy,tx,sy)+CX(tx,sy,tx,ty)):(CY(sx,sy,sy,sy)+CZ(sy,sy,tx,tx)+CX(tx,tx,tx,ty)))%P)%=P;else</span><br><span class="line">            if(sx&lt; sy&amp;&amp;tx&lt; ty) (Ans+=(sx&lt;=ty?(CX(sx,sy,sx,ty)+CY(sx,ty,tx,ty)):(CX(sx,sy,sx,sx)+CZ(sx,sx,ty,ty)+CY(ty,ty,tx,ty)))%P)%=P;else</span><br><span class="line">            if(sx&gt;=sy&amp;&amp;tx&lt; ty) (Ans+=(CY(sx,sy,sy,sy)+CZ(sy,sy,ty,ty)+CY(ty,ty,tx,ty))%P)%=P;else</span><br><span class="line">            if(sx&lt; sy&amp;&amp;tx&gt;=ty) (Ans+=(CX(sx,sy,sx,sx)+CZ(sx,sx,tx,tx)+CX(tx,tx,tx,ty))%P)%=P;</span><br><span class="line">        &#125;write((Ans+P)%P),pc(&#x27;\n&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">3.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&text=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&is_video=false&description=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=义乌中学暑假集训 2021.07.12 C&body=Check out this article: http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&title=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&name=义乌中学暑假集训 2021.07.12 C&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/07/22/%E4%B9%89%E4%B9%8C%E4%B8%AD%E5%AD%A6%E6%9A%91%E5%81%87%E9%9B%86%E8%AE%AD-2021-07-12-c/&t=义乌中学暑假集训 2021.07.12 C"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

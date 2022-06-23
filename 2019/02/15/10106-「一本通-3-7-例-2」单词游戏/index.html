@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题意有 $N$ 个盘子，每个盘子上写着一个仅由小写字母组成的英文单词。你需要给这些盘子安排一个合适的顺序，使得相邻两个盘子中，前一个盘子上单词的末字母等于后一个盘子上单词的首字母。请你编写一个程序，判断是否能达到这一要求。如果能，请给出一个合适的顺序。多组数据。第一行给出数据组数 $T$，每组数据第一行给出盘子数量 $N$，接下去 $N$ 行给出小写字母字符串，一种字符串可能出现多次。若存在一组合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10106. 「一本通 3.7 例 2」单词游戏">
+<meta property="og:url" content="http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题意有 $N$ 个盘子，每个盘子上写着一个仅由小写字母组成的英文单词。你需要给这些盘子安排一个合适的顺序，使得相邻两个盘子中，前一个盘子上单词的末字母等于后一个盘子上单词的首字母。请你编写一个程序，判断是否能达到这一要求。如果能，请给出一个合适的顺序。多组数据。第一行给出数据组数 $T$，每组数据第一行给出盘子数量 $N$，接下去 $N$ 行给出小写字母字符串，一种字符串可能出现多次。若存在一组合">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-02-15T03:18:16.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.123Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="LOJ">
+<meta property="article:tag" content="半欧拉图">
+<meta property="article:tag" content="并查集">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>10106. 「一本通 3.7 例 2」单词游戏</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2019/02/15/10149-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-5-1-%E4%BE%8B-3%E3%80%8D%E5%87%B8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%9A%84%E5%88%92%E5%88%86/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2019/02/15/10178-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-5-5-%E4%BE%8B-4%E3%80%8D%E6%97%85%E8%A1%8C%E9%97%AE%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&text=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&is_video=false&description=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=10106. 「一本通 3.7 例 2」单词游戏&body=Check out this article: http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&name=10106. 「一本通 3.7 例 2」单词游戏&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&t=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        10106. 「一本通 3.7 例 2」单词游戏
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-02-15T03:18:16.000Z" itemprop="datePublished">2019-02-15</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.123Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/LOJ/" rel="tag">LOJ</a>, <a class="tag-link-link" href="/tags/%E5%8D%8A%E6%AC%A7%E6%8B%89%E5%9B%BE/" rel="tag">半欧拉图</a>, <a class="tag-link-link" href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag">并查集</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有 $N$ 个盘子，每个盘子上写着一个仅由小写字母组成的英文单词。你需要给这些盘子安排一个合适的顺序，使得相邻两个盘子中，前一个盘子上单词的末字母等于后一个盘子上单词的首字母。请你编写一个程序，判断是否能达到这一要求。如果能，请给出一个合适的顺序。<br>多组数据。第一行给出数据组数 $T$，每组数据第一行给出盘子数量 $N$，接下去 $N$ 行给出小写字母字符串，一种字符串可能出现多次。<br>若存在一组合法解输出Ordering is possible.，否则输出 The door cannot be opened.。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>很明显就是寻找有没有<strong>半</strong>欧拉图。 先来看一看<strong>半</strong>欧拉图的定义：</p>
+<blockquote>
+<p>有向图G为半欧拉图，当且仅当G为连通图，且存在顶点u的入度比出度大1，v的入度比出度小1，其它所有顶点的入度等于出度。 存在欧拉路径而不存在欧拉回路。</p>
+</blockquote>
+<p>再来看一看有向图的<strong>半</strong>欧拉图的性质： 1.图G是连通的，不能有孤立的点存在。 2.存在两个顶点，其入度不等于出度，其中一点出度比入度大1，为路径起点，另一点入度比出度大1，为路径的终点。 好了，有了这些信息，那么这道题就很好打了。 可以采用并查集来帮助check是否为半欧拉图。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define MAXE 400010</span><br><span class="line">inline int read()&#123;</span><br><span class="line">    char ch=getchar();int res=0,f=1;</span><br><span class="line">    while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;</span><br><span class="line">    while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();</span><br><span class="line">    return res*f;</span><br><span class="line">&#125;</span><br><span class="line">int type,n,m;</span><br><span class="line">int in[MAXE],out[MAXE],fa[MAXE];</span><br><span class="line">bool vis[MAXE];</span><br><span class="line">int T;</span><br><span class="line">char as[1010];</span><br><span class="line">int getfa(int x)&#123;</span><br><span class="line">    return x==fa[x]?x:fa[x]=getfa(fa[x]);</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    T=read();</span><br><span class="line">    while(T--)&#123;</span><br><span class="line">        int Fans=0;</span><br><span class="line">        n=read();m=n;</span><br><span class="line">        memset(in,0,sizeof(in));</span><br><span class="line">        memset(out,0,sizeof(out));</span><br><span class="line">        for(int i=1;i&lt;=26;i++) fa[i]=i;</span><br><span class="line">        for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">            int x,y;</span><br><span class="line">            cin&gt;&gt;as;</span><br><span class="line">            x=as[0]-&#x27;a&#x27;+1,y=as[strlen(as)-1]-&#x27;a&#x27;+1;</span><br><span class="line">            fa[getfa(y)]=getfa(x);</span><br><span class="line">            in[y]++;out[x]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int ans=0;</span><br><span class="line">        for(int i=1;i&lt;=26;i++)&#123;</span><br><span class="line">            if(((in[i]!=0out[i]!=0)&amp;&amp;(getfa(i)==i))abs(in[i]-out[i])&gt;1) ans++;//root and son &gt;=2 </span><br><span class="line">        &#125;</span><br><span class="line">        if(ans&gt;=2)&#123;puts(&quot;The door cannot be opened.&quot;);continue;&#125;</span><br><span class="line">        int ans1=0,ans2=0;</span><br><span class="line">        for(int i=1;i&lt;=26;i++) (in[i]&gt;out[i]?ans1++:(in[i]&lt;out[i]?ans2++:ans));</span><br><span class="line">        if(ans1!=ans2ans1&gt;1) puts(&quot;The door cannot be opened.&quot;);</span><br><span class="line">        else puts(&quot;Ordering is possible.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&text=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&is_video=false&description=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=10106. 「一本通 3.7 例 2」单词游戏&body=Check out this article: http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&title=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&name=10106. 「一本通 3.7 例 2」单词游戏&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/02/15/10106-%E3%80%8C%E4%B8%80%E6%9C%AC%E9%80%9A-3-7-%E4%BE%8B-2%E3%80%8D%E5%8D%95%E8%AF%8D%E6%B8%B8%E6%88%8F/&t=10106. 「一本通 3.7 例 2」单词游戏"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

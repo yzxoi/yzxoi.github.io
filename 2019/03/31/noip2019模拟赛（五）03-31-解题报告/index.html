@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="LinkNOIP2019模拟赛（五）03.31A. 「NOIP模拟赛」电阻题意询问要得出一个电阻值为$\frac{a}{b}$的元件至少需要多少个电阻值为$1$的电阻。 元件由$3$种方式组成：  一个电阻 一个元件与一个电阻串联 一个元件与一个电阻并联  思路并联电阻阻值计算 总电阻值为:$总R_总&#x3D;\frac{1}{\frac{1}{R_1]}+\frac{1}{R_2]}+…+\f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOIP2019模拟赛（五）03.31 解题报告">
+<meta property="og:url" content="http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="LinkNOIP2019模拟赛（五）03.31A. 「NOIP模拟赛」电阻题意询问要得出一个电阻值为$\frac{a}{b}$的元件至少需要多少个电阻值为$1$的电阻。 元件由$3$种方式组成：  一个电阻 一个元件与一个电阻串联 一个元件与一个电阻并联  思路并联电阻阻值计算 总电阻值为:$总R_总&#x3D;\frac{1}{\frac{1}{R_1]}+\frac{1}{R_2]}+…+\f">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=551244cdb312c8fca0fefe9f9d6af920/503d269759ee3d6d7262b12649166d224e4adeb2.jpg">
+<meta property="og:image" content="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/crop%3D20%2C0%2C860%2C568%3Bc0%3Dbaike92%2C5%2C5%2C92%2C30/sign=7f3d2f3594510fb36c562dd7e401f8b9/aa64034f78f0f73636332d8d0055b319eac41368.jpg">
+<meta property="article:published_time" content="2019-03-31T07:43:11.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.328Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="模拟">
+<meta property="article:tag" content="gcd">
+<meta property="article:tag" content="快速幂">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=551244cdb312c8fca0fefe9f9d6af920/503d269759ee3d6d7262b12649166d224e4adeb2.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>NOIP2019模拟赛（五）03.31 解题报告</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2019/04/03/ek-edmond-karp-%E7%AE%97%E6%B3%95-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2019/03/24/codeforces-gym-101002-h-jewel-thief-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&text=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&is_video=false&description=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NOIP2019模拟赛（五）03.31 解题报告&body=Check out this article: http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&name=NOIP2019模拟赛（五）03.31 解题报告&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&t=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-number">1.</span> <span class="toc-text">Link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NOIP2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31"><span class="toc-number">1.1.</span> <span class="toc-text">NOIP2019模拟赛（五）03.31</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D%E7%94%B5%E9%98%BB"><span class="toc-number">2.</span> <span class="toc-text">A. 「NOIP模拟赛」电阻</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E8%81%94%E7%94%B5%E9%98%BB%E9%98%BB%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.1.</span> <span class="toc-text">并联电阻阻值计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B2%E8%81%94%E7%94%B5%E9%98%BB%E9%98%BB%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.2.</span> <span class="toc-text">串联电阻阻值计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%88%B0%E8%BF%99%E9%81%93%E9%A2%98%E7%9B%AE"><span class="toc-number">2.2.3.</span> <span class="toc-text">回归到这道题目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D%E6%89%BE%E9%9B%B6"><span class="toc-number">3.</span> <span class="toc-text">B. 「NOIP模拟赛」找零</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">3.2.</span> <span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D2048"><span class="toc-number">4.</span> <span class="toc-text">C. 「NOIP模拟赛」2048</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">4.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-number">4.2.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        NOIP2019模拟赛（五）03.31 解题报告
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-03-31T07:43:11.000Z" itemprop="datePublished">2019-03-31</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.328Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/dp/" rel="tag">dp</a>, <a class="tag-link-link" href="/tags/gcd/" rel="tag">gcd</a>, <a class="tag-link-link" href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">快速幂</a>, <a class="tag-link-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a>, <a class="tag-link-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><h3 id="NOIP2019模拟赛（五）03-31"><a href="#NOIP2019模拟赛（五）03-31" class="headerlink" title="NOIP2019模拟赛（五）03.31"></a><a target="_blank" rel="noopener" href="http://211.140.156.254:2333/contest/160">NOIP2019模拟赛（五）03.31</a></h3><h2 id="A-「NOIP模拟赛」电阻"><a href="#A-「NOIP模拟赛」电阻" class="headerlink" title="A. 「NOIP模拟赛」电阻"></a>A. 「NOIP模拟赛」电阻</h2><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>询问要得出一个电阻值为$\frac{a}{b}$的元件至少需要多少个电阻值为$1$的电阻。 元件由$3$种方式组成：</p>
+<ol>
+<li>一个电阻</li>
+<li>一个元件与一个电阻串联</li>
+<li>一个元件与一个电阻并联</li>
+</ol>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="并联电阻阻值计算"><a href="#并联电阻阻值计算" class="headerlink" title="并联电阻阻值计算"></a>并联电阻阻值计算</h4><p><img src="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=551244cdb312c8fca0fefe9f9d6af920/503d269759ee3d6d7262b12649166d224e4adeb2.jpg"> 总电阻值为:$总R_总&#x3D;\frac{1}{\frac{1}{R_1]}+\frac{1}{R_2]}+…+\frac{1}{R_n]}}$ 特别的，两个电阻并联总值为：$R&#x3D;\frac{R_1R_2}{R_1+R_2}$</p>
+<h4 id="串联电阻阻值计算"><a href="#串联电阻阻值计算" class="headerlink" title="串联电阻阻值计算"></a>串联电阻阻值计算</h4><p><img src="https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/crop%3D20%2C0%2C860%2C568%3Bc0%3Dbaike92%2C5%2C5%2C92%2C30/sign=7f3d2f3594510fb36c562dd7e401f8b9/aa64034f78f0f73636332d8d0055b319eac41368.jpg"> （不要问我为什么我把电阻搞成了灯泡，凑合着看吧） 总电阻值为：$总R_总&#x3D;R_1+R_2+…+R_n$</p>
+<h4 id="回归到这道题目"><a href="#回归到这道题目" class="headerlink" title="回归到这道题目"></a>回归到这道题目</h4><p>考虑一组较为简单的样例，$R&#x3D;\frac{11}{7}\Omega$ 由于$\frac{11}{7}&gt;1$，所以这肯定是两个<strong>元件</strong>串联而成的，其中一个<strong>元件</strong>的阻值为$1$，另外一个<strong>元件</strong>的阻值为$\frac{4}{7}$。 其中的一个<strong>元件</strong>阻值为$1$，思考：那么如果是更大的数呢？其实也差不多，就是若干个电阻值为$1$的电阻<strong>串联</strong>起来的，因为分成的这部分的电阻值其实为<strong>整数</strong>。 另外的一个<strong>元件</strong>阻值为$\frac{4}{7}$，因为$\frac{4}{7}&lt;1$，所以它是由两个<strong>元件</strong>并联而成的，我们可以对它取倒数（根据并联公式），得到$\frac{7}{4}&#x3D;1+\frac{3}{4}$，继续拆分$\frac{3}{4}$，可得$\frac{3}{4}&lt;1$，那么再倒数，得到$\frac{4}{3}&#x3D;1+\frac{1}{3}$，然后继续拆分$\frac{1}{3}$，可得$\frac{1}{3}&lt;1$，再倒数可得$3$，因为这已经不是分数，而是整数了，那么就不需要继续拆分了。 然后会很惊奇的发现，这个过程很像$gcd$。($gcd$:我躺着也中枪) 发现：并联其实就是取倒数。。。 那么就好了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">#define int long long</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;</span><br><span class="line">    int res=0,f=1;char ch=getchar();</span><br><span class="line">    while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;</span><br><span class="line">    while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();</span><br><span class="line">    return res*f;</span><br><span class="line">&#125;</span><br><span class="line">inline void write(int x)&#123;</span><br><span class="line">    if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;</span><br><span class="line">    if(x&lt;10) putchar(x+&#x27;0&#x27;);</span><br><span class="line">    else&#123;</span><br><span class="line">        write(x/10);</span><br><span class="line">        putchar(x%10+&#x27;0&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//queue&lt;int&gt; q;</span><br><span class="line">//set&lt;int&gt; s;</span><br><span class="line">//priority_queue&lt;int&gt; q1;</span><br><span class="line">//priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q2;</span><br><span class="line">//list&lt;int&gt; l;</span><br><span class="line">//stack&lt;int&gt; s;</span><br><span class="line">int a,b,ans=0;</span><br><span class="line">signed main()&#123;</span><br><span class="line">//  freopen(&quot;A.in&quot;,&quot;r&quot;,stdin);freopen(&quot;A.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    a=read();b=read();</span><br><span class="line">    while(a!=0&amp;&amp;b!=0)&#123;</span><br><span class="line">        if(a&lt;b) swap(a,b);</span><br><span class="line">        ans+=a/b;</span><br><span class="line">        a%=b;</span><br><span class="line">    &#125;</span><br><span class="line">    write(ans);putchar(&#x27;\n&#x27;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//并联:1/(1/R[1]+1/R[2]+...+1/R[n])</span><br><span class="line">//串联:R[1]+R[2]+...+R[n]</span><br><span class="line">//并联2:(R[1]*R[2])/(R[1]+R[2])</span><br></pre></td></tr></table></figure>
+
+<h2 id="B-「NOIP模拟赛」找零"><a href="#B-「NOIP模拟赛」找零" class="headerlink" title="B. 「NOIP模拟赛」找零"></a>B. 「NOIP模拟赛」找零</h2><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>由$n$种硬币，每种面值的硬币有无数个。 希望用最少的硬币组合出$1\sim x$的任意值。 问最少需要多少硬币？</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><p>考虑已经能组合出$1\sim x$的数值 那么下一个硬币取$x$以内最大的数$k$ 使能组合出$1\sim x+k$ 那么就用$upper\text{_}bound$就好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">#define int long long</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;</span><br><span class="line">    int res=0,f=1;char ch=getchar();</span><br><span class="line">    while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;</span><br><span class="line">    while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();</span><br><span class="line">    return res*f;</span><br><span class="line">&#125;</span><br><span class="line">inline void write(int x)&#123;</span><br><span class="line">    if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;</span><br><span class="line">    if(x&lt;10) putchar(x+&#x27;0&#x27;);</span><br><span class="line">    else&#123;</span><br><span class="line">        write(x/10);</span><br><span class="line">        putchar(x%10+&#x27;0&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//queue&lt;int&gt; q;</span><br><span class="line">//set&lt;int&gt; s;</span><br><span class="line">//priority_queue&lt;int&gt; q1;</span><br><span class="line">//priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q2;</span><br><span class="line">//list&lt;int&gt; l;</span><br><span class="line">//stack&lt;int&gt; s;</span><br><span class="line">int n,a[1000010],x,now,ans;</span><br><span class="line">signed main()&#123;</span><br><span class="line">//  freopen(&quot;%name%.in&quot;,&quot;r&quot;,stdin);freopen(&quot;%name%.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    x=read();n=read();</span><br><span class="line">    for(int i=1;i&lt;=n;i++) a[i]=read();</span><br><span class="line">    sort(a+1,a+n+1);</span><br><span class="line">    if(a[1]!=1)&#123;</span><br><span class="line">        puts(&quot;-1&quot;);</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    while(now&lt;x)&#123;</span><br><span class="line">        int tmp=upper_bound(a+1,a+n+1,now+1)-a-1;</span><br><span class="line">        ans++;</span><br><span class="line">        now+=a[tmp];</span><br><span class="line">    &#125;</span><br><span class="line">    write(ans);putchar(&#x27;\n&#x27;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="C-「NOIP模拟赛」2048"><a href="#C-「NOIP模拟赛」2048" class="headerlink" title="C. 「NOIP模拟赛」2048"></a>C. 「NOIP模拟赛」2048</h2><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定一个长度为$n$的数列，在这个数列中选取一个子序列使得这个子序列中的数能合出$2048$ 对于合并操作，可以选择这个序列中的任意两个数进行合并，当然这两个数必须是相同的(即$2$个$x$合并后成为一个$2x$) 对于每个序列，只要进行若干次合并操作后，这个序列中至少有一个$2048$(可以有其他数剩余)，就称这个序列是合法的 我们可以认为只要选取的数在原数列中的位置不同，这些序列就是不同的 对于给定的数列，小朋友们需要算出有多少子序列是合法的，并把这个数 对$998244353$取模</p>
+<h3 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h3><p>因为合并时两个数必须是相同的，且合并出$2048&#x3D;2^{11}$ 那么可想而知，合并的几个数必须是$2$的幂。 所以就把所有$2$的幂弄在一起，搞个$dp$求一下有多少种可能之和不小于$2048$。 然后其他不是$2$的幂的数字可以剩余，所以可有可无，那么就统计一下求一下$2^{count}$（因为有无共两种情况，乘法原理） 最后把两部分的$ans$乘起来就好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">#define mod 998244353</span><br><span class="line">#define int long long</span><br><span class="line">using namespace std;</span><br><span class="line">inline int read()&#123;</span><br><span class="line">    int res=0,f=1;char ch=getchar();</span><br><span class="line">    while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=getchar();&#125;</span><br><span class="line">    while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=getchar();</span><br><span class="line">    return res*f;</span><br><span class="line">&#125;</span><br><span class="line">inline void write(int x)&#123;</span><br><span class="line">    if(x&lt;0) putchar(&#x27;-&#x27;),x=-x;</span><br><span class="line">    if(x&lt;10) putchar(x+&#x27;0&#x27;);</span><br><span class="line">    else&#123;</span><br><span class="line">        write(x/10);</span><br><span class="line">        putchar(x%10+&#x27;0&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//queue&lt;int&gt; q;</span><br><span class="line">//set&lt;int&gt; s;</span><br><span class="line">//priority_queue&lt;int&gt; q1;</span><br><span class="line">//priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q2;</span><br><span class="line">//list&lt;int&gt; l;</span><br><span class="line">//stack&lt;int&gt; s;</span><br><span class="line">int n,a[100010],f[2050],ans=0,Pow[2050],MaxSum;</span><br><span class="line">int fpow(int a,int b)&#123;</span><br><span class="line">    if(b==0) return 1ll;</span><br><span class="line">    if(b==1) return a;</span><br><span class="line">    int res=fpow(a,b/(2*1ll));</span><br><span class="line">    if(b&amp;(1ll)) return res*res%mod*a%mod;</span><br><span class="line">    else return res*res%mod; </span><br><span class="line">&#125;</span><br><span class="line">signed main()&#123;</span><br><span class="line">//  freopen(&quot;C.in&quot;,&quot;r&quot;,stdin);freopen(&quot;C.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    n=read();</span><br><span class="line">    for(int i=1;i&lt;=n;i++) a[i]=read();</span><br><span class="line"></span><br><span class="line">    sort(a+1,a+n+1);</span><br><span class="line">    memset(f,0,sizeof(f));</span><br><span class="line">    Pow[1]=1;</span><br><span class="line">    Pow[2]=1;</span><br><span class="line">    Pow[4]=1;</span><br><span class="line">    Pow[8]=1;</span><br><span class="line">    Pow[16]=1;</span><br><span class="line">    Pow[32]=1;</span><br><span class="line">    Pow[64]=1;</span><br><span class="line">    Pow[128]=1;</span><br><span class="line">    Pow[256]=1;</span><br><span class="line">    Pow[512]=1;</span><br><span class="line">    Pow[1024]=1;</span><br><span class="line">    Pow[2048]=1;</span><br><span class="line">    f[0]=1;</span><br><span class="line">    for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">        if(Pow[a[i]]==1)&#123;</span><br><span class="line">            for(int j=MaxSum;j&gt;=0;j--) f[min(j+a[i],1ll*2048)]+=f[j],f[min(j+a[i],1ll*2048)]%=mod;</span><br><span class="line">//          cout&lt;&lt;Max&lt;&lt;&quot; &quot;&lt;&lt;a[i]&lt;&lt;endl;</span><br><span class="line">            MaxSum=min(1ll*2048,MaxSum+a[i]);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    write((fpow(2,ans)*f[2048])%mod);putchar(&#x27;\n&#x27;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Link"><span class="toc-number">1.</span> <span class="toc-text">Link</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NOIP2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31"><span class="toc-number">1.1.</span> <span class="toc-text">NOIP2019模拟赛（五）03.31</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D%E7%94%B5%E9%98%BB"><span class="toc-number">2.</span> <span class="toc-text">A. 「NOIP模拟赛」电阻</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">2.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E8%81%94%E7%94%B5%E9%98%BB%E9%98%BB%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.1.</span> <span class="toc-text">并联电阻阻值计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B2%E8%81%94%E7%94%B5%E9%98%BB%E9%98%BB%E5%80%BC%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.2.</span> <span class="toc-text">串联电阻阻值计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E5%BD%92%E5%88%B0%E8%BF%99%E9%81%93%E9%A2%98%E7%9B%AE"><span class="toc-number">2.2.3.</span> <span class="toc-text">回归到这道题目</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D%E6%89%BE%E9%9B%B6"><span class="toc-number">3.</span> <span class="toc-text">B. 「NOIP模拟赛」找零</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-1"><span class="toc-number">3.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">3.2.</span> <span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E3%80%8CNOIP%E6%A8%A1%E6%8B%9F%E8%B5%9B%E3%80%8D2048"><span class="toc-number">4.</span> <span class="toc-text">C. 「NOIP模拟赛」2048</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E6%84%8F-2"><span class="toc-number">4.1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-number">4.2.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&text=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&is_video=false&description=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=NOIP2019模拟赛（五）03.31 解题报告&body=Check out this article: http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&title=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&name=NOIP2019模拟赛（五）03.31 解题报告&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2019/03/31/noip2019%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E4%BA%94%EF%BC%8903-31-%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/&t=NOIP2019模拟赛（五）03.31 解题报告"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

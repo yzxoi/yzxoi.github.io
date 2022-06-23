@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：P6072  给定一棵 $n$ 个节点的无根树，从中选择两个不交路径，求边权异或和之和最大值。 $n\leq 3\times 10^4$。 Sol这里具体讲讲一只 $\log$ 的做法（在此感谢 神仙lwy）。 考虑这种题首先套路地枚举分界点 $x$，使两条路径一条在节点 $x$ 的子树内，另一条在子树外。 然后就很自然地想到了 $\mathcal O(n\log n\log w)$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P6072 『MdOI R1』Path">
+<meta property="og:url" content="http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题目链接：P6072  给定一棵 $n$ 个节点的无根树，从中选择两个不交路径，求边权异或和之和最大值。 $n\leq 3\times 10^4$。 Sol这里具体讲讲一只 $\log$ 的做法（在此感谢 神仙lwy）。 考虑这种题首先套路地枚举分界点 $x$，使两条路径一条在节点 $x$ 的子树内，另一条在子树外。 然后就很自然地想到了 $\mathcal O(n\log n\log w)$">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-28T07:45:24.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.878Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="trie">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P6072 『MdOI R1』Path</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/08/30/cf1179d-fedor-runs-for-president/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/08/19/%E3%80%8Cnoip2021%E6%A8%A1%E6%8B%9F%E8%B5%9B8-19-c%E3%80%8D%E7%8E%A9%E5%AE%B6%EF%BC%88gamer%EF%BC%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&text=P6072 『MdOI R1』Path"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&is_video=false&description=P6072 『MdOI R1』Path"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6072 『MdOI R1』Path&body=Check out this article: http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&name=P6072 『MdOI R1』Path&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&t=P6072 『MdOI R1』Path"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sol"><span class="toc-number">1.</span> <span class="toc-text">Sol</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P6072 『MdOI R1』Path
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-08-28T07:45:24.000Z" itemprop="datePublished">2021-08-28</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.878Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/trie/" rel="tag">trie</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6072">P6072</a></p>
+</blockquote>
+<p>给定一棵 $n$ 个节点的无根树，从中选择两个不交路径，求边权异或和之和最大值。</p>
+<p>$n\leq 3\times 10^4$。</p>
+<h2 id="Sol"><a href="#Sol" class="headerlink" title="Sol"></a>Sol</h2><p>这里具体讲讲一只 $\log$ 的做法（在此感谢 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/discuss/show/347250">神仙lwy</a>）。</p>
+<p>考虑这种题首先套路地枚举分界点 $x$，使两条路径一条在节点 $x$ 的子树内，另一条在子树外。</p>
+<p>然后就很自然地想到了 $\mathcal O(n\log n\log w)$ 的 DSU+Trie 的做法处理子树内的部分，子树外的部分可以先利用 Trie 求出任意一对全局的异或和最大的点对 $(X,Y)$，那么显然所有不在 $X$ 到根和 $Y$ 到根的路径上的点的子树外的答案都是 $(X,Y)$ 间的异或和。考虑 $X$ 到根以及 $Y$ 到根的路径就直接从根节点出发，每次将点插入 Trie 中，维护出异或值最大即可，由于每个点只会被插一次，所以总复杂度为 $\mathcal O(n\log w)$。</p>
+<p>然后考虑如何做到完全的一只 $\log$。还是先求出全局的异或和最大的 $(X,Y)$，然后把这条 $X$ 到 $Y$ 的链提取出来。</p>
+<ul>
+<li>如果分界点不在这条链上，显然子树外的答案取这个链的答案最优，子树内的答案直接求解与这条链相邻的子树内的答案即可，显然如果子树内的最优答案必然包含在与这条链相邻的子树内，这样每个点只会被插一次。</li>
+<li>如果分界点在这条链上，考虑先钦定 $X$ 为根，从 $Y$ 向上扫一遍，不断插入点，求出其异或和最大值即为当前点的子树内答案。类似的，钦定 $Y$ 为根，从 $X$ 向上扫一遍，不断插点，同样也能求出其子树外的答案。</li>
+</ul>
+<p>由于每个点只会被插一次，所以这样的话总时间复杂度为 $\mathcal O(n\log w)$。</p>
+<p>有一点点小细节，写的时候注意一下就好了。然后就跑的比两只 $\log$ 还慢。。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define LL long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">#define gc getchar</span><br><span class="line">#define D isdigit(c=gc())</span><br><span class="line">#define pc(c) putchar((c))</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    Tp I void read(Ty&amp; x)&#123;char c;int f=1;x=0;W(!D) f=c^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(c&amp;15),D);x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y)&#123;read(x),read(y...);&#125;</span><br><span class="line">    Tp I void write(Ty x)&#123;x&lt;0&amp;&amp;(pc(&#x27;-&#x27;),x=-x,0),x&lt;10?(pc(x+&#x27;0&#x27;),0):(write(x/10),pc(x%10+&#x27;0&#x27;),0);&#125;</span><br><span class="line">    Tp I void writeln(Cn Ty&amp; x)&#123;write(x),pc(&#x27;\n&#x27;);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=3e4+10;</span><br><span class="line">int n,fir[N],nxt[N&lt;&lt;1],son[N&lt;&lt;1],w[N&lt;&lt;1],tot,F[N],Mx=-1,idx,idy,vis[N],G[N],P[N],dfn[N],bk[N],cnt,sz[N],Ans,in[N],out[N];</span><br><span class="line">I void Add(CI x,CI y,CI z)&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y,w[tot]=z;&#125;</span><br><span class="line">#define to son[i]</span><br><span class="line">I void DFS(CI x,CI fa)&#123;RI i;for(i=fir[x];i;i=nxt[i]) to^fa&amp;&amp;(F[to]=F[x]^w[i],DFS(to,x),0);&#125;</span><br><span class="line">#define PA pair&lt;int,int&gt;</span><br><span class="line">#define MP make_pair</span><br><span class="line">class Trie&#123;</span><br><span class="line">    private:</span><br><span class="line">        int ch[N*31][2],id[N*31],cnt;</span><br><span class="line">    public:</span><br><span class="line">        I void C()&#123;RI i;for(i=0;i&lt;=cnt;i++) ch[i][0]=ch[i][1]=id[i]=0;cnt=0;&#125;</span><br><span class="line">        I void U(CI x,CI dd)&#123;RI i,u=0;for(i=30;~i;i--) ch[u][x&gt;&gt;i&amp;1]?u=ch[u][x&gt;&gt;i&amp;1]:u=ch[u][x&gt;&gt;i&amp;1]=++cnt;id[u]=dd;&#125;</span><br><span class="line">        I PA Q(CI x)&#123;RI i,u=0,X=0;for(i=30;~i;i--) ch[u][x&gt;&gt;i&amp;1^1]?u=ch[u][x&gt;&gt;i&amp;1^1],X=1&lt;&lt;i:u=ch[u][x&gt;&gt;i&amp;1];return MP(X,id[u]);&#125;</span><br><span class="line">&#125;T;//Trie 树维护异或和最大值</span><br><span class="line">I void dfs(CI x,CI fa)&#123;RI i;for(P[x]=fa,bk[dfn[x]=++cnt]=x,sz[x]=1,i=fir[x];i;i=nxt[i]) to^fa&amp;&amp;(F[to]=F[x]^w[i],dfs(to,x),sz[x]+=sz[to],0);&#125;</span><br><span class="line">I void GT(CI x)&#123;RI i,j;PA t;for(i=fir[x];i;i=nxt[i]) if(!vis[to])&#123;for(j=dfn[to];j&lt;=dfn[to]+sz[to]-1;j++) t=T.Q(F[bk[j]]),Ans=max(Ans,Mx+t.first),T.U(F[bk[j]],bk[j]);T.C();&#125;&#125;//分界点不在链上，求与链相邻子树答案</span><br><span class="line">I void FG(CI x)&#123;RI i,j;PA t;for(t=T.Q(F[x]),in[x]=max(in[x],t.first),T.U(F[x],x),i=fir[x];i;i=nxt[i]) if(!vis[to]) for(j=dfn[to];j&lt;=dfn[to]+sz[to]-1;j++) t=T.Q(F[bk[j]]),in[x]=max(in[x],t.first),T.U(F[bk[j]],bk[j]);&#125;//分界点在链上，求子树内答案</span><br><span class="line">I void FO(CI x)&#123;RI i,j;PA t;for(t=T.Q(F[x]),out[x]=max(out[x],t.first),T.U(F[x],x),i=fir[x];i;i=nxt[i]) if(!vis[to]) for(j=dfn[to];j&lt;=dfn[to]+sz[to]-1;j++) t=T.Q(F[bk[j]]),out[x]=max(out[x],t.first),T.U(F[bk[j]],bk[j]);&#125;//分界点在链上，求子树外答案</span><br><span class="line">int main()&#123;</span><br><span class="line">    RI i,x,y,z,lst;PA t;for(read(n),i=1;i&lt;n;i++) read(x,y,z),Add(x,y,z),Add(y,x,z);for(DFS(1,0),i=1;i&lt;=n;i++) t=T.Q(F[i]),Mx&lt;t.first&amp;&amp;(Mx=t.first,idx=t.second,idy=i),T.U(F[i],i);//先求出全局异或和最大点对</span><br><span class="line">    for(F[idx]=0,dfs(idx,0),vis[idx]=1,i=idy;i!=idx;i=P[i]) vis[i]=1;for(T.C(),GT(idx),i=idy;i!=idx;i=P[i]) GT(i);for(i=idy;i!=idx;i=P[i]) FG(i);FG(idx),T.C();//分界点不在链上</span><br><span class="line">    for(F[idy]=cnt=0,dfs(idy,0),i=idx;i!=idy;i=P[i]) FO(i);FO(idy);for(lst=0,i=P[idx];i!=idy;i=P[i]) Ans=max(Ans,in[i]+lst),lst=max(lst,out[i]);//分界点在链上合并子树内子树外</span><br><span class="line">    return Ans=max(Ans,in[idy]+lst),writeln(Ans),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sol"><span class="toc-number">1.</span> <span class="toc-text">Sol</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&text=P6072 『MdOI R1』Path"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&is_video=false&description=P6072 『MdOI R1』Path"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6072 『MdOI R1』Path&body=Check out this article: http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&title=P6072 『MdOI R1』Path"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&name=P6072 『MdOI R1』Path&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2021/08/28/p6072-%E3%80%8Emdoi-r1%E3%80%8Fpath/&t=P6072 『MdOI R1』Path"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

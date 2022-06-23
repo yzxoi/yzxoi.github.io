@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：YbtOJ #825  小 A 有一张二维平面，其中有 $n$ 个点 $(x_i,y_i)$。 他想要知道，是否存在三个点 $(x_A,y_A),(x_B,y_B),(x_C,y_C)$，满足它们构成的三角形的面积 恰好 为 $m$。 若存在，请给出任意一组符合条件的三个点。 $3\le n\le2\times10^3$，$1\le m\le2\times10^{18}$，$-10^9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="YbtOJ 825「计算几何初探」三角查找">
+<meta property="og:url" content="http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="题目链接：YbtOJ #825  小 A 有一张二维平面，其中有 $n$ 个点 $(x_i,y_i)$。 他想要知道，是否存在三个点 $(x_A,y_A),(x_B,y_B),(x_C,y_C)$，满足它们构成的三角形的面积 恰好 为 $m$。 若存在，请给出任意一组符合条件的三个点。 $3\le n\le2\times10^3$，$1\le m\le2\times10^{18}$，$-10^9">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-08T07:07:20.000Z">
+<meta property="article:modified_time" content="2022-06-23T13:14:17.996Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="计算几何">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>YbtOJ 825「计算几何初探」三角查找</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/02/08/ybtoj-884-%E3%80%8C%E7%BA%BF%E6%80%A7%E5%9F%BA%E3%80%8D%E8%BF%9E%E9%80%9A%E7%9A%84%E5%9B%BE/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/02/07/ybtoj-581-%E3%80%8C%E7%BD%91%E7%BB%9C%E6%B5%81%E3%80%8D%E5%9B%BE%E4%B8%8A%E6%97%85%E8%A1%8C/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&text=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&is_video=false&description=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 825「计算几何初探」三角查找&body=Check out this article: http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&name=YbtOJ 825「计算几何初探」三角查找&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&t=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        YbtOJ 825「计算几何初探」三角查找
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-02-08T07:07:20.000Z" itemprop="datePublished">2022-02-08</time>
+        
+        (Updated: <time datetime="2022-06-23T13:14:17.996Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a>, <a class="tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.ybtoj.com.cn/problem/825">YbtOJ #825</a></p>
+</blockquote>
+<p>小 A 有一张二维平面，其中有 $n$ 个点 $(x_i,y_i)$。</p>
+<p>他想要知道，是否存在三个点 $(x_A,y_A),(x_B,y_B),(x_C,y_C)$，满足它们构成的三角形的面积 <strong>恰好</strong> 为 $m$。</p>
+<p>若存在，请给出任意一组符合条件的三个点。</p>
+<p>$3\le n\le2\times10^3$，$1\le m\le2\times10^{18}$，$-10^9\le x_i,y_i\le 10^9$，保证不存在三点共线。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>暴力枚举每条连线作为三角形的底，然后只需要判断是否存在一个点到这条连线的距离恰好等于 $\frac{2m}{l}$ 。</p>
+<p>将这条线段旋成直角坐标系的纵轴，若能让所有点横坐标有序，就可以直接二分。于是问题就变成了如何维护点的顺序。</p>
+<p>发现若将所有点两两之间的连线按斜率排遍序，按照斜率从小到大枚举，则任意两点的横坐标大小关系只会变化恰好一次。</p>
+<p>初始所有点按原横坐标大小顺序排序，枚举连线的过程中每次交换两端点，再在连线两边分别二分查找即可。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#pragma GCC optimize(&quot;Ofast&quot;)</span><br><span class="line">#pragma GCC target(&quot;sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma&quot;)</span><br><span class="line">#pragma GCC optimize(&quot;unroll-loops&quot;)</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#define Tp template&lt;typename Ty&gt;</span><br><span class="line">#define Ts template&lt;typename Ty,typename... Ar&gt;</span><br><span class="line">#define W while</span><br><span class="line">#define I inline</span><br><span class="line">#define RI register int</span><br><span class="line">#define int long long</span><br><span class="line">#define Cn const</span><br><span class="line">#define CI Cn int&amp;</span><br><span class="line">using namespace std;</span><br><span class="line">namespace Debug&#123;</span><br><span class="line">    Tp I void _debug(Cn char* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;&#x27;=&#x27;&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">    Ts I void _debug(Cn char* f,Ty x,Ar... y)&#123;W(*f!=&#x27;,&#x27;) cerr&lt;&lt;*f++;cerr&lt;&lt;&#x27;=&#x27;&lt;&lt;x&lt;&lt;&quot;,&quot;;_debug(f+1,y...);&#125;</span><br><span class="line">    Tp ostream&amp; operator&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;&quot;[&quot;;for(Cn auto&amp; vv:V) os&lt;&lt;vv&lt;&lt;&quot;,&quot;;os&lt;&lt;&quot;]&quot;;return os;&#125;</span><br><span class="line">    #define gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span><br><span class="line">&#125;using namespace Debug;</span><br><span class="line">namespace FastIO&#123;</span><br><span class="line">    #define FS 100000</span><br><span class="line">    #define tc() (FA==FB&amp;&amp;(FB=(FA=FI)+fread(FI,1,FS,stdin),FA==FB)?EOF:*FA++)</span><br><span class="line">    #define pc(c) (FC==FE&amp;&amp;(clear(),0),*FC++=c)</span><br><span class="line">    int OT;char oc,FI[FS],FO[FS],OS[FS],*FA=FI,*FB=FI,*FC=FO,*FE=FO+FS;</span><br><span class="line">    Tp I void read(Ty&amp; x) &#123;x=0;RI f=1;W(!isdigit(oc=tc())) f=oc^&#x27;-&#x27;?1:-1;W(x=(x&lt;&lt;3)+(x&lt;&lt;1)+(oc&amp;15),isdigit(oc=tc()));x*=f;&#125;</span><br><span class="line">    Ts I void read(Ty&amp; x,Ar&amp;... y) &#123;read(x),read(y...);&#125;</span><br><span class="line">&#125;using namespace FastIO;</span><br><span class="line">Cn int N=2e3+10;</span><br><span class="line">int n,m,cnt,id[N],r[N];</span><br><span class="line">#define PA pair&lt;int,int&gt;</span><br><span class="line">#define MP make_pair</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">PA a[N];</span><br><span class="line">struct Line&#123;int u,v;PA d;&#125;l[N*N];</span><br><span class="line">I bool operator &lt; (Cn Line&amp; x,Cn Line&amp; y)&#123;return x.d.fi*y.d.se-x.d.se*y.d.fi&gt;0;&#125;</span><br><span class="line">I void G(RI tl,RI tr,Line u)&#123;</span><br><span class="line">    auto S=[&amp;](PA p)-&gt;int&#123;return abs(p.fi*u.d.se-p.se*u.d.fi);&#125;;</span><br><span class="line">    RI mid;W(tl&lt;=tr) mid=tl+tr&gt;&gt;1,S(MP(a[id[mid]].fi-a[u.u].fi,a[id[mid]].se-a[u.u].se))==m&amp;&amp;(printf(&quot;Yes\n%d %d\n%d %d\n%d %d\n&quot;,a[u.u].fi,a[u.u].se,a[u.v].fi,a[u.v].se,a[id[mid]].fi,a[id[mid]].se),exit(0),0),S(MP(a[id[mid]].fi-a[u.u].fi,a[id[mid]].se-a[u.u].se))&lt;m?tr=mid-1:tl=mid+1;</span><br><span class="line">&#125;</span><br><span class="line">signed main()&#123;</span><br><span class="line">    freopen(&quot;triangle.in&quot;,&quot;r&quot;,stdin),freopen(&quot;triangle.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line">    RI i,j;for(read(n,m),m*=2,i=1;i&lt;=n;i++) read(a[i].fi,a[i].se);for(sort(a+1,a+n+1),i=1;i&lt;=n;i++) for(id[r[i]=i]=i,j=1;j&lt;i;j++) l[++cnt]=(Line)&#123;i,j,MP(a[i].fi-a[j].fi,a[i].se-a[j].se)&#125;;</span><br><span class="line">    for(sort(l+1,l+cnt+1),i=1;i&lt;=cnt;i++) r[l[i].u]&gt;r[l[i].v]&amp;&amp;(swap(l[i].u,l[i].v),0),G(1,r[l[i].u]-1,l[i]),swap(r[l[i].u],r[l[i].v]),swap(id[r[l[i].u]],id[r[l[i].v]]);</span><br><span class="line">    return puts(&quot;No&quot;),0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&text=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&is_video=false&description=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=YbtOJ 825「计算几何初探」三角查找&body=Check out this article: http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&title=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&name=YbtOJ 825「计算几何初探」三角查找&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/02/08/ybtoj-825-%E3%80%8C%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%88%9D%E6%8E%A2%E3%80%8D%E4%B8%89%E8%A7%92%E6%9F%A5%E6%89%BE/&t=YbtOJ 825「计算几何初探」三角查找"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

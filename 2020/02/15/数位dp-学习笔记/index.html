@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前言数位dp真的好简单啊qwq 什么是数位dp让我们以这道题为例：Luogu P2657 [SCOI2009]windy数 如果您很懒不想点开题面可以看下面： windy定义了一种windy数。不含前导零且相邻两个数字之差至少为2的正整数被称为windy数。 windy想知道， 在A和B之间，包括A和B，总共有多少个windy数？ 100%的数据，满足 1 &lt;&#x3D; A &lt;&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数位dp 学习笔记">
+<meta property="og:url" content="http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="yzxoi&#39;s Blog">
+<meta property="og:description" content="前言数位dp真的好简单啊qwq 什么是数位dp让我们以这道题为例：Luogu P2657 [SCOI2009]windy数 如果您很懒不想点开题面可以看下面： windy定义了一种windy数。不含前导零且相邻两个数字之差至少为2的正整数被称为windy数。 windy想知道， 在A和B之间，包括A和B，总共有多少个windy数？ 100%的数据，满足 1 &lt;&#x3D; A &lt;&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-15T11:44:57.000Z">
+<meta property="article:modified_time" content="2022-06-23T12:38:52.441Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="数位dp">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>数位dp 学习笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/02/16/codeforces-round-620-div-2-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/02/04/hhhoj-noip2020%E6%A8%A1%E6%8B%9F%E8%B5%9B%EF%BC%88%E5%8F%81%EF%BC%892020-02-03-%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=数位dp 学习笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=数位dp 学习笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数位dp 学习笔记&body=Check out this article: http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=数位dp 学习笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=数位dp 学习笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E4%BD%8Ddp"><span class="toc-number">2.</span> <span class="toc-text">什么是数位dp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E5%81%9A%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">暴力做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E4%BD%8Ddp"><span class="toc-number">2.2.</span> <span class="toc-text">数位dp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">练习题</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        数位dp 学习笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-15T11:44:57.000Z" itemprop="datePublished">2020-02-15</time>
+        
+        (Updated: <time datetime="2022-06-23T12:38:52.441Z" itemprop="dateModified">2022-06-23</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%95%B0%E4%BD%8Ddp/" rel="tag">数位dp</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数位dp真的好简单啊qwq</p>
+<h2 id="什么是数位dp"><a href="#什么是数位dp" class="headerlink" title="什么是数位dp"></a>什么是数位dp</h2><p>让我们以这道题为例：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2657">Luogu P2657 [SCOI2009]windy数</a> 如果您很懒不想点开题面可以看下面： windy定义了一种windy数。不含前导零且相邻两个数字之差至少为2的正整数被称为windy数。 windy想知道， 在A和B之间，包括A和B，总共有多少个windy数？ 100%的数据，满足 1 &lt;&#x3D; A &lt;&#x3D; B &lt;&#x3D; 2000000000 。 简单的说就是在$[L,R]$区间中，相邻两个数字之差都大于等于$2$的数字的个数。</p>
+<h3 id="暴力做法"><a href="#暴力做法" class="headerlink" title="暴力做法"></a>暴力做法</h3><p>什么windy不windy的，直接for！！！ 伪代码（不标准的，大雾：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bool CHECK (x) do</span><br><span class="line">    ......</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">for i = L i &lt;= R i++ do</span><br><span class="line">    if CHECK( i ) == 1 do</span><br><span class="line">        ans++</span><br><span class="line">    end</span><br><span class="line">end</span><br><span class="line">print ans </span><br><span class="line">end.</span><br></pre></td></tr></table></figure>
+
+<p>这样显然会TLE。 那么考虑正解——数位dp</p>
+<h3 id="数位dp"><a href="#数位dp" class="headerlink" title="数位dp"></a>数位dp</h3><p>先考虑类似于前缀和的思想。 要求$L<del>R$的个数就相当于求$1\text{</del>}R$的个数-$1\text{<del>}L-1$的个数。 接下来考虑如何求出$1\text{</del>}n$的个数。 我们可以先将$n$按照$10$进制来分解，比如说这个数：$19260817$。 那么我们可以枚举每一位，再枚举$0\text{<del>}9$来统计答案。 举个栗子： 我们枚举出了最高位上的数字是$1$，那么第二位可以是$0\text{</del>}9$的任意一个数，但是这个数与$1$之差的绝对值一定要大于等于$2$（满足题意）。于是我们可以这样： （依旧是丑陋的伪代码）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for i = 0 i &lt;= 9 i++ do</span><br><span class="line">    if abs( i - las ) &gt;= 2 do</span><br><span class="line">        ans++</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>当然，为了方便转移，我们要将$ans++$改成$DP(…)$。 相信聪明的小学生一定会发现，**不一定可以枚举到$9$**，换句话说，该位数字的上界不一定是$9$。 比如说这种情况（还是$19260817$）： $\texttt{1926081-}$ 显然这一位不能成为$8$，因为$19260818 &gt; 19260817$。 那么由此，我们可以总结出，这个上界其实就是$n$。 但是我们是按照位来转移的，那么怎么限定条件呢？ 显然，我们可以用$lim$来表示，转移到现在前面几位有没有达到最大值，如果没达到，那么这位可以$0\text{<del>}9$，否则这个位只能$0</del>A[x]$。不理解？举个栗子： $\texttt{1926081-}$的$lim&#x3D;1$。 $\texttt{1926080-}$和$\texttt{1925901-}$的$lim&#x3D;0$。 相信聪明机智的你肯定明白了。 那么可以考虑最后一种特殊的情况：前导$0$。 由题意可知，前导$0$并不算在数字里，所以如果前面是前导$0$可以不用考虑限制条件（相邻绝对值为$2$），由此，可以用一个处理技巧，将前导$0$的$las$处理为$-2$，可以结合代码理解。</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;complex&gt;</span><br><span class="line">#include&lt;deque&gt;</span><br><span class="line">#include&lt;exception&gt;</span><br><span class="line">#include&lt;fstream&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">#include&lt;ios&gt;</span><br><span class="line">#include&lt;iosfwd&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;istream&gt;</span><br><span class="line">#include&lt;iterator&gt;</span><br><span class="line">#include&lt;limits&gt;</span><br><span class="line">#include&lt;list&gt;</span><br><span class="line">#include&lt;locale&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;new&gt;</span><br><span class="line">#include&lt;numeric&gt;</span><br><span class="line">#include&lt;ostream&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;stdexcept&gt;</span><br><span class="line">#include&lt;streambuf&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;typeinfo&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">#include&lt;valarray&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;cctype&gt;</span><br><span class="line">#include&lt;cerrno&gt;</span><br><span class="line">#include&lt;cfloat&gt;</span><br><span class="line">#include&lt;ciso646&gt;</span><br><span class="line">#include&lt;climits&gt;</span><br><span class="line">#include&lt;clocale&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">#include&lt;csetjmp&gt;</span><br><span class="line">#include&lt;csignal&gt;</span><br><span class="line">#include&lt;cstdarg&gt;</span><br><span class="line">#include&lt;cstddef&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;ctime&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">#define re register </span><br><span class="line">#define int long long </span><br><span class="line">#define eps 1e-5 </span><br><span class="line">#define mod 1000000007</span><br><span class="line"></span><br><span class="line">class Quick_Input_Output&#123;</span><br><span class="line">    private:</span><br><span class="line">        static const int S=1&lt;&lt;21;</span><br><span class="line">        #define tc() (A==B&amp;&amp;(B=(A=Rd)+fread(Rd,1,S,stdin),A==B)?EOF:*A++)</span><br><span class="line">        char Rd[S],*A,*B;</span><br><span class="line">        #define pc putchar</span><br><span class="line">    public:</span><br><span class="line">        #undef gc</span><br><span class="line">        #define gc getchar </span><br><span class="line">        inline int read()&#123;</span><br><span class="line">            int res=0,f=1;char ch=gc();</span><br><span class="line">            while(ch&lt;&#x27;0&#x27;ch&gt;&#x27;9&#x27;)&#123;if(ch==&#x27;-&#x27;) f=-1;ch=gc();&#125;</span><br><span class="line">            while(ch&gt;=&#x27;0&#x27;&amp;&amp;ch&lt;=&#x27;9&#x27;) res=res*10+ch-&#x27;0&#x27;,ch=gc();</span><br><span class="line">            return res*f;</span><br><span class="line">        &#125;</span><br><span class="line">        inline void write(int x)&#123;</span><br><span class="line">            if(x&lt;0) pc(&#x27;-&#x27;),x=-x;</span><br><span class="line">            if(x&lt;10) pc(x+&#x27;0&#x27;);</span><br><span class="line">            else write(x/10),pc(x%10+&#x27;0&#x27;);</span><br><span class="line">        &#125;</span><br><span class="line">        #undef gc</span><br><span class="line">        #undef pc</span><br><span class="line">&#125;I;</span><br><span class="line">#define File freopen(&quot;tmp.in&quot;,&quot;r&quot;,stdin);freopen(&quot;tmp.out&quot;,&quot;w&quot;,stdout);</span><br><span class="line"></span><br><span class="line">int a[30],m,dp[30][30];</span><br><span class="line">inline int DFS(int now,int las,int st,int lim)&#123;</span><br><span class="line">    if(now&gt;m) return 1;//超过了</span><br><span class="line">    if(lim==0&amp;&amp;dp[now][las]!=-1) return dp[now][las];//这位可以是0~9，且以前已经搜过了，直接记忆化调用即可</span><br><span class="line">    re int Max=lim?a[m-now+1]:9,res=0;//确定该位的范围</span><br><span class="line">    for(int i=0;i&lt;=Max;i++)&#123;</span><br><span class="line">        if(abs(i-las)&lt;2) continue ;//不符合题意</span><br><span class="line">        if(st&amp;&amp;i==0) res+=DFS(now+1,-2,1,lim&amp;&amp;i==Max);//该位也是前导0情况</span><br><span class="line">        else res+=DFS(now+1,i,0,lim&amp;&amp;i==Max);//普通情况</span><br><span class="line">    &#125;</span><br><span class="line">    if(!lim&amp;&amp;!st) dp[now][las]=res;//记忆化</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">inline int solve(int n)&#123;</span><br><span class="line">    m=0;re int x=n;while(x)&#123;</span><br><span class="line">        a[++m]=x%10;</span><br><span class="line">        x/=10;</span><br><span class="line">    &#125;//将N拆位</span><br><span class="line">    memset(dp,-1,sizeof(dp));//初始化别忘了＞﹏＜</span><br><span class="line">    return DFS(1,-2,1,1);//将前导0处理为-2，初始化默认有前导0，达到了最大值</span><br><span class="line">&#125;</span><br><span class="line">int L,R;</span><br><span class="line">signed main()&#123;</span><br><span class="line">    L=I.read();R=I.read();</span><br><span class="line">    I.write(solve(R)-solve(L-1));putchar(&#x27;\n&#x27;);//类似于前缀和思想</span><br><span class="line">    return 0;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><p>[checkbox checked&#x3D;”flase”]数字游戏[&#x2F;checkbox] [checkbox checked&#x3D;”true”]不要 62[&#x2F;checkbox] [checkbox checked&#x3D;”flase”]恨 7 不成妻[&#x2F;checkbox] [checkbox checked&#x3D;”true”]数字计数[&#x2F;checkbox]</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E4%BD%8Ddp"><span class="toc-number">2.</span> <span class="toc-text">什么是数位dp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E5%81%9A%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">暴力做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E4%BD%8Ddp"><span class="toc-number">2.2.</span> <span class="toc-text">数位dp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">2.3.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">练习题</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=数位dp 学习笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=数位dp 学习笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数位dp 学习笔记&body=Check out this article: http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=数位dp 学习笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=数位dp 学习笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2020/02/15/%E6%95%B0%E4%BD%8Ddp-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=数位dp 学习笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

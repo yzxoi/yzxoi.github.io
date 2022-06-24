@@ -159,9 +159,9 @@
       
         <tags>
             
-            <tag> 贪心 </tag>
-            
             <tag> 暴力 </tag>
+            
+            <tag> 贪心 </tag>
             
             <tag> 树形dp </tag>
             
@@ -628,11 +628,11 @@
       
         <tags>
             
+            <tag> 网络流 </tag>
+            
             <tag> Dilworth定理 </tag>
             
             <tag> 二分图匹配 </tag>
-            
-            <tag> 网络流 </tag>
             
         </tags>
       

@@ -1650,6 +1650,7 @@ code {
   padding: 0;
   border: none;
   background: none;
+  tab-size: 4;
 }
 .highlight table {
   width: auto;

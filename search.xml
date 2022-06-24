@@ -4500,9 +4500,9 @@
             
             <tag> 贪心 </tag>
             
-            <tag> dfs </tag>
-            
             <tag> LCA </tag>
+            
+            <tag> dfs </tag>
             
         </tags>
       
@@ -5235,9 +5235,9 @@
             
             <tag> 二分 </tag>
             
-            <tag> LCT </tag>
-            
             <tag> LCA </tag>
+            
+            <tag> LCT </tag>
             
             <tag> 树链剖分 </tag>
             

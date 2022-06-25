@@ -159,9 +159,9 @@
       
         <tags>
             
-            <tag> 暴力 </tag>
-            
             <tag> 贪心 </tag>
+            
+            <tag> 暴力 </tag>
             
             <tag> 树形dp </tag>
             
@@ -864,11 +864,11 @@
             
             <tag> 期望 </tag>
             
-            <tag> 网络流 </tag>
-            
             <tag> 分数规划 </tag>
             
             <tag> 最大权闭合子图 </tag>
+            
+            <tag> 网络流 </tag>
             
         </tags>
       

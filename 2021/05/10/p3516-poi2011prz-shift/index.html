@@ -187,7 +187,7 @@
 <li>第 $i$ 个数字必定在第 $j$ 个位置，其中 $j&gt;i$，那么可以先把第 $i$ 个数字移动到位置 $1$，然后每次执行 $2$ 次 a，再做一次 b，这样不断往复就可以把前 $i-1$ 个数字移动到最末尾，此时再做 $i-1$ 次 a 即可。</li>
 </ul>
 <p>然后最后可能会尴尬的剩下两个数，比如说下面的数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">8</span><br><span class="line">1 2 3 4 5 6 8 7</span><br></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">8</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">8</span> <span class="number">7</span></span><br></pre></td></tr></table></figure>
 
 <p>我们发现：可以做两次 a，然后再做一次 b，即可实现将一个数向左移动两个单位，那么针对上面的数据，如果 $n$ 是奇数，肯定无解，如果是偶数，可以用上面的规律移动即可。</p>
 <p>然后细节可能有点多，需要细心点。</p>

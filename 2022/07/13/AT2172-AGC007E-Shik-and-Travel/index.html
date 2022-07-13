@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：AGC007E  题面翻译一颗$n$个节点的二叉树，每个节点要么有两个儿子要么没有儿子。边有边权。 你从$1$号节点出发，走到一个叶子节点。然后每一天，你可以从当前点走到另一个叶子。最后回到$1$号节点，要求到过所有叶子并且每条边经过恰好两次。 每天的路费是你走过的路径上的边权和，你的公司会为你报销大部分路费，除了你旅行中所用路费最高的，行走路线是从叶子到叶子的那一天的路费。 求你自己">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AT2172 [AGC007E] Shik and Travel">
+<meta property="og:url" content="http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="题目链接：AGC007E  题面翻译一颗$n$个节点的二叉树，每个节点要么有两个儿子要么没有儿子。边有边权。 你从$1$号节点出发，走到一个叶子节点。然后每一天，你可以从当前点走到另一个叶子。最后回到$1$号节点，要求到过所有叶子并且每条边经过恰好两次。 每天的路费是你走过的路径上的边权和，你的公司会为你报销大部分路费，除了你旅行中所用路费最高的，行走路线是从叶子到叶子的那一天的路费。 求你自己">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-13T08:17:37.000Z">
+<meta property="article:modified_time" content="2022-07-13T08:32:03.528Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="启发式合并">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>AT2172 [AGC007E] Shik and Travel</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/07/12/CF452F-Permutation/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&text=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&is_video=false&description=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AT2172 [AGC007E] Shik and Travel&body=Check out this article: http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&name=AT2172 [AGC007E] Shik and Travel&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&t=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E9%9D%A2%E7%BF%BB%E8%AF%91"><span class="toc-number">1.</span> <span class="toc-text">题面翻译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">2.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        AT2172 [AGC007E] Shik and Travel
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-07-13T08:17:37.000Z" itemprop="datePublished">2022-07-13</time>
+        
+        (Updated: <time datetime="2022-07-13T08:32:03.528Z" itemprop="dateModified">2022-07-13</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/DP/" rel="tag">DP</a>, <a class="tag-link-link" href="/tags/%E5%90%AF%E5%8F%91%E5%BC%8F%E5%90%88%E5%B9%B6/" rel="tag">启发式合并</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc007/tasks/agc007_e">AGC007E</a></p>
+</blockquote>
+<h2 id="题面翻译"><a href="#题面翻译" class="headerlink" title="题面翻译"></a>题面翻译</h2><p>一颗$n$个节点的二叉树，每个节点要么有两个儿子要么没有儿子。边有边权。</p>
+<p>你从$1$号节点出发，走到一个叶子节点。然后每一天，你可以从当前点走到另一个叶子。最后回到$1$号节点，要求到过所有叶子并且每条边经过<strong>恰好两次</strong>。</p>
+<p>每天的路费是你走过的路径上的边权和，你的公司会为你报销大部分路费，除了你旅行中所用路费最高的，行走路线是<strong>从叶子到叶子</strong>的那一天的路费。</p>
+<p>求你自己最少要付多少路费？</p>
+<ul>
+<li>$ 2\ &lt;\ N\ &lt;\ 131,072 $</li>
+<li>$ 1\ \leq\ a_i\ \leq\ i $ for all $ i $</li>
+<li>$ 0\ \leq\ v_i\ \leq\ 131,072 $</li>
+<li>$ v_i $ is an integer</li>
+<li>The given tree is a full binary tree</li>
+</ul>
+<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p>二分答案。</p>
+<p>设 $dp[x][a][b]$ 表示当前在 $x$ 点，距离第一个叶子节点的距离为 $a$，距离最后一个叶子节点距离为 $b$ 是否可行。</p>
+<p>由于是满二叉树，显然可以从其左右儿子转移过来。</p>
+<p>直接枚举其相对顺序即可。</p>
+<p>注意到很多都是无用状态，过滤后只存在 $a$ 单调升，$b$ 单调降的状态。</p>
+<p>所以直接 two-pointers 每次转移从最小的那个转移即可。</p>
+<p>时间复杂度大概是两个 $\log$ 的，但本人偷懒用了 sort，所以时间复杂度也说不清。。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Tp template<span class="string">&lt;typename Ty&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Ts template<span class="string">&lt;typename Ty,typename... Ar&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> W while</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RI register int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Cn const</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CI Cn int&amp;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> gc getchar</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D isdigit(c=gc())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pc(c) putchar((c))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> min(x,y) ((x)&lt;(y)?(x):(y))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> max(x,y) ((x)&gt;(y)?(x):(y))</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">namespace</span> Debug&#123;</span><br><span class="line">	Tp I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">	Ts I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty x,Ar... y)&#123;<span class="built_in">W</span>(*f!=<span class="string">&#x27;,&#x27;</span>) cerr&lt;&lt;*f++;cerr&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;x&lt;&lt;<span class="string">&quot;,&quot;</span>;_debug(f+<span class="number">1</span>,y...);&#125;</span><br><span class="line">	Tp ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;<span class="string">&quot;[&quot;</span>;<span class="keyword">for</span>(Cn <span class="keyword">auto</span>&amp; vv:V) os&lt;&lt;vv&lt;&lt;<span class="string">&quot;,&quot;</span>;os&lt;&lt;<span class="string">&quot;]&quot;</span>;<span class="keyword">return</span> os;&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span></span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> Debug;</span><br><span class="line"><span class="keyword">namespace</span> FastIO&#123;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x)</span></span>&#123;<span class="type">char</span> c;<span class="type">int</span> f=<span class="number">1</span>;x=<span class="number">0</span>;<span class="built_in">W</span>(!D) f=c^<span class="string">&#x27;-&#x27;</span>?<span class="number">1</span>:<span class="number">-1</span>;<span class="built_in">W</span>(x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(c&amp;<span class="number">15</span>),D);x*=f;&#125;</span><br><span class="line">	<span class="function">Ts I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x,Ar&amp;... y)</span></span>&#123;<span class="built_in">read</span>(x),<span class="built_in">read</span>(y...);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">write</span><span class="params">(Ty x)</span></span>&#123;x&lt;<span class="number">0</span>&amp;&amp;(<span class="built_in">pc</span>(<span class="string">&#x27;-&#x27;</span>),x=-x,<span class="number">0</span>),x&lt;<span class="number">10</span>?(<span class="built_in">pc</span>(x+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>):(<span class="built_in">write</span>(x/<span class="number">10</span>),<span class="built_in">pc</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">writeln</span><span class="params">(Cn Ty&amp; x)</span></span>&#123;<span class="built_in">write</span>(x),<span class="built_in">pc</span>(<span class="string">&#x27;\n&#x27;</span>);&#125;</span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> FastIO;</span><br><span class="line">Cn <span class="type">int</span> N=<span class="number">131072</span>+<span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n;LL CUR;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> to son[i]</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pa pair<span class="string">&lt;LL,LL&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> mp make_pair</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> fi first</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> se second</span></span><br><span class="line">vector&lt;pa&gt; v[N],g,G[N];</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pb push_back</span></span><br><span class="line"><span class="function">I <span class="type">void</span> <span class="title">DFS</span><span class="params">(CI x,CI fa)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(v[x].<span class="built_in">clear</span>(),G[x].<span class="built_in">empty</span>()) <span class="keyword">return</span> v[x].<span class="built_in">pb</span>(<span class="built_in">mp</span>(<span class="number">0</span>,<span class="number">0</span>)),<span class="built_in">void</span>();</span><br><span class="line">	LL t;RI k,i,j,ls,rs,sl,sr;<span class="keyword">for</span>(<span class="keyword">auto</span> i:G[x]) <span class="built_in">DFS</span>(i.fi,x);</span><br><span class="line">	<span class="keyword">for</span>(g.<span class="built_in">clear</span>(),k=<span class="number">0</span>;k&lt;<span class="number">2</span>;k++) <span class="keyword">for</span>(ls=G[x][k].fi,rs=G[x][k^<span class="number">1</span>].fi,t=CUR-G[x][<span class="number">0</span>].se-G[x][<span class="number">1</span>].se,sl=v[ls].<span class="built_in">size</span>(),sr=v[rs].<span class="built_in">size</span>(),i=<span class="number">0</span>,j=<span class="number">0</span>;i&lt;sl;i++)&#123;</span><br><span class="line">		<span class="built_in">W</span>(j+<span class="number">1</span>&lt;sr&amp;&amp;v[rs][j+<span class="number">1</span>].fi&lt;=t-v[ls][i].se) ++j;</span><br><span class="line">		j&lt;sr&amp;&amp;v[rs][j].fi&lt;=t-v[ls][i].se&amp;&amp;(g.<span class="built_in">pb</span>(&#123;v[ls][i].fi+G[x][k].se,v[rs][j].se+G[x][k^<span class="number">1</span>].se&#125;),<span class="number">0</span>);</span><br><span class="line">	&#125;<span class="built_in">sort</span>(g.<span class="built_in">begin</span>(),g.<span class="built_in">end</span>());<span class="keyword">for</span>(<span class="keyword">auto</span> i:g) (v[x].<span class="built_in">empty</span>()||i.se&lt;v[x].<span class="built_in">back</span>().se)&amp;&amp;(v[x].<span class="built_in">pb</span>(i),<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	RI i,j,x,y,z;LL l=<span class="number">0</span>,r=<span class="number">0</span>,mid,X;<span class="keyword">for</span>(<span class="built_in">read</span>(n),i=<span class="number">2</span>;i&lt;=n;i++) <span class="built_in">read</span>(x,z),G[x].<span class="built_in">pb</span>(&#123;i,z&#125;),r+=z;<span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="built_in">W</span>(l&lt;=r) CUR=mid=l+r&gt;&gt;<span class="number">1</span>,<span class="built_in">DFS</span>(<span class="number">1</span>,<span class="number">0</span>),!v[<span class="number">1</span>].<span class="built_in">empty</span>()?X=mid,r=mid<span class="number">-1</span>:l=mid+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">writeln</span>(X),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/popular/">popular</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E9%9D%A2%E7%BF%BB%E8%AF%91"><span class="toc-number">1.</span> <span class="toc-text">题面翻译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">2.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">3.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&text=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&is_video=false&description=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=AT2172 [AGC007E] Shik and Travel&body=Check out this article: http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&title=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&name=AT2172 [AGC007E] Shik and Travel&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/07/13/AT2172-AGC007E-Shik-and-Travel/&t=AT2172 [AGC007E] Shik and Travel"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

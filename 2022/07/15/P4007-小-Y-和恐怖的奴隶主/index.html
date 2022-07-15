@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：Luogu P4007 UOJ #340 LOJ #2325  “A fight? Count me in!” 要打架了，算我一个。 “Everyone, get in here!” 所有人，都过来！ 小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个 Boss。 虽然这个 Boss 有 $10^{100}$ 点生命值，但它只带了一个随从——一个只有 $m$ 点生命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P4007 小 Y 和恐怖的奴隶主">
+<meta property="og:url" content="http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="题目链接：Luogu P4007 UOJ #340 LOJ #2325  “A fight? Count me in!” 要打架了，算我一个。 “Everyone, get in here!” 所有人，都过来！ 小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个 Boss。 虽然这个 Boss 有 $10^{100}$ 点生命值，但它只带了一个随从——一个只有 $m$ 点生命">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-15T11:22:17.000Z">
+<meta property="article:modified_time" content="2022-07-15T11:32:05.392Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="矩阵快速幂">
+<meta property="article:tag" content="Berlekamp-Massey">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P4007 小 Y 和恐怖的奴隶主</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/07/13/AT2172-AGC007E-Shik-and-Travel/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&text=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&is_video=false&description=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P4007 小 Y 和恐怖的奴隶主&body=Check out this article: http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&name=P4007 小 Y 和恐怖的奴隶主&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&t=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P4007 小 Y 和恐怖的奴隶主
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-07-15T11:22:17.000Z" itemprop="datePublished">2022-07-15</time>
+        
+        (Updated: <time datetime="2022-07-15T11:32:05.392Z" itemprop="dateModified">2022-07-15</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Berlekamp-Massey/" rel="tag">Berlekamp-Massey</a>, <a class="tag-link-link" href="/tags/dp/" rel="tag">dp</a>, <a class="tag-link-link" href="/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/" rel="tag">矩阵快速幂</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4007">Luogu P4007</a> <a target="_blank" rel="noopener" href="https://uoj.ac/problem/340">UOJ #340</a> <a target="_blank" rel="noopener" href="https://loj.ac/p/2325">LOJ #2325</a></p>
+</blockquote>
+<p>“A fight? Count me in!” 要打架了，算我一个。</p>
+<p>“Everyone, get in here!” 所有人，都过来！</p>
+<p>小 Y 是一个喜欢玩游戏的 OIer。一天，她正在玩一款游戏，要打一个 Boss。</p>
+<p>虽然这个 Boss 有 $10^{100}$ 点生命值，但它只带了一个随从——一个只有 $m$ 点生命值的“恐怖的奴隶主”。</p>
+<p>这个“恐怖的奴隶主”有一个特殊的技能：每当它被扣减生命值但没有死亡（死亡即生命值 $\leq 0$），且 Boss 的随从数量小于上限 $k$，便会召唤一个新的具有 $m$ 点生命值的“恐怖的奴隶主”。</p>
+<p>现在小 Y 可以进行 $n$ 次攻击，每次攻击时，会从 Boss 以及 Boss 的所有随从中的等概率随机选择一个，并扣减 $1$ 点生命值，她想知道进行 $n$ 次攻击后扣减 Boss 的生命值点数的期望。为了避免精度误差，你的答案需要对 $998244353$ 取模。</p>
+<p>在所有测试点中，$1 \leq T \leq 1000, 1 \leq n \leq {10}^{18}, 1 \leq m \leq 3, 1 \leq k \leq 8$。</p>
+<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p>记 $f_{i,a,b,c}$ 为当前第 $i$ 轮，有 $a$ 个一血，$b$ 个二血，$c$ 个三血的概率。转移讨论即可。</p>
+<p>再设 $g_i$ 表示前 $i$ 轮对 Boss 的期望攻击，可从 $f_{i,a,b,c}$ 由 $\frac 1{a+b+c+1}$ 的概率转移而来。</p>
+<p>通过计算可得，$k\leq 8$ 故实际可用状态仅有 $166$ 个（算上 $g_i$）。</p>
+<p>直接矩阵快速幂复杂度是 $O(T166^3\log N)$。</p>
+<p>设转移矩阵为 $M$，可与先处理出 $M^{2^k}$，询问可直接用行向量乘上 $\log N$ 个矩阵即可，时间复杂度为 $O(166^3\log N+T166^2\log N)$。</p>
+<p>另外还有一种 Berlekamp-Massey 优化矩阵快速幂的方法。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Tp template<span class="string">&lt;typename Ty&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Ts template<span class="string">&lt;typename Ty,typename... Ar&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> W while</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RI register int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Cn const</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CI Cn int&amp;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> gc getchar</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D isdigit(c=gc())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pc(c) putchar((c))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> min(x,y) ((x)&lt;(y)?(x):(y))</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> max(x,y) ((x)&gt;(y)?(x):(y))</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">namespace</span> Debug&#123;</span><br><span class="line">	Tp I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">	Ts I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty x,Ar... y)&#123;<span class="built_in">W</span>(*f!=<span class="string">&#x27;,&#x27;</span>) cerr&lt;&lt;*f++;cerr&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;x&lt;&lt;<span class="string">&quot;,&quot;</span>;_debug(f+<span class="number">1</span>,y...);&#125;</span><br><span class="line">	Tp ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;<span class="string">&quot;[&quot;</span>;<span class="keyword">for</span>(Cn <span class="keyword">auto</span>&amp; vv:V) os&lt;&lt;vv&lt;&lt;<span class="string">&quot;,&quot;</span>;os&lt;&lt;<span class="string">&quot;]&quot;</span>;<span class="keyword">return</span> os;&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span></span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> Debug;</span><br><span class="line"><span class="keyword">namespace</span> FastIO&#123;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x)</span></span>&#123;<span class="type">char</span> c;<span class="type">int</span> f=<span class="number">1</span>;x=<span class="number">0</span>;<span class="built_in">W</span>(!D) f=c^<span class="string">&#x27;-&#x27;</span>?<span class="number">1</span>:<span class="number">-1</span>;<span class="built_in">W</span>(x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(c&amp;<span class="number">15</span>),D);x*=f;&#125;</span><br><span class="line">	<span class="function">Ts I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x,Ar&amp;... y)</span></span>&#123;<span class="built_in">read</span>(x),<span class="built_in">read</span>(y...);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">write</span><span class="params">(Ty x)</span></span>&#123;x&lt;<span class="number">0</span>&amp;&amp;(<span class="built_in">pc</span>(<span class="string">&#x27;-&#x27;</span>),x=-x,<span class="number">0</span>),x&lt;<span class="number">10</span>?(<span class="built_in">pc</span>(x+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>):(<span class="built_in">write</span>(x/<span class="number">10</span>),<span class="built_in">pc</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">writeln</span><span class="params">(Cn Ty&amp; x)</span></span>&#123;<span class="built_in">write</span>(x),<span class="built_in">pc</span>(<span class="string">&#x27;\n&#x27;</span>);&#125;</span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> FastIO;</span><br><span class="line">Cn <span class="type">int</span> N=<span class="number">168</span>,p=<span class="number">998244353</span>;</span><br><span class="line"><span class="function">I <span class="type">int</span> <span class="title">QP</span><span class="params">(RI a,RI b)</span></span>&#123;RI s=<span class="number">1</span>;<span class="built_in">W</span>(b) b&amp;<span class="number">1</span>&amp;&amp;(s=<span class="number">1LL</span>*s*a%p),a=<span class="number">1LL</span>*a*a%p,b&gt;&gt;=<span class="number">1</span>;<span class="keyword">return</span> s;&#125;</span><br><span class="line"><span class="type">int</span> T,m,k,cnt,id[<span class="number">9</span>][<span class="number">9</span>][<span class="number">9</span>],inv[<span class="number">11</span>];</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Matrix</span>&#123;<span class="type">int</span> a[N][N];<span class="function">I <span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;<span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="built_in">sizeof</span>(a));&#125;&#125;F[<span class="number">70</span>];</span><br><span class="line"><span class="function">I Matrix <span class="title">Mul</span><span class="params">(Cn Matrix&amp; A,Cn Matrix&amp; B)</span></span>&#123;Matrix C;C.<span class="built_in">clear</span>();RI i,j,k;<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=cnt;i++) <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=cnt;j++)&#123;__int128 t=<span class="number">0</span>;<span class="keyword">for</span>(k=<span class="number">1</span>;k&lt;=cnt;k++) t+=<span class="number">1LL</span>*A.a[i][k]*B.a[k][j];C.a[i][j]=t%p;&#125;<span class="keyword">return</span> C;&#125;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Vector</span>&#123;<span class="type">int</span> a[N];<span class="function">I <span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;<span class="built_in">memset</span>(a,<span class="number">0</span>,<span class="built_in">sizeof</span>(a));&#125;&#125;v;</span><br><span class="line"><span class="function">I Vector <span class="title">Mul</span><span class="params">(Cn Vector&amp; A,Cn Matrix&amp; B)</span></span>&#123;Vector C;C.<span class="built_in">clear</span>();RI i,j;<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=cnt;i++)&#123;__int128 t=<span class="number">0</span>;<span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=cnt;j++) t+=<span class="number">1LL</span>*A.a[j]*B.a[j][i];C.a[i]=t%p;&#125;<span class="keyword">return</span> C;&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	RI i,j,a,b,c;LL x;<span class="built_in">read</span>(T,m,k);<span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;=k;a++) <span class="keyword">for</span>(b=<span class="number">0</span>;b&lt;=(m&gt;=<span class="number">2</span>?k-a:<span class="number">0</span>);b++) <span class="keyword">for</span>(c=<span class="number">0</span>;c&lt;=(m&gt;=<span class="number">3</span>?k-a-b:<span class="number">0</span>);c++) id[a][b][c]=++cnt;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">9</span>;i++) inv[i]=<span class="built_in">QP</span>(i,p<span class="number">-2</span>);</span><br><span class="line">	++cnt,F[<span class="number">0</span>].a[cnt][cnt]=<span class="number">1</span>;<span class="keyword">for</span>(a=<span class="number">0</span>;a&lt;=k;a++) <span class="keyword">for</span>(b=<span class="number">0</span>;b&lt;=(m&gt;=<span class="number">2</span>?k-a:<span class="number">0</span>);b++) <span class="keyword">for</span>(c=<span class="number">0</span>;c&lt;=(m&gt;=<span class="number">3</span>?k-a-b:<span class="number">0</span>);c++)&#123;</span><br><span class="line">		RI i=id[a][b][c],div=inv[a+b+c+<span class="number">1</span>],add=(a+b+c&lt;k);</span><br><span class="line">		a&amp;&amp;(F[<span class="number">0</span>].a[i][id[a<span class="number">-1</span>][b][c]]=<span class="number">1LL</span>*a*div%p);</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">2</span>) b&amp;&amp;(F[<span class="number">0</span>].a[i][id[a+<span class="number">1</span>][b<span class="number">-1</span>+add][c]]=<span class="number">1LL</span>*b*div%p);</span><br><span class="line">		<span class="keyword">if</span>(m==<span class="number">3</span>) b&amp;&amp;(F[<span class="number">0</span>].a[i][id[a+<span class="number">1</span>][b<span class="number">-1</span>][c+add]]=<span class="number">1LL</span>*b*div%p),c&amp;&amp;(F[<span class="number">0</span>].a[i][id[a][b+<span class="number">1</span>][c<span class="number">-1</span>+add]]=<span class="number">1LL</span>*c*div%p);</span><br><span class="line">		F[<span class="number">0</span>].a[i][i]=F[<span class="number">0</span>].a[i][cnt]=div;</span><br><span class="line">	&#125;<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=<span class="number">62</span>;i++) F[i]=<span class="built_in">Mul</span>(F[i<span class="number">-1</span>],F[i<span class="number">-1</span>]);<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=T;i++)&#123;</span><br><span class="line">		<span class="built_in">read</span>(x),v.<span class="built_in">clear</span>(),v.a[id[m==<span class="number">1</span>][m==<span class="number">2</span>][m==<span class="number">3</span>]]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;=<span class="number">62</span>;j++) x&gt;&gt;j&amp;<span class="number">1</span>&amp;&amp;(v=<span class="built_in">Mul</span>(v,F[j]),<span class="number">0</span>);</span><br><span class="line">		<span class="built_in">writeln</span>(v.a[cnt]);</span><br><span class="line">	&#125;<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/popular/">popular</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&text=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&is_video=false&description=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P4007 小 Y 和恐怖的奴隶主&body=Check out this article: http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&title=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&name=P4007 小 Y 和恐怖的奴隶主&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/07/15/P4007-%E5%B0%8F-Y-%E5%92%8C%E6%81%90%E6%80%96%E7%9A%84%E5%A5%B4%E9%9A%B6%E4%B8%BB/&t=P4007 小 Y 和恐怖的奴隶主"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

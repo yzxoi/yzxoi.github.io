@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：P6931  给定一个 $r \times c$ 的平面，在上面摆有一些箱子。我们可以得到他的三视图（如下图，左边矩阵上的值为平面上每一位摆放的箱子个数，右边三个视图为正视图，俯视图，左视图）：  你可以拿走一些箱子，和重新排列这些箱子的位置，你想知道，最多能拿走多少个箱子，使得这些箱子重新排列后正视图，俯视图，左视图不变？ 比如上面这个例子，下面这种拿走 $9$ 个箱子后的重新排列方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="P6931 [ICPC2017 WF]Mission Improbable">
+<meta property="og:url" content="http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="题目链接：P6931  给定一个 $r \times c$ 的平面，在上面摆有一些箱子。我们可以得到他的三视图（如下图，左边矩阵上的值为平面上每一位摆放的箱子个数，右边三个视图为正视图，俯视图，左视图）：  你可以拿走一些箱子，和重新排列这些箱子的位置，你想知道，最多能拿走多少个箱子，使得这些箱子重新排列后正视图，俯视图，左视图不变？ 比如上面这个例子，下面这种拿走 $9$ 个箱子后的重新排列方">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14635/1.png">
+<meta property="og:image" content="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14635/2.png">
+<meta property="article:published_time" content="2022-10-06T13:07:15.000Z">
+<meta property="article:modified_time" content="2022-10-06T13:10:21.646Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="二分图匹配">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14635/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>P6931 [ICPC2017 WF]Mission Improbable</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/04/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B1-10-04/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&text=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&is_video=false&description=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6931 [ICPC2017 WF]Mission Improbable&body=Check out this article: http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&name=P6931 [ICPC2017 WF]Mission Improbable&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&t=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        P6931 [ICPC2017 WF]Mission Improbable
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-06T13:07:15.000Z" itemprop="datePublished">2022-10-06</time>
+        
+        (Updated: <time datetime="2022-10-06T13:10:21.646Z" itemprop="dateModified">2022-10-06</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE%E5%8C%B9%E9%85%8D/" rel="tag">二分图匹配</a>, <a class="tag-link-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6931">P6931</a></p>
+</blockquote>
+<p>给定一个 $r \times c$ 的平面，在上面摆有一些箱子。我们可以得到他的三视图（如下图，左边矩阵上的值为平面上每一位摆放的箱子个数，右边三个视图为正视图，俯视图，左视图）：</p>
+<p><img src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14635/1.png"></p>
+<p>你可以拿走一些箱子，和重新排列这些箱子的位置，你想知道，最多能拿走多少个箱子，使得这些箱子重新排列后正视图，俯视图，左视图不变？</p>
+<p>比如上面这个例子，下面这种拿走 $9$ 个箱子后的重新排列方式也是可以的：</p>
+<p><img src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/problem/14635/2.png"></p>
+<p>$1 \le r,c \le 100$，平面上每一个位置的箱子个数在 $[0,10^9]$ 内。</p>
+<h2 id="Tutorial"><a href="#Tutorial" class="headerlink" title="Tutorial"></a>Tutorial</h2><p>考虑俯视图限制显然是有数的则至少要有 $1$；主视图、侧视图限制即为每行每列的最大值仍然保留。</p>
+<p>贪心地保留每行每列的一个最大值，其余的全削减至 $1$。</p>
+<p>注意到可以有一个数同时占行列的最大值的情况。</p>
+<p>于是跑一次二分图匹配即可。</p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Tp template<span class="string">&lt;typename Ty&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Ts template<span class="string">&lt;typename Ty,typename... Ar&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> W while</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> I inline</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RI register int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LL long long</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Cn const</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CI Cn int&amp;</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> gc getchar</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> D isdigit(c=gc())</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pc(c) putchar((c))</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">namespace</span> Debug&#123;</span><br><span class="line">	Tp I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty t)&#123;cerr&lt;&lt;f&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;t&lt;&lt;endl;&#125;</span><br><span class="line">	Ts I <span class="type">void</span> _debug(Cn <span class="type">char</span>* f,Ty x,Ar... y)&#123;<span class="built_in">W</span>(*f!=<span class="string">&#x27;,&#x27;</span>) cerr&lt;&lt;*f++;cerr&lt;&lt;<span class="string">&#x27;=&#x27;</span>&lt;&lt;x&lt;&lt;<span class="string">&quot;,&quot;</span>;_debug(f+<span class="number">1</span>,y...);&#125;</span><br><span class="line">	Tp ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream&amp; os,Cn vector&lt;Ty&gt;&amp; V)&#123;os&lt;&lt;<span class="string">&quot;[&quot;</span>;<span class="keyword">for</span>(Cn <span class="keyword">auto</span>&amp; vv:V) os&lt;&lt;vv&lt;&lt;<span class="string">&quot;,&quot;</span>;os&lt;&lt;<span class="string">&quot;]&quot;</span>;<span class="keyword">return</span> os;&#125;</span><br><span class="line">	<span class="meta">#<span class="keyword">define</span> gdb(...) _debug(#__VA_ARGS__,__VA_ARGS__)</span></span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> Debug;</span><br><span class="line"><span class="keyword">namespace</span> FastIO&#123;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x)</span></span>&#123;<span class="type">char</span> c;<span class="type">int</span> f=<span class="number">1</span>;x=<span class="number">0</span>;<span class="built_in">W</span>(!D) f=c^<span class="string">&#x27;-&#x27;</span>?<span class="number">1</span>:<span class="number">-1</span>;<span class="built_in">W</span>(x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(c&amp;<span class="number">15</span>),D);x*=f;&#125;</span><br><span class="line">	<span class="function">Ts I <span class="type">void</span> <span class="title">read</span><span class="params">(Ty&amp; x,Ar&amp;... y)</span></span>&#123;<span class="built_in">read</span>(x),<span class="built_in">read</span>(y...);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">write</span><span class="params">(Ty x)</span></span>&#123;x&lt;<span class="number">0</span>&amp;&amp;(<span class="built_in">pc</span>(<span class="string">&#x27;-&#x27;</span>),x=-x,<span class="number">0</span>),x&lt;<span class="number">10</span>?(<span class="built_in">pc</span>(x+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>):(<span class="built_in">write</span>(x/<span class="number">10</span>),<span class="built_in">pc</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>),<span class="number">0</span>);&#125;</span><br><span class="line">	<span class="function">Tp I <span class="type">void</span> <span class="title">writeln</span><span class="params">(Cn Ty&amp; x)</span></span>&#123;<span class="built_in">write</span>(x),<span class="built_in">pc</span>(<span class="string">&#x27;\n&#x27;</span>);&#125;</span><br><span class="line">&#125;<span class="keyword">using</span> <span class="keyword">namespace</span> FastIO;</span><br><span class="line">Cn <span class="type">int</span> N=<span class="number">110</span>,P=N&lt;&lt;<span class="number">1</span>;</span><br><span class="line"><span class="type">int</span> n,m,a[N][N],r[N],c[N],fir[P],nxt[P*P*<span class="number">2</span>],son[P*P*<span class="number">2</span>],w[P*P*<span class="number">2</span>],cost[P*P*<span class="number">2</span>],p[P],tot=<span class="number">1</span>,S,T,F[P],G[P],inf,vis[P];LL Ans;</span><br><span class="line"><span class="function">I <span class="type">void</span> <span class="title">Add</span><span class="params">(CI x,CI y,CI z,CI c)</span></span>&#123;nxt[++tot]=fir[x],fir[x]=tot,son[tot]=y,w[tot]=z,cost[tot]=c;nxt[++tot]=fir[y],fir[y]=tot,son[tot]=x,w[tot]=<span class="number">0</span>,cost[tot]=-c;&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> to son[i]</span></span><br><span class="line"><span class="function">I <span class="type">int</span> <span class="title">idx</span><span class="params">(CI i,CI j)</span></span>&#123;<span class="keyword">return</span> (i<span class="number">-1</span>)*m+j;&#125;</span><br><span class="line">queue&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="function">I <span class="type">bool</span> <span class="title">BFS</span><span class="params">()</span></span>&#123;</span><br><span class="line">	RI i,u;<span class="built_in">memset</span>(F,<span class="number">63</span>,<span class="built_in">sizeof</span>(F)),<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="built_in">sizeof</span>(vis)),inf=F[<span class="number">0</span>];<span class="built_in">W</span>(!q.<span class="built_in">empty</span>()) q.<span class="built_in">pop</span>();q.<span class="built_in">push</span>(S),vis[S]=<span class="number">1</span>,F[S]=<span class="number">0</span>,G[S]=inf;<span class="built_in">W</span>(!q.<span class="built_in">empty</span>())</span><br><span class="line">		<span class="keyword">for</span>(vis[u=q.<span class="built_in">front</span>()]=<span class="number">0</span>,q.<span class="built_in">pop</span>(),i=fir[u];i;i=nxt[i]) w[i]&amp;&amp;F[to]&gt;F[u]+cost[i]&amp;&amp;(F[to]=F[u]+cost[i],G[to]=<span class="built_in">min</span>(G[u],w[p[to]=i]),!vis[to]&amp;&amp;(q.<span class="built_in">push</span>(to),vis[to]=<span class="number">1</span>));</span><br><span class="line">	<span class="keyword">return</span> F[T]&lt;inf;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">I LL <span class="title">MCMF</span><span class="params">()</span></span>&#123;LL i,X=<span class="number">0</span>,C=<span class="number">0</span>;<span class="built_in">W</span>(<span class="built_in">BFS</span>()) <span class="keyword">for</span>(C+=<span class="number">1LL</span>*F[T]*G[T],X+=G[i=T];i^S;i=son[p[i]^<span class="number">1</span>]) w[p[i]]-=G[T],w[p[i]^<span class="number">1</span>]+=G[T];<span class="keyword">return</span> C;&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	RI i,j;<span class="keyword">for</span>(<span class="built_in">read</span>(n,m),S=<span class="number">0</span>,T=n+m+<span class="number">1</span>,i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=m;j++) <span class="built_in">read</span>(a[i][j]),r[i]=<span class="built_in">max</span>(r[i],a[i][j]),c[j]=<span class="built_in">max</span>(c[j],a[i][j]);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++) Ans-=<span class="built_in">max</span>(r[i]<span class="number">-1</span>,<span class="number">0</span>);<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=m;i++) Ans-=<span class="built_in">max</span>(c[i]<span class="number">-1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=m;j++) Ans+=<span class="built_in">max</span>(a[i][j]<span class="number">-1</span>,<span class="number">0</span>),r[i]==c[j]&amp;&amp;a[i][j]&amp;&amp;(<span class="built_in">Add</span>(i,j+n,<span class="number">1</span>,<span class="built_in">max</span>(r[i]<span class="number">-1</span>,<span class="number">0</span>)),<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">Add</span>(S,i,<span class="number">1</span>,<span class="number">0</span>);<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=m;i++) <span class="built_in">Add</span>(i+n,T,<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">writeln</span>(Ans+<span class="built_in">MCMF</span>()),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/popular/">popular</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tutorial"><span class="toc-number">1.</span> <span class="toc-text">Tutorial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&text=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&is_video=false&description=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P6931 [ICPC2017 WF]Mission Improbable&body=Check out this article: http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&title=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&name=P6931 [ICPC2017 WF]Mission Improbable&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/&t=P6931 [ICPC2017 WF]Mission Improbable"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -14,7 +14,7 @@
 <meta property="og:description" content="A [AGC024B] Backfront顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。 35588799 B CF1481E Sorting Books预处理出每种颜色的最左最右位置，即求最多保留多少不移动。 设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。$$f_i &#x3D; \max \beg">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-11T11:57:44.000Z">
-<meta property="article:modified_time" content="2022-10-11T12:43:47.947Z">
+<meta property="article:modified_time" content="2022-10-11T12:52:03.567Z">
 <meta property="article:author" content="yzxoi">
 <meta property="article:tag" content="dp">
 <meta property="article:tag" content="数学">
@@ -145,7 +145,7 @@
       
         <time datetime="2022-10-11T11:57:44.000Z" itemprop="datePublished">2022-10-11</time>
         
-        (Updated: <time datetime="2022-10-11T12:43:47.947Z" itemprop="dateModified">2022-10-11</time>)
+        (Updated: <time datetime="2022-10-11T12:52:03.567Z" itemprop="dateModified">2022-10-11</time>)
         
       
     </div>
@@ -180,17 +180,7 @@
 <li>另两个人中较大者未能在相应的回合猜出，则其可能猜中。</li>
 <li>最大的人一定先猜到。</li>
 </ol>
-<p>证明 1：两个数相等，则另一个数要不为 $0$（舍），要不为其和。</p>
-<p>证明 2：显然。</p>
-<p>证明 3：</p>
-<p>不妨设三个数分别为 $A,B,C \ (A&gt;B&gt;C)$，且在第 $n$ 次猜中。</p>
-<p>不妨假设 $n &#x3D; 3k + 2, k \in \Z$，即第 $n$ 次猜中 $B$。</p>
-<p>由结论 1,2，可知此时有两种情况：</p>
-<p>(1) 另两个数相等，但显然有 $A&gt;C$，舍。</p>
-<p>(2) 另两个数的较大者（$A$）未能在之前回合猜出。</p>
-<p>考虑第 $n-1$ 次猜测时并未猜出，由于第 $n$ 次猜测即能把 $B$ 猜出，即排除了 $B&#x3D;A+C$ 情况，认定 $B&#x3D;A-C$。</p>
-<p>说明第 $n-1$ 次时，$A&#x3D;B+C$ 还是 $A&#x3D;B-C$ 并未知晓。与结论 2 矛盾，舍。</p>
-<p>其他情况类似，不再赘述。</p>
+<p>设 $f_{i,a,b,c}$ 表示 $a,b,c$ 数，在第 $i$ 次是否能猜中。转移根据结论 1,2,3 即可。</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/89498503">89498503</a></p>
 <h2 id="D-CF536D-Tavas-in-Kansas"><a href="#D-CF536D-Tavas-in-Kansas" class="headerlink" title="D CF536D Tavas in Kansas"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/536/D">D CF536D Tavas in Kansas</a></h2><p><a href="https://yzxoi.top/2022/06/07/cf536d-tavas-in-kansas/">Blog Post</a></p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/536/submission/159692208">159692208</a></p>

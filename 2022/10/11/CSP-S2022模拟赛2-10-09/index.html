@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="A [AGC024B] Backfront顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。 35588799 B CF1481E Sorting Books预处理出每种颜色的最左最右位置，即求最多保留多少不移动。 设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。$$f_i &#x3D; \max \beg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSP-S2022模拟赛2 10.09">
+<meta property="og:url" content="http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="A [AGC024B] Backfront顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。 35588799 B CF1481E Sorting Books预处理出每种颜色的最左最右位置，即求最多保留多少不移动。 设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。$$f_i &#x3D; \max \beg">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-11T11:57:44.000Z">
+<meta property="article:modified_time" content="2022-10-11T12:43:47.947Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="dp">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>CSP-S2022模拟赛2 10.09</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/06/P6931-ICPC2017-WF-Mission-Improbable/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&text=CSP-S2022模拟赛2 10.09"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&is_video=false&description=CSP-S2022模拟赛2 10.09"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CSP-S2022模拟赛2 10.09&body=Check out this article: http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&name=CSP-S2022模拟赛2 10.09&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&t=CSP-S2022模拟赛2 10.09"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-AGC024B-Backfront"><span class="toc-number">1.</span> <span class="toc-text">A [AGC024B] Backfront</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-CF1481E-Sorting-Books"><span class="toc-number">2.</span> <span class="toc-text">B CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">3.</span> <span class="toc-text">C P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-CF536D-Tavas-in-Kansas"><span class="toc-number">4.</span> <span class="toc-text">D CF536D Tavas in Kansas</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        CSP-S2022模拟赛2 10.09
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-11T11:57:44.000Z" itemprop="datePublished">2022-10-11</time>
+        
+        (Updated: <time datetime="2022-10-11T12:43:47.947Z" itemprop="dateModified">2022-10-11</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/dp/" rel="tag">dp</a>, <a class="tag-link-link" href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag">数学</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="A-AGC024B-Backfront"><a href="#A-AGC024B-Backfront" class="headerlink" title="A [AGC024B] Backfront"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/tasks/agc024_b">A [AGC024B] Backfront</a></h2><p>顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/submissions/35588799">35588799</a></p>
+<h2 id="B-CF1481E-Sorting-Books"><a href="#B-CF1481E-Sorting-Books" class="headerlink" title="B CF1481E Sorting Books"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/problem/E">B CF1481E Sorting Books</a></h2><p>预处理出每种颜色的最左最右位置，即求最多保留多少不移动。</p>
+<p>设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。<br>$$<br>f_i &#x3D; \max \begin{cases}<br>f_{i+1} &amp; 1\leq i &lt; n\<br>s_{a_i,i} &amp; i \not &#x3D; l_{a_i}\<br>s_{a_i,i} + f_{r_{a_i} + 1} &amp; i&#x3D;l_{a_i}<br>\end{cases}<br>$$<br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/submission/106631440">106631440</a></p>
+<h2 id="C-P5779-CTSC2001-聪明的学生"><a href="#C-P5779-CTSC2001-聪明的学生" class="headerlink" title="C P5779 [CTSC2001]聪明的学生"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5779">C P5779 [CTSC2001]聪明的学生</a></h2><p>几个结论：</p>
+<ol>
+<li>如果两个相等，则另一个一定为其之和。</li>
+<li>另两个人中较大者未能在相应的回合猜出，则其可能猜中。</li>
+<li>最大的人一定先猜到。</li>
+</ol>
+<p>证明 1：两个数相等，则另一个数要不为 $0$（舍），要不为其和。</p>
+<p>证明 2：显然。</p>
+<p>证明 3：</p>
+<p>不妨设三个数分别为 $A,B,C \ (A&gt;B&gt;C)$，且在第 $n$ 次猜中。</p>
+<p>不妨假设 $n &#x3D; 3k + 2, k \in \Z$，即第 $n$ 次猜中 $B$。</p>
+<p>由结论 1,2，可知此时有两种情况：</p>
+<p>(1) 另两个数相等，但显然有 $A&gt;C$，舍。</p>
+<p>(2) 另两个数的较大者（$A$）未能在之前回合猜出。</p>
+<p>考虑第 $n-1$ 次猜测时并未猜出，由于第 $n$ 次猜测即能把 $B$ 猜出，即排除了 $B&#x3D;A+C$ 情况，认定 $B&#x3D;A-C$。</p>
+<p>说明第 $n-1$ 次时，$A&#x3D;B+C$ 还是 $A&#x3D;B-C$ 并未知晓。与结论 2 矛盾，舍。</p>
+<p>其他情况类似，不再赘述。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/89498503">89498503</a></p>
+<h2 id="D-CF536D-Tavas-in-Kansas"><a href="#D-CF536D-Tavas-in-Kansas" class="headerlink" title="D CF536D Tavas in Kansas"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/536/D">D CF536D Tavas in Kansas</a></h2><p><a href="https://yzxoi.top/2022/06/07/cf536d-tavas-in-kansas/">Blog Post</a></p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/536/submission/159692208">159692208</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/popular/">popular</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-AGC024B-Backfront"><span class="toc-number">1.</span> <span class="toc-text">A [AGC024B] Backfront</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-CF1481E-Sorting-Books"><span class="toc-number">2.</span> <span class="toc-text">B CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">3.</span> <span class="toc-text">C P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-CF536D-Tavas-in-Kansas"><span class="toc-number">4.</span> <span class="toc-text">D CF536D Tavas in Kansas</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&text=CSP-S2022模拟赛2 10.09"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&is_video=false&description=CSP-S2022模拟赛2 10.09"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CSP-S2022模拟赛2 10.09&body=Check out this article: http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&title=CSP-S2022模拟赛2 10.09"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&name=CSP-S2022模拟赛2 10.09&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/11/CSP-S2022%E6%A8%A1%E6%8B%9F%E8%B5%9B2-10-09/&t=CSP-S2022模拟赛2 10.09"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

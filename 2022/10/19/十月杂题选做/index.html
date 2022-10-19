@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="十月杂题选做CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yzxoiの自留地">
+<meta property="og:url" content="http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="十月杂题选做CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-19T06:19:30.428Z">
+<meta property="article:modified_time" content="2022-10-19T06:48:04.222Z">
+<meta property="article:author" content="yzxoi">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>yzxoiの自留地</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A-1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/18/NOIP2022%E6%A8%A1%E6%8B%9F%E8%B5%9B%E4%BA%8C-By-JTZ-10-18/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A"><span class="toc-number">1.</span> <span class="toc-text">十月杂题选做</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">1.0.0.13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">1.0.0.14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">1.0.0.15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">1.0.0.16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-19T06:19:30.428Z" itemprop="datePublished">2022-10-19</time>
+        
+        (Updated: <time datetime="2022-10-19T06:48:04.222Z" itemprop="dateModified">2022-10-19</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="十月杂题选做"><a href="#十月杂题选做" class="headerlink" title="十月杂题选做"></a>十月杂题选做</h1><h4 id="CF1254"><a href="#CF1254" class="headerlink" title="CF1254"></a><a href="https://yzxoi.top/2022/10/04/CF1254/">CF1254</a></h4><h4 id="P3147-USACO16OPEN-262144-P"><a href="#P3147-USACO16OPEN-262144-P" class="headerlink" title="P3147 [USACO16OPEN]262144 P"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN]262144 P</a></h4><p>注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。<br>$$<br>f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}<br>$$<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88502520">88502520</a></p>
+<h4 id="ARC097D-Monochrome-Cat"><a href="#ARC097D-Monochrome-Cat" class="headerlink" title="ARC097D Monochrome Cat"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT4133">ARC097D Monochrome Cat</a></h4><p>需要遍历的点一定是在最小的包含白点的连通块内。</p>
+<p>剩余的树上每个点都必须经过。因此除了起点与终点之间路径上的边会被经过恰好一次以外，其余所有边都会被经过恰好两次。</p>
+<p>不妨先设所有边都经过了两次，若无修改每个点颜色即为初始颜色异或度数奇偶性，只需在其为白时进行一次修改操作。</p>
+<p>然后考虑起点与终点之间的路径，它的影响是让路径上的点（包含起点但不包含终点）都被少经过一次。</p>
+<p>容易发现，原本为白操作次数减 $2$，原本为黑色操作次数不变。</p>
+<p>于是类似找树的直径即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88504488">88504488</a></p>
+<h4 id="P4183-USACO18JAN-Cow-at-Large-P"><a href="#P4183-USACO18JAN-Cow-at-Large-P" class="headerlink" title="P4183 [USACO18JAN]Cow at Large P"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4183">P4183 [USACO18JAN]Cow at Large P</a></h4><p>设 $g_i$ 为 $i$ 到最近叶子的距离。</p>
+<p>如果 $u$ 为根，$d_i\ge g_i$ 则 $i$ 子树内仅需贡献 $1$ 即可拦截 $u$，注意到如果 $i$ 的父节点 $f_i$ 能拦截 $u$ 则没必要动用 $i$，所以我们令 $d_i\ge g_i \land d_{f_i}&lt; g_{f_i}$。</p>
+<p>考虑点分治，根据分治重心我们可以划分成一个点及若干子树。</p>
+<p>考虑每个子树对子树外的贡献，以及分治重心对所有子树的贡献。</p>
+<p>注意一下一开始钦定的限制条件，不然可能重复计算。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88502426">88502426</a></p>
+<h4 id="P6931-ICPC2017-WF-Mission-Improbable"><a href="#P6931-ICPC2017-WF-Mission-Improbable" class="headerlink" title="P6931 [ICPC2017 WF]Mission Improbable"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P6931">P6931 [ICPC2017 WF]Mission Improbable</a></h4><p>考虑俯视图限制显然是有数的则至少要有 $1$；主视图、侧视图限制即为每行每列的最大值仍然保留。</p>
+<p>贪心地保留每行每列的一个最大值，其余的全削减至 $1$。</p>
+<p>注意到可以有一个数同时占行列的最大值的情况。</p>
+<p>于是跑一次二分图匹配即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88937221">88937221</a></p>
+<h4 id="AGC024B-Backfront"><a href="#AGC024B-Backfront" class="headerlink" title="AGC024B Backfront"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/tasks/agc024_b">AGC024B Backfront</a></h4><p>顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。</p>
+<p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/submissions/35588799">35588799</a></p>
+<h4 id="CF1481E-Sorting-Books"><a href="#CF1481E-Sorting-Books" class="headerlink" title="CF1481E Sorting Books"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/problem/E">CF1481E Sorting Books</a></h4><p>预处理出每种颜色的最左最右位置，即求最多保留多少不移动。</p>
+<p>设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。<br>$$<br>f_i &#x3D; \max \begin{cases}<br>f_{i+1} &amp; 1\leq i &lt; n\<br>s_{a_i,i} &amp; i \not &#x3D; l_{a_i}\<br>s_{a_i,i} + f_{r_{a_i} + 1} &amp; i&#x3D;l_{a_i}\<br>\end{cases}<br>$$<br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/submission/106631440">106631440</a></p>
+<h4 id="P5779-CTSC2001-聪明的学生"><a href="#P5779-CTSC2001-聪明的学生" class="headerlink" title="P5779 [CTSC2001]聪明的学生"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5779">P5779 [CTSC2001]聪明的学生</a></h4><p>几个结论：</p>
+<ol>
+<li>如果两个相等，则另一个一定为其之和。</li>
+<li>另两个人中较大者未能在相应的回合猜出，则其可能猜中。</li>
+<li>最大的人一定先猜到。</li>
+</ol>
+<p>设 $f_{i,a,b,c}$ 表示 $a,b,c$ 数，在第 $i$ 次是否能猜中。转移根据结论 1,2,3 即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/89498503">89498503</a></p>
+<h4 id="CF536D-Tavas-in-Kansas"><a href="#CF536D-Tavas-in-Kansas" class="headerlink" title="CF536D Tavas in Kansas"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/536/D">CF536D Tavas in Kansas</a></h4><p>首先从 $s,t$ 分别跑一次最短路，容易发现答案仅与其相对大小有关，因此先离散化。</p>
+<p>容易将其抽象成一个表格，其中第 $i$ 号点位于 $(d_{s,i},d_{t,i})$，权值为 $p_i$，两人分别从 上&#x2F;左 取若干 行&#x2F;列。</p>
+<p>注意到 $n\leq 2\times 10^3$，考虑  dp，设 $f_{k,i,j}$ 表示在各自最优策略下当前小 X&#x2F;小 Y 先手，剩余的点为 $(i,j)$ 及其右下角范围，小 X 的权值与小 Y 的权值的差。</p>
+<p>发现其实没必要枚举每个人取到哪一行&#x2F;列进行转移，只需要一行行一列列转移时注意是否要交给对方即可。<br>$$<br>\begin{align}<br>&amp;f_{0,i,j}\leftarrow \max { f_{0,i+1,j} , f_{1,i+1,j}}+S(i,j,i,c_1) \quad [\exist p\in [i,j,i,c_1]]\<br>&amp;f_{1,i,j}\leftarrow \min { f_{0,i,j+1} , f_{1,i,j+1}}-S_{i,j,c_0,j} \quad[\exist p\in [i,j,c_0,j]]<br>\end{align}<br>$$<br>$O(N^2)$。</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/536/submission/159692208">159692208</a></p>
+<h4 id="ARC102D-Revenge-of-BBuBBBlesort"><a href="#ARC102D-Revenge-of-BBuBBBlesort" class="headerlink" title="ARC102D Revenge of BBuBBBlesort!"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/arc102/tasks/arc102_d">ARC102D Revenge of BBuBBBlesort!</a></h4><p>被操作的点仅可能是 $a_i&#x3D;i$ 的点。</p>
+<p>显然相邻且均满足 $a_i&#x3D;i$ 的两个位置无法操作，所以原序列可分为若干交替是否满足 $a_i&#x3D;i$ 的子串。</p>
+<p>每个子任务单独考虑，必须满足 $a_i$ 在可交换的区间内且需要交换的数最长下降子序列长度不能超过 $2$。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90297746">90297746</a></p>
+<h4 id="P3685-CERC2016-不可见的整数-Invisible-Integers"><a href="#P3685-CERC2016-不可见的整数-Invisible-Integers" class="headerlink" title="P3685 [CERC2016]不可见的整数 Invisible Integers"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3685">P3685 [CERC2016]不可见的整数 Invisible Integers</a></h4><p>考虑设 $f_{S,x,xi,y,yi}$ 表示已满足的限制的状态 $S$，从右往左正在满足的是 $x$，满足到 $xi$ 位，从左往右正在满足的是 $y$，满足到 $yi$ 位，最少的元素个数。</p>
+<p>不妨从左向右考虑，对于所有向右得到的序列 $i$，若能接在 $y$ 后面，则满足 $y$ 的剩余部分可以被 $i$ 覆盖，于是之后只需要考虑 $i$ 即可。</p>
+<p>对于 $x$，若已被填满，对于所有向左得到的序列 $i$，若可以接上，则满足 $i$ 的接入部分可以被 $x$ 覆盖，于是之后考虑 $i$ 的剩余部分即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90346563">90346563</a></p>
+<h4 id="P5957-POI2017-Flappy-Bird"><a href="#P5957-POI2017-Flappy-Bird" class="headerlink" title="P5957 [POI2017]Flappy Bird"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5957">P5957 [POI2017]Flappy Bird</a></h4><p>设 $x$ 为上升步数，$y$ 为下降步数，则从起点 $(0,0)$ 到终点 $(a,b)$ 满足：<br>$$<br>\begin{cases}<br>x+y&#x3D;a\<br>x-y&#x3D;b<br>\end{cases}<br>$$<br>所以即需求 $y_{\min}$，对于每根柱子求出范围即可。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90332163">90332163</a></p>
+<h4 id="CF1340C-Nastya-and-Unexpected-Guest"><a href="#CF1340C-Nastya-and-Unexpected-Guest" class="headerlink" title="CF1340C Nastya and Unexpected Guest"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1340/C">CF1340C Nastya and Unexpected Guest</a></h4><p>设 $f_{i,j}$ 表示第 $i$ 秒到达第 $j$ 个绝对安全至少经过多少个周期。</p>
+<p>转移的边仅有相邻两个，于是直接 01-BFS。</p>
+<p>$O(mg)$</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1340/submission/176863749">176863749</a></p>
+<h4 id="CF778D-Parquet-Re-laying"><a href="#CF778D-Parquet-Re-laying" class="headerlink" title="CF778D Parquet Re-laying"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/778/D">CF778D Parquet Re-laying</a></h4><p>操作可逆，考虑将起始状态与结束状态转移到一个中间的状态。</p>
+<p>不妨设长为偶数，设构造中间状态所有地砖都是横的。</p>
+<p>能旋转就旋转，发现一定可以转到。</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/778/submission/176863439">176863439</a></p>
+<h4 id="P5956-POI2017-Podzielno"><a href="#P5956-POI2017-Podzielno" class="headerlink" title="P5956 [POI2017]Podzielno"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5956">P5956 [POI2017]Podzielno</a></h4><p>容易发现 $X$ 是 $B-1$ 的倍数的充要条件是 $X$ 的各位之和是 $B-1$ 的倍数。</p>
+<p>注意到 $a_i\ge 1$，所以只需要删除一个数即可，剩余的数从大到小排列。</p>
+<p>注意不用删数的情况。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90466898">90466898</a></p>
+<h4 id="P5847-IOI2005-mea"><a href="#P5847-IOI2005-mea" class="headerlink" title="P5847 [IOI2005]mea"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5847">P5847 [IOI2005]mea</a></h4><p>容易将 $S_{n+1}$ 用 $S_n$ 表示。</p>
+<p>根据 $S_i\leq S_{i+1}$，可列出不等式，即可容易解得 $S_i$ 取值范围。</p>
+<p>最终 $S_1$ 最后范围即为答案。</p>
+<p>注意无解输出 $0$。</p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90469236">90469236</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/popular/">popular</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A"><span class="toc-number">1.</span> <span class="toc-text">十月杂题选做</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">1.0.0.13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">1.0.0.14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">1.0.0.15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">1.0.0.16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/popular/">popular</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>

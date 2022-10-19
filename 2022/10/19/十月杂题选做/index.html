@@ -14,7 +14,7 @@
 <meta property="og:description" content="CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点之间路径上的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-10-19T07:40:48.000Z">
-<meta property="article:modified_time" content="2022-10-19T09:46:01.766Z">
+<meta property="article:modified_time" content="2022-10-19T10:37:44.877Z">
 <meta property="article:author" content="yzxoi">
 <meta property="article:tag" content="杂题选做">
 <meta name="twitter:card" content="summary">
@@ -47,6 +47,8 @@
     <!-- rss -->
     
     
+      <link rel="alternate" href="/true" title="yzxoiの自留地" type="application/atom+xml" />
+    
 	<!-- mathjax -->
 	
 		<script type="text/x-mathjax-config">
@@ -76,8 +78,6 @@
        --><li><a href="/about/">About</a></li><!--
      --><!--
        --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/popular/">popular</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
      --><!--
@@ -118,7 +118,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF429C-Guess-the-Tree"><span class="toc-number">17.</span> <span class="toc-text">CF429C Guess the Tree</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -144,7 +144,7 @@
       
         <time datetime="2022-10-19T07:40:48.000Z" itemprop="datePublished">2022-10-19</time>
         
-        (Updated: <time datetime="2022-10-19T09:46:01.766Z" itemprop="dateModified">2022-10-19</time>)
+        (Updated: <time datetime="2022-10-19T10:37:44.877Z" itemprop="dateModified">2022-10-19</time>)
         
       
     </div>
@@ -232,6 +232,10 @@
 <p>最终 $S_1$ 最后范围即为答案。</p>
 <p>注意无解输出 $0$。</p>
 <p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/90469236">90469236</a></p>
+<h4 id="CF429C-Guess-the-Tree"><a href="#CF429C-Guess-the-Tree" class="headerlink" title="CF429C Guess the Tree"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/429/C">CF429C Guess the Tree</a></h4><p>爆搜。</p>
+<p>首先判掉叶子节点过少的情况，爆搜的话按照子节点数多的从大往小先摆着，之后的点考虑连到之前的点中。</p>
+<p>可以证明这个是能过的。</p>
+<p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/429/submission/176992784">176992784</a></p>
 
   </div>
 </article>
@@ -257,8 +261,6 @@
          
           <li><a href="/archives/">Writing</a></li>
          
-          <li><a href="/popular/">popular</a></li>
-         
           <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
          
           <li><a href="/search/">Search</a></li>
@@ -267,7 +269,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF429C-Guess-the-Tree"><span class="toc-number">17.</span> <span class="toc-text">CF429C Guess the Tree</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
@@ -315,8 +317,6 @@
        --><li><a href="/about/">About</a></li><!--
      --><!--
        --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/popular/">popular</a></li><!--
      --><!--
        --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
      --><!--

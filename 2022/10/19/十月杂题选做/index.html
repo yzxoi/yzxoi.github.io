@@ -6,16 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="十月杂题选做CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点">
+    <meta name="description" content="CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点之间路径上的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yzxoiの自留地">
+<meta property="og:title" content="十月杂题选做">
 <meta property="og:url" content="http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/index.html">
 <meta property="og:site_name" content="yzxoiの自留地">
-<meta property="og:description" content="十月杂题选做CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点">
+<meta property="og:description" content="CF1254P3147 [USACO16OPEN]262144 P注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。$$f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}$$88502520 ARC097D Monochrome Cat需要遍历的点一定是在最小的包含白点的连通块内。 剩余的树上每个点都必须经过。因此除了起点与终点之间路径上的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-10-19T06:19:30.428Z">
-<meta property="article:modified_time" content="2022-10-19T06:48:04.222Z">
+<meta property="article:published_time" content="2022-10-19T07:40:48.000Z">
+<meta property="article:modified_time" content="2022-10-19T09:46:01.766Z">
 <meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="杂题选做">
 <meta name="twitter:card" content="summary">
     
     
@@ -36,7 +37,7 @@
       
     
     <!-- title -->
-    <title>yzxoiの自留地</title>
+    <title>十月杂题选做</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -88,8 +89,6 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A-1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
         
         <li><a class="icon" aria-label="Next post" href="/2022/10/18/NOIP2022%E6%A8%A1%E6%8B%9F%E8%B5%9B%E4%BA%8C-By-JTZ-10-18/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -105,21 +104,21 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text="><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description="><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t="><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text=十月杂题选做"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description=十月杂题选做"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=十月杂题选做&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=十月杂题选做&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t=十月杂题选做"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A"><span class="toc-number">1.</span> <span class="toc-text">十月杂题选做</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">1.0.0.13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">1.0.0.14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">1.0.0.15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">1.0.0.16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -131,7 +130,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        
+        十月杂题选做
     </h1>
 
 
@@ -143,24 +142,34 @@
       
     <div class="postdate">
       
-        <time datetime="2022-10-19T06:19:30.428Z" itemprop="datePublished">2022-10-19</time>
+        <time datetime="2022-10-19T07:40:48.000Z" itemprop="datePublished">2022-10-19</time>
         
-        (Updated: <time datetime="2022-10-19T06:48:04.222Z" itemprop="dateModified">2022-10-19</time>)
+        (Updated: <time datetime="2022-10-19T09:46:01.766Z" itemprop="dateModified">2022-10-19</time>)
         
       
     </div>
 
 
       
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/" rel="tag">杂题选做</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="十月杂题选做"><a href="#十月杂题选做" class="headerlink" title="十月杂题选做"></a>十月杂题选做</h1><h4 id="CF1254"><a href="#CF1254" class="headerlink" title="CF1254"></a><a href="https://yzxoi.top/2022/10/04/CF1254/">CF1254</a></h4><h4 id="P3147-USACO16OPEN-262144-P"><a href="#P3147-USACO16OPEN-262144-P" class="headerlink" title="P3147 [USACO16OPEN]262144 P"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN]262144 P</a></h4><p>注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。<br>$$<br>f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}<br>$$<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88502520">88502520</a></p>
+    <h4 id="CF1254"><a href="#CF1254" class="headerlink" title="CF1254"></a><a href="https://yzxoi.top/2022/10/04/CF1254/">CF1254</a></h4><h4 id="P3147-USACO16OPEN-262144-P"><a href="#P3147-USACO16OPEN-262144-P" class="headerlink" title="P3147 [USACO16OPEN]262144 P"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3147">P3147 [USACO16OPEN]262144 P</a></h4><p>注意到答案一定很小，设 $f_{i,j}$ 表示左端点为 $j$，能合并出数字 $i$ 的右端点。<br>$$<br>f_{i,j}&#x3D;f_{i-1,f_{i-1,j}}<br>$$<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/88502520">88502520</a></p>
 <h4 id="ARC097D-Monochrome-Cat"><a href="#ARC097D-Monochrome-Cat" class="headerlink" title="ARC097D Monochrome Cat"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/AT4133">ARC097D Monochrome Cat</a></h4><p>需要遍历的点一定是在最小的包含白点的连通块内。</p>
 <p>剩余的树上每个点都必须经过。因此除了起点与终点之间路径上的边会被经过恰好一次以外，其余所有边都会被经过恰好两次。</p>
 <p>不妨先设所有边都经过了两次，若无修改每个点颜色即为初始颜色异或度数奇偶性，只需在其为白时进行一次修改操作。</p>
@@ -182,7 +191,7 @@
 <h4 id="AGC024B-Backfront"><a href="#AGC024B-Backfront" class="headerlink" title="AGC024B Backfront"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/tasks/agc024_b">AGC024B Backfront</a></h4><p>顺序显然可以随意移，最后剩下必须连续，求最长上升子序列即可。</p>
 <p><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/agc024/submissions/35588799">35588799</a></p>
 <h4 id="CF1481E-Sorting-Books"><a href="#CF1481E-Sorting-Books" class="headerlink" title="CF1481E Sorting Books"></a><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/problem/E">CF1481E Sorting Books</a></h4><p>预处理出每种颜色的最左最右位置，即求最多保留多少不移动。</p>
-<p>设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。<br>$$<br>f_i &#x3D; \max \begin{cases}<br>f_{i+1} &amp; 1\leq i &lt; n\<br>s_{a_i,i} &amp; i \not &#x3D; l_{a_i}\<br>s_{a_i,i} + f_{r_{a_i} + 1} &amp; i&#x3D;l_{a_i}\<br>\end{cases}<br>$$<br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/submission/106631440">106631440</a></p>
+<p>设 $f_i$ 表示 $[i,n]$ 中最多有多少无需移动，$s_{i,j}$ 表示 $[j,n]$ 中，颜色为 $i$ 的数量。<br>$$<br>f_i &#x3D; \max \begin{cases}<br>f_{i+1} &amp; 1\leq i &lt; n\<br>s_{a_i,i} &amp; i \not &#x3D; l_{a_i}\<br>s_{a_i,i} + f_{r_{a_i} + 1} &amp; i&#x3D;l_{a_i}<br>\end{cases}<br>$$<br><a target="_blank" rel="noopener" href="https://codeforces.com/contest/1481/submission/106631440">106631440</a></p>
 <h4 id="P5779-CTSC2001-聪明的学生"><a href="#P5779-CTSC2001-聪明的学生" class="headerlink" title="P5779 [CTSC2001]聪明的学生"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5779">P5779 [CTSC2001]聪明的学生</a></h4><p>几个结论：</p>
 <ol>
 <li>如果两个相等，则另一个一定为其之和。</li>
@@ -194,7 +203,7 @@
 <h4 id="CF536D-Tavas-in-Kansas"><a href="#CF536D-Tavas-in-Kansas" class="headerlink" title="CF536D Tavas in Kansas"></a><a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/536/D">CF536D Tavas in Kansas</a></h4><p>首先从 $s,t$ 分别跑一次最短路，容易发现答案仅与其相对大小有关，因此先离散化。</p>
 <p>容易将其抽象成一个表格，其中第 $i$ 号点位于 $(d_{s,i},d_{t,i})$，权值为 $p_i$，两人分别从 上&#x2F;左 取若干 行&#x2F;列。</p>
 <p>注意到 $n\leq 2\times 10^3$，考虑  dp，设 $f_{k,i,j}$ 表示在各自最优策略下当前小 X&#x2F;小 Y 先手，剩余的点为 $(i,j)$ 及其右下角范围，小 X 的权值与小 Y 的权值的差。</p>
-<p>发现其实没必要枚举每个人取到哪一行&#x2F;列进行转移，只需要一行行一列列转移时注意是否要交给对方即可。<br>$$<br>\begin{align}<br>&amp;f_{0,i,j}\leftarrow \max { f_{0,i+1,j} , f_{1,i+1,j}}+S(i,j,i,c_1) \quad [\exist p\in [i,j,i,c_1]]\<br>&amp;f_{1,i,j}\leftarrow \min { f_{0,i,j+1} , f_{1,i,j+1}}-S_{i,j,c_0,j} \quad[\exist p\in [i,j,c_0,j]]<br>\end{align}<br>$$<br>$O(N^2)$。</p>
+<p>发现其实没必要枚举每个人取到哪一行&#x2F;列进行转移，只需要一行行一列列转移时注意是否要交给对方即可。<br>$$<br>\begin{align}<br>&amp;f_{0,i,j}\leftarrow \max { f_{0,i+1,j} , f_{1,i+1,j}}+S(i,j,i,c_1) \quad [\exists p\in [i,j,i,c_1]]\<br>&amp;f_{1,i,j}\leftarrow \min { f_{0,i,j+1} , f_{1,i,j+1}}-S_{i,j,c_0,j} \quad[\exists p\in [i,j,c_0,j]]<br>\end{align}<br>$$<br>$O(N^2)$。</p>
 <p><a target="_blank" rel="noopener" href="https://codeforces.com/contest/536/submission/159692208">159692208</a></p>
 <h4 id="ARC102D-Revenge-of-BBuBBBlesort"><a href="#ARC102D-Revenge-of-BBuBBBlesort" class="headerlink" title="ARC102D Revenge of BBuBBBlesort!"></a><a target="_blank" rel="noopener" href="https://atcoder.jp/contests/arc102/tasks/arc102_d">ARC102D Revenge of BBuBBBlesort!</a></h4><p>被操作的点仅可能是 $a_i&#x3D;i$ 的点。</p>
 <p>显然相邻且均满足 $a_i&#x3D;i$ 的两个位置无法操作，所以原序列可分为若干交替是否满足 $a_i&#x3D;i$ 的子串。</p>
@@ -258,22 +267,22 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A"><span class="toc-number">1.</span> <span class="toc-text">十月杂题选做</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">1.0.0.7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">1.0.0.8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">1.0.0.9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">1.0.0.10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">1.0.0.11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">1.0.0.12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">1.0.0.13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">1.0.0.14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">1.0.0.15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">1.0.0.16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1254"><span class="toc-number">1.</span> <span class="toc-text">CF1254</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3147-USACO16OPEN-262144-P"><span class="toc-number">2.</span> <span class="toc-text">P3147 [USACO16OPEN]262144 P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC097D-Monochrome-Cat"><span class="toc-number">3.</span> <span class="toc-text">ARC097D Monochrome Cat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P4183-USACO18JAN-Cow-at-Large-P"><span class="toc-number">4.</span> <span class="toc-text">P4183 [USACO18JAN]Cow at Large P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P6931-ICPC2017-WF-Mission-Improbable"><span class="toc-number">5.</span> <span class="toc-text">P6931 [ICPC2017 WF]Mission Improbable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGC024B-Backfront"><span class="toc-number">6.</span> <span class="toc-text">AGC024B Backfront</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1481E-Sorting-Books"><span class="toc-number">7.</span> <span class="toc-text">CF1481E Sorting Books</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5779-CTSC2001-%E8%81%AA%E6%98%8E%E7%9A%84%E5%AD%A6%E7%94%9F"><span class="toc-number">8.</span> <span class="toc-text">P5779 [CTSC2001]聪明的学生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF536D-Tavas-in-Kansas"><span class="toc-number">9.</span> <span class="toc-text">CF536D Tavas in Kansas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ARC102D-Revenge-of-BBuBBBlesort"><span class="toc-number">10.</span> <span class="toc-text">ARC102D Revenge of BBuBBBlesort!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P3685-CERC2016-%E4%B8%8D%E5%8F%AF%E8%A7%81%E7%9A%84%E6%95%B4%E6%95%B0-Invisible-Integers"><span class="toc-number">11.</span> <span class="toc-text">P3685 [CERC2016]不可见的整数 Invisible Integers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5957-POI2017-Flappy-Bird"><span class="toc-number">12.</span> <span class="toc-text">P5957 [POI2017]Flappy Bird</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF1340C-Nastya-and-Unexpected-Guest"><span class="toc-number">13.</span> <span class="toc-text">CF1340C Nastya and Unexpected Guest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CF778D-Parquet-Re-laying"><span class="toc-number">14.</span> <span class="toc-text">CF778D Parquet Re-laying</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5956-POI2017-Podzielno"><span class="toc-number">15.</span> <span class="toc-text">P5956 [POI2017]Podzielno</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#P5847-IOI2005-mea"><span class="toc-number">16.</span> <span class="toc-text">P5847 [IOI2005]mea</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text="><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description="><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title="><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t="><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&text=十月杂题选做"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&is_video=false&description=十月杂题选做"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=十月杂题选做&body=Check out this article: http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&title=十月杂题选做"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&name=十月杂题选做&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/19/%E5%8D%81%E6%9C%88%E6%9D%82%E9%A2%98%E9%80%89%E5%81%9A/&t=十月杂题选做"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

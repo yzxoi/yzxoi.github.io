@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="A经过一定分析可以发现合法数很少，写个爆搜+剪枝把所有答案先跑出来，查询二分即可。 $O(?X+Q\log X)$ 56740 B很容易设出一个简单的 DP，设 $f_{i}$ 表示当前子序列结尾为 $a_i$，且保证最终一定含 $a_i$，长度最大值。 设 $g_{i,j} &#x3D; \min { j&gt; i \land a_j &gt; a_i}$。 有转移：$$f_j \leftar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Public NOIP Round">
+<meta property="og:url" content="http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/index.html">
+<meta property="og:site_name" content="yzxoiの自留地">
+<meta property="og:description" content="A经过一定分析可以发现合法数很少，写个爆搜+剪枝把所有答案先跑出来，查询二分即可。 $O(?X+Q\log X)$ 56740 B很容易设出一个简单的 DP，设 $f_{i}$ 表示当前子序列结尾为 $a_i$，且保证最终一定含 $a_i$，长度最大值。 设 $g_{i,j} &#x3D; \min { j&gt; i \land a_j &gt; a_i}$。 有转移：$$f_j \leftar">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-10-21T12:20:16.000Z">
+<meta property="article:modified_time" content="2022-10-21T12:39:48.639Z">
+<meta property="article:author" content="yzxoi">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="DP">
+<meta property="article:tag" content="爆搜">
+<meta property="article:tag" content="剪枝">
+<meta property="article:tag" content="线段树优化 DP">
+<meta property="article:tag" content="二分图">
+<meta property="article:tag" content="决策单调性">
+<meta property="article:tag" content="背包">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Public NOIP Round</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="yzxoiの自留地" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/20/NOIP2022%E6%A8%A1%E6%8B%9F%E8%B5%9B%E4%BA%8C-By-YJC-10-20/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&text=Public NOIP Round"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&is_video=false&description=Public NOIP Round"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Public NOIP Round&body=Check out this article: http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&name=Public NOIP Round&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&t=Public NOIP Round"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A"><span class="toc-number">1.</span> <span class="toc-text">A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B"><span class="toc-number">2.</span> <span class="toc-text">B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C"><span class="toc-number">3.</span> <span class="toc-text">C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D"><span class="toc-number">4.</span> <span class="toc-text">D</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Public NOIP Round
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yzxoi</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-10-21T12:20:16.000Z" itemprop="datePublished">2022-10-21</time>
+        
+        (Updated: <time datetime="2022-10-21T12:39:48.639Z" itemprop="dateModified">2022-10-21</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/oi/">oi</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/DP/" rel="tag">DP</a>, <a class="tag-link-link" href="/tags/%E4%BA%8C%E5%88%86/" rel="tag">二分</a>, <a class="tag-link-link" href="/tags/%E4%BA%8C%E5%88%86%E5%9B%BE/" rel="tag">二分图</a>, <a class="tag-link-link" href="/tags/%E5%86%B3%E7%AD%96%E5%8D%95%E8%B0%83%E6%80%A7/" rel="tag">决策单调性</a>, <a class="tag-link-link" href="/tags/%E5%89%AA%E6%9E%9D/" rel="tag">剪枝</a>, <a class="tag-link-link" href="/tags/%E7%88%86%E6%90%9C/" rel="tag">爆搜</a>, <a class="tag-link-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a>, <a class="tag-link-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91%E4%BC%98%E5%8C%96-DP/" rel="tag">线段树优化 DP</a>, <a class="tag-link-link" href="/tags/%E8%83%8C%E5%8C%85/" rel="tag">背包</a>, <a class="tag-link-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="A"><a href="#A" class="headerlink" title="A"></a><a target="_blank" rel="noopener" href="https://pjudge.ac/contest/1015/problem/21686">A</a></h2><p>经过一定分析可以发现合法数很少，写个爆搜+剪枝把所有答案先跑出来，查询二分即可。</p>
+<p>$O(?X+Q\log X)$</p>
+<p><a target="_blank" rel="noopener" href="https://pjudge.ac/submission/56740">56740</a></p>
+<h2 id="B"><a href="#B" class="headerlink" title="B"></a><a target="_blank" rel="noopener" href="https://pjudge.ac/contest/1015/problem/21687">B</a></h2><p>很容易设出一个简单的 DP，设 $f_{i}$ 表示当前子序列结尾为 $a_i$，且保证最终一定含 $a_i$，长度最大值。</p>
+<p>设 $g_{i,j} &#x3D; \min { j&gt; i \land a_j &gt; a_i}$。</p>
+<p>有转移：<br>$$<br>f_j \leftarrow f_i + 1<br>$$<br>其中，$j\in [g_i,g_{g_i}) \land a_j &gt; a_i$。</p>
+<p>其中 $a_j&gt;a_i$ 限制，直接按 $a_i$ 从小到大枚举即可。</p>
+<p>线段树辅助转移。</p>
+<p>特别注意，初始合法的点仅为 $[1,g_1]$。</p>
+<p>$O(n\log n)$</p>
+<p><a target="_blank" rel="noopener" href="https://pjudge.ac/submission/56884">56884</a></p>
+<h2 id="C"><a href="#C" class="headerlink" title="C"></a><a target="_blank" rel="noopener" href="https://pjudge.ac/contest/1015/problem/21688">C</a></h2><p>每个连通块独立，分别考虑。</p>
+<p>根据提示，容易想到按图是否为二分图分类。</p>
+<p>若该连通块为二分图，将该图黑白染色，两图的左黑+右白、右黑+左白数量相等，容易证明这是充要的。</p>
+<p>若该连通块不为二分图，即其必含奇环，注意到变换之和为偶数，故黑、白点奇偶性相同，且权值集合相同，容易证明这是充要的。</p>
+<p><a target="_blank" rel="noopener" href="https://pjudge.ac/submission/56887">56887</a></p>
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a><a target="_blank" rel="noopener" href="https://pjudge.ac/contest/1015/problem/21689">D</a></h2><p>只需要考虑 $1\times x+ 5\times y$ 即可。</p>
+<p>贪心地想，容易发现每次只会选一个物品。</p>
+<p>综合上述，一个代价为 $a_i$ 的物品价值为 $5\lceil \frac {a_i}5\rceil-a_i$，其新代价为 $\lceil \frac {a_i} 5\rceil$，而总新容量为 $\lfloor \frac m5\rfloor$，初始答案为 $m\bmod 5$。</p>
+<p>注意到价值很小，可以将价值放到状态里，设 $f_{i,j}$ 表示考虑所有代价 $\leq i$ 的物品，获得价值为 $j$，所需要的最小代价。</p>
+<p>显然其满足决策单调性，将所有代价为 $i$ 的物品抽出来排序求前缀和，转移即可。</p>
+<p>$O(n\log n)$</p>
+<p><a target="_blank" rel="noopener" href="https://pjudge.ac/submission/56896">56896</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A"><span class="toc-number">1.</span> <span class="toc-text">A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B"><span class="toc-number">2.</span> <span class="toc-text">B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C"><span class="toc-number">3.</span> <span class="toc-text">C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D"><span class="toc-number">4.</span> <span class="toc-text">D</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&text=Public NOIP Round"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&is_video=false&description=Public NOIP Round"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Public NOIP Round&body=Check out this article: http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&title=Public NOIP Round"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&name=Public NOIP Round&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yzxoi.top/2022/10/21/Public-NOIP-Round-2-Div-1-%E6%8F%90%E9%AB%98/&t=Public NOIP Round"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    yzxoi
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/yzxoi">Projects</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yzxoi';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+</body>
+</html>
